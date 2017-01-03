@@ -1,0 +1,260 @@
+<?php
+// Output Manager class for the SpaceManager program
+
+class OutputManager{
+  
+  private $popUp;
+  
+  public function __construct()
+  {
+    require_once "PopUpManager.php";
+    echo file_get_contents("header.html");
+    echo file_get_contents("nav.html");
+    
+    $this->popUp = new PopUpManager; 
+  } //end function __construct
+  
+  public function __destruct()
+  {
+    $close = <<<_END
+    </div>
+  </body>
+</html>
+_END;
+
+    echo $close;
+  } // end function __destruct
+  
+  public function insertDiv($divClass, $contents, $header = '')
+  {
+    
+    echo "<div class='$divClass'>";
+    if($header != '')
+      echo "<h3>$header</h3>";
+    
+    foreach ($contents as $item)
+      echo "$item <br />";
+    
+    
+    echo "</div>";
+    
+  } // end method insertDiv
+
+  public function displayProfile($profile)
+  {
+    echo "<div class='profileWindow'>";
+    
+    //display profile pic
+    $image = mysqli_fetch_assoc($profile[0]);
+    if ($image['Picture'] == NULL)
+    {
+      echo "<img src='images/default.jpg' class='profilePic' />";
+    } // end if
+    else
+    {
+      echo "<img src='$image[Picture]' class='profilePic' />";
+    } //end else
+    
+    //display basic member info
+    $basics = mysqli_fetch_assoc($profile[1]);
+    echo "<div class='profileElement'>";
+    echo "<h3>Basic Info</h3>";
+    echo "<p>Member Name:<br /> $basics[FirstName] $basics[LastName] </p>";
+    echo "<p>DOB:<br /> $basics[BirthDate] <br />";
+    if ($basics['Age'] < 18)
+      echo "<font color='red'>AGE: $basics[Age]</font></p>";
+    else
+      echo "<font color='green'>AGE: $basics[Age]</font></p>";
+    echo "<p>Member Since:<br /> $basics[JoinDate]</p> <p>Level:<br /> $basics[Level] </p>"; 
+    echo "<p>Member Number:<br /> $profile[8] </p>";
+    echo "</div>";
+    
+    //display classes and certs
+    echo "<div class='profileElement'>";
+    echo "<h3>Classes and Certifications</h3>";
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addClass' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Classes Taken:</strong></a></form></p>";
+    foreach ($profile[2] as $class)
+      echo "<p>$class[DateTaken]:<br /> $class[ClassName]</p>";
+
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addCert' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Certifications:</strong></a></form></p>";
+    foreach ($profile[3] as $cert)
+      echo "<p>$cert[CertName]</p>";
+    echo "</div>"; //end classes and certs div
+    
+    //display donations, visits, volunteering (recent activity div)
+    echo "<div class='profileElement'>";
+    echo "<h3>Recent Activity</h3>";
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addDonation' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Last Donation:</strong></a></form></p>";
+    $donation = mysqli_fetch_array($profile[4]);
+    //convert donation date to readable format
+    $donationDate = date("Y-m-d", strtotime($donation['Date']));
+    //check for a bogus date and blank it out if bogus
+    if ($donationDate == "1969-12-31")
+      $donationDate = '';
+    echo "<p>$donationDate: \$$donation[Amount]</p>";
+    echo "<p><strong>Recent Visits:</strong></p>";
+    foreach ($profile[5] as $visit)
+      echo "<p>$visit[LoginTime]</p>";
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addVolunteering' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Volunteering:</strong></a></form></p>";
+    foreach ($profile[6] as $event)
+      echo "<p>$event[EventDate]: <br /> $event[Event]</p>";
+    echo "</div>"; // end recent activity div
+    
+    //display Manager Notes
+    
+    /*Pull the member id number out of the profile array so it can be used in the form below*/
+    $MemberNumber = $profile[8];
+    
+    echo "<div class='notes'>";
+    /*The HTML below turns the "NOTES" header into a CSS powered dropdown list with embedded forms in each menu item.  The forms feed information to the popup system so the relevant information can be either collected or displayed via pop-ups.*/  
+    
+    /*TODO NOTE: This is an (almost) entirely server-side solution and will eventually be replaced with a JavaScript solution.  The replacement will be more responsive on the user's end. Any advantage gained by handling everything server side is not worth the performance hit for the user.*/
+    echo "<nav>
+            <ul>
+              <li class='dropdown' id='noteMenu'><a><h3>Notes</h3></a>
+                <ul class='dropdown-content'>
+                  <li>
+                    <form id='addNote' action='smTest.php' method='post'>
+                      <input type='hidden' name='noteAdd' value='noteAdd' /> 
+                      <input type='hidden' name='display_member' value='$MemberNumber' /> 
+                      <a href='#' onclick='this.parentNode.submit(); return false;'>Add Note</a>
+                    </form>
+                  </li>
+                  <li>
+                    <form action='smTest.php' method='post'>
+                      <input type='hidden' name='viewAllNotes' value='$MemberNumber'> 
+                      <a href='#' onclick='this.parentNode.submit(); return false;'>View All</a>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>";
+
+    foreach ($profile[7] as $note)
+      echo "<p><strong>$note[NoteTime]:</strong> $note[Note]</p>";
+    echo "</div>"; // end manager note div
+    
+    echo "</div>"; //end profile window div
+
+  } // end function displayProfile 
+  
+  /*display window will display the passed content where the profile window would usually appear.  The passed value must be complete HTML*/
+  public function displayWindow($content)
+  {
+    echo "<div class='profileWindow'>";
+    echo "$content";
+    echo "</div>";
+  }//end function displayWindow
+  
+  /*Function insertPopUp is a wrapper function for the createPopUp function of the PopUpManager class.  This allows client code to access the popup windowing system without the need to instantiate a new PopUpManager object.*/
+  public function insertPopUp($contents, $header = '', $action = 'smTest.php')
+  {
+    $this->popUp->createPopUp($contents, $header, $action);
+  }//end function insertPopUp
+  
+  public function editMemberForm($profile)
+  {
+    //formContent will hold the HTML for the member update form
+    $formContent = '';
+    
+    //convert the mysql result to a useable form
+    $profile = $profile->fetch_assoc();
+    
+    /*store all the results in individual variables as trying to pull them out of the associative array doesn't work with the heredoc*/
+    $firstName = $profile['FirstName'];
+    $lastName = $profile['LastName'];
+    $birthDay = $profile['BirthDate'];
+    $level = $profile['Level'];
+    $MemberNumber = $profile['MemberNumber'];
+    $address = $profile['Address'];
+    $homePhone = $profile['HomePhone'];
+    $cellPhone = $profile['CellPhone'];
+    $email = $profile['Email'];
+    $eContact = $profile['EmergencyContact'];
+    $medicalProvider = $profile['MedicalProvider'];
+    $referredBy = $profile['ReferredBy'];
+    $picture = $profile['Picture'];
+    
+    //use the sql result in $profile to pre-populate the edit member form
+$formContent .= <<<_END
+<form action='updateUser.php' method='post' enctype='multipart/form-data'>
+  <div class='userInputFields'>
+    <h2>Edit Member</h2>
+  
+    <input type='hidden' name='MemberNumber' value='$MemberNumber' />
+    
+    <p><span class='label'>*First Name:</span><input type='text' name='firstName' value='$firstName' autofocus='autofocus'></p>
+    
+    <p><span class='label'>*Last Name:</span><input type='text' name='lastName' value='$lastName' /></p>
+    
+    <p><span class='label'>*Birth Date:</span><input type='date' name ='birthDate' class='dateBox' value='$birthDay' /></p>
+  
+    <p><span class='label'>Address:</span><input type='text' name ='address' value='$address' /></p>  
+    
+    <p><span class='label'>Home Phone:</span><input type='tel' name ='homePhone' value='$homePhone' /></p> 
+    
+    <p><span class='label'>Cell Phone:</span><input type='tel' name ='cellPhone' value='$cellPhone' /></p>
+    
+    <p><span class='label'>*E-mail:</span><input type='email' name ='Email' value='$email' /></p>
+    
+    <p><span class='label'>*Emergency Contact:</span><input type='text' name ='emergencyContact' value='$eContact' /></p>
+    
+    <p><span class='label'>Medical Provider:</span><input type='text' name ='medicalProvider' value='$medicalProvider' /></p>
+    
+_END;
+    
+    if ($level == 'Gold')
+    {
+      $formContent .= <<<_END
+      <p><span class='label'>Level:</span><select name ='level'>
+      <option value='Standard'>Standard</option>
+      <option value='Silver'>Silver</option>
+      <option value='Gold' selected>Gold</option>
+      </select></p>
+_END;
+    }//end if gold
+    else if ($level == "Silver")
+    {
+      $formContent .= <<<_END
+      <p><span class='label'>Level:</span><select name ='level'>
+      <option value='Standard'>Standard</option>
+      <option value='Silver' selected>Silver</option>
+      <option value='Gold'>Gold</option>
+      </select></p>
+_END;
+    }//end if silver
+    else
+    {
+      $formContent .= <<<_END
+      <p><span class='label'>Level:</span><select name ='level'>
+      <option value='Standard' selected>Standard</option>
+      <option value='Silver'>Silver</option>
+      <option value='Gold'>Gold</option>
+      </select></p>
+_END;
+    }
+    
+    $formContent .= <<<_END
+    <p><span class='label'>Referred By:</span><input type='text' name='referredBy' value='$referredBy' /></p>
+    
+    <p><span class='label'>Picutre:</span><label for='picture' class='fileLabel'>Select a File</label><input class='inputFile' type='file' name ='picture' id='picture'size='600'/>
+    </p>
+
+    <input type="submit" name="submit" class='sbutton'>
+    
+    <p class='footnote'><span>Fields marked with an * are required</span></p>
+  </div>
+</form>
+_END;
+    
+    //output the form to the main window
+    $this->displayWindow($formContent);
+    
+  }//end function editMemberForm
+  
+  
+  
+}; //end class OutputManager 
+
+?>

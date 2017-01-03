@@ -1,0 +1,135 @@
+/* Style sheet specific to site-wide horizontal navigation bar */
+
+/*Rules for entire menu*/
+#hNav{
+  width: 75%;
+  margin-left: 15%
+  
+}
+
+/* Nav Styles */
+
+nav li a{
+    text-decoration: none;
+    border-radius: 0.25em;
+    color: rgb(61, 41, 42);
+    font-size: 1.7em;
+    font-family: Impact, Charcoal, sans-serif;
+}
+
+
+nav li{
+    background-size: 29%;
+    border-radius: 0.35em;
+    display: block;
+    float: left;
+    list-style-type: none;
+    margin: 1.5em;
+    position: relative;
+    text-align: center;
+    transition-property: background-color;
+    transition-duration: .15s;
+    transition-timing-function: linear;  
+    width: 25%;
+}
+
+#membersMenu{
+  border-radius: 0.35em 0.35em 0em 0em;
+}
+
+nav li:hover{
+    background-color: azure;
+}
+
+nav li a:hover{
+  font-weight: bold;
+}
+
+nav{
+    width: 100%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    height: 40px;
+}
+
+/*dropdown styles*/
+
+.dropdown-content{
+  display: none;
+  position: absolute;
+  width: 81.5%;
+  z-index: 1;
+}
+
+.dropdown-content li{
+  clear: left;
+  float: left;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  position: relative;
+  text-align: center;
+}
+
+.dropdown-content:nth-child(2){
+  border-radius: 0em 0em 0.45em 0.45em;
+}
+
+.dropdown:hover .dropdown-content{
+  display: block;
+  background-color: azure;
+}
+
+
+
+/*Special styles for dropdowns within div headers*/
+
+#noteMenu{
+  align-content: center;
+  border-radius: 0.5em;
+  float: none;
+  font-size: .75em;
+  margin: -1em auto 0em auto;
+  padding-bottom: 2em;
+  width: 33%;
+}
+
+
+#noteContent{
+  border: 4px solid black;
+  border-radius: 10px;
+  font-size: 1.5em;
+  height: 5em;
+  margin-top: 1em;
+  outline: none;
+  padding: .5em;
+  width: 70%;  
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

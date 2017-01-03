@@ -1,0 +1,263 @@
+/* 
+Stylesheet for SpaceManager dashboard page
+Author: Justice Stiles
+Date: 16.01.08
+*/
+
+/*body styles*/
+
+body{
+  background-color: rgb(210, 220, 255);
+  display: block;
+  font-family: 'IM Fell DW Pica', arial, serif;
+}
+
+input{
+  margin: 1em;
+  padding: 0.25em;
+  width: 20em;
+  font-size: 1em;
+}
+
+#wrapper{
+  border: 10px solid rgb(20, 20, 20);
+  border-radius: 30px;
+  width: 97%;
+  max-width: 1200px;
+  display: inline-block;
+}
+
+
+.rightPannel{
+  background-color: rgb(200, 210, 255);
+  border-radius: 20px;
+  float: left; 
+  font-family: "Lucida Console", Monaco, monospace;
+  line-height: 1.35em;
+  margin: 1% 1% 0% 2%;
+  padding: 0em .5em .75em .5em;
+  text-align: center;
+  font-size: 1.25em;
+  width: 30%;
+}
+
+.recentVisitors{
+  background-color: rgb(200, 210, 255);
+  border-radius: 20px;
+  float: left; 
+  font-family: "Lucida Console", Monaco, monospace;
+  line-height: 1.35em;
+  margin: 1% 1% 5% 2%;
+  padding: 0em .5em .75em .5em;
+  text-align: center;
+  font-size: 1.25em;
+  width: 30%;
+  
+}
+
+.profileWindow{
+  background-color: rgb(200, 210, 255);
+  border-radius: 20px;
+  float: left;
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 1.25em;  
+  line-height: 1.35em;
+  margin: 1% 1% 5% 2%;
+  padding: .5em .5em .75em .5em;
+  vertical-align: top;
+  width: 59%;
+}
+
+.profileElement{
+  background-color: aliceblue;
+  border-radius: 1em;
+  float: left;
+  margin: 0.25em;
+  min-height: 19em;
+  padding: 0.5em;
+  text-align: left; 
+  width: 44%;
+}
+
+.notes{
+  background-color: aliceblue;
+  border-radius: 1em;
+  float: left;
+  margin: 0.25em;
+  padding: 0em 0.5em 3em 0.5em;
+  text-align: left; 
+  width: 95%;
+}
+
+/*Button Styles*/
+#memberButton{
+  background: none;
+  border: none;
+  padding: 0em 0.5em 0em 0.5em;
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 1.25em;  
+  line-height: 1.35em;
+  margin: auto;
+  transition-property: background-color;
+  transition-duration: .15s;
+  transition-timing-function: linear;  
+  border-radius: 0.35em;
+  width: auto;
+}
+
+#memberButton:hover{
+  background-color: azure;
+}
+
+
+.dashButton{
+  background: none;
+  border: none;
+  color: rgb(61, 41, 42);
+  padding: 0.25em 0.5em 0.25em 0em;
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 1.1em;  
+  line-height: 1.35em;
+  margin: auto;
+  text-decoration: none;
+  transition-property: background-color;
+  transition-duration: .15s;
+  transition-timing-function: linear;  
+  border-radius: 0.35em;
+  width: auto;
+}
+
+.dashButton:hover{
+  background-color: rgb(200, 210, 255);
+}
+
+/*heading styles*/
+
+h1{
+  text-align: center;
+  background-color: rgb(200, 210, 255);
+  border-radius: 15px;
+  font-family: Impact, Charcoal, sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
+  margin-top: 0.5em;
+  padding: .25em 0em .25em 0em;
+  width: 50%;
+  transition-property: background-color;
+  transition-duration: .15s;
+  transition-timing-function: linear;  
+}
+
+h1:hover{
+  background-color: azure;
+}
+
+h1 a{
+    text-decoration: none;
+
+    color: rgb(61, 41, 42);
+}
+
+h3{
+  text-align: center;
+}
+
+/*image styles*/
+
+.profilePic{
+  background-color: aliceblue;
+  border-radius: 1em;
+  float: left;
+  margin: 0.25em;
+  padding: 0.5em;
+  text-align: left; 
+  max-width: 44%;
+  max-height: 45%;
+  min-height: 19em;
+}
+
+/*login form styles*/
+
+#loginForm{
+  background-color: aliceblue;
+  border-radius: 1em;
+  display: block;
+  height: 5em;
+  margin: 2em auto 2em auto;
+  width: 95%;
+
+}
+
+#loginForm h2{
+  display: block;
+  float: left;
+  margin: 0.5em 0.5em 3em 18.5%;
+  padding: 0.25em;
+}
+
+#loginForm input{
+  display: block;
+  float: left;
+  margin: 0.75em;
+  padding: 0.35em;
+  font-size: 1.25em;
+  width: 12em;
+}
+
+/*popUp styles*/
+.popUp{
+  background-color: white;
+  border: solid black 6px;
+  border-radius: 15px;
+  align-content: center;
+  left: 0;
+  right: 0;
+  margin: 30px auto;
+  position: absolute;
+  text-align: center;
+  width: 40%;
+  z-index: 3;
+}
+
+.popUp h1{
+  background-color: yellow;
+  margin-top: 0px;
+  padding-top: 10px;
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

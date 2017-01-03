@@ -1,0 +1,34 @@
+<!-- 
+    SpaceManager horizontal Navigation Bar
+    Author: Justice Stiles
+    Date: 2016/03/04
+-->
+
+       <nav id="hNav">
+            <ul>
+              <li class="dropdown" id='membersMenu'><a>Members</a>
+                  <ul class="dropdown-content">
+                    <li>
+                      <form method='post' action="smTest.php">
+                        <input type=hidden name='AddNewMember' value='AddNewMember' />
+                        <a href='#' onclick="this.parentNode.submit(); return false;">Add Member</a>
+                      </form>
+                    </li>
+                    <li>
+                      <form method="post" action="smTest.php">
+                        <input type="hidden" name="editMember" value="editMember" />
+                        <a href='#' onclick="this.parentNode.submit(); return false;">Update Member</a>
+                      </form>
+                    </li>
+                  </ul>
+              </li>
+                </ul>
+            <ul>
+              <li><form action="smTest.php" method="post">
+                    <input type="hidden" name="spawnLogin" value="spawnLogin"> 
+                    <a href ="#" onclick="this.parentNode.submit(); return false;">Login</a>
+                  </form>
+              </li>
+              <li><form action='smTest.php' method="post"><input type='hidden' name='findMember'><a href ="#" onclick="this.parentNode.submit(); return false;">Reports</a></form></li>
+            </ul>
+        </nav>

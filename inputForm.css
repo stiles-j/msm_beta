@@ -1,0 +1,91 @@
+/*
+Stylesheet for all UserManager input forms
+*/
+
+.footnote span{
+  font-size: 0.75em;
+  font-weight: bold;
+  margin-left: -1.5em;
+}
+
+.userInputFields{
+  width: 70%;
+  margin: 1em auto 1em auto;
+}
+
+.dateBox{
+  display: inline-block;
+  padding: 0.3em;
+  width: 24em;
+}
+
+.userInputFields p{
+  clear: both;
+  display: block;
+  float: left;
+  font-size: 1.25em;
+  margin: -0.75em 0.5em;
+  padding: 0.5em;
+  width: 100%;
+}
+
+.userInputFields input{
+  margin-left: -2.5em;
+}
+
+.userInputFields select{
+  font-size: 1.25em;
+  margin: 1em 0em 1em -2em;
+  padding: 0.10em;
+  text-align: center;
+  width: 16.5em;
+}
+
+.userInputFields h2{
+  display: block;
+  text-align: center;
+  width: 50%;
+  margin: auto;
+  margin-top: 1.5em;
+  padding: 1em;
+}
+
+.inputFile{
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.fileLabel{
+  background-color: lightgray;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.25em;
+  margin: 0.75em 0em 2em -2em;
+  padding: 0.15em;
+  width: 16.25em;
+  box-shadow: inset 0 -1px 1px rgba(0,0,0,0.5), /*bottom internal shadow*/
+  inset 0 1px 1px rgba(255,255,255,1); /*top internal highlight*/
+}
+
+.label{
+  display: inline-block;
+  font-size: 1.25em;
+  margin-left: -2em;
+  padding: 0em;
+
+}
+
+.userInputFields .sbutton{
+  display: block;
+  float: left;
+  padding: 0.5em;
+  position: relative;
+  margin: 1em auto 2em auto;
+  font-size: 1.25em;
+  width: 16em;
+
+}
