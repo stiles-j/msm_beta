@@ -55,6 +55,7 @@ _END;
       echo "<img src='$image[Picture]' class='profilePic' />";
     } //end else
     
+    
     //display basic member info
     $basics = mysqli_fetch_assoc($profile[1]);
     echo "<div class='profileElement'>";
@@ -65,40 +66,50 @@ _END;
       echo "<font color='red'>AGE: $basics[Age]</font></p>";
     else
       echo "<font color='green'>AGE: $basics[Age]</font></p>";
-    echo "<p>Member Since:<br /> $basics[JoinDate]</p> <p>Level:<br /> $basics[Level] </p>"; 
+    echo "<p>Member Since:<br /> $basics[JoinDate]</p> <p>Membership Type:<br /> $basics[MembershipType] </p>"; 
     echo "<p>Member Number:<br /> $profile[8] </p>";
     echo "</div>";
+    
     
     //display classes and certs
     echo "<div class='profileElement'>";
     echo "<h3>Classes and Certifications</h3>";
     echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addClass' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Classes Taken:</strong></a></form></p>";
     foreach ($profile[2] as $class)
-      echo "<p>$class[DateTaken]:<br /> $class[ClassName]</p>";
+      echo "<p>$class[ClassDate]:<br /> $class[CourseName]</p>";
 
     echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addCert' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Certifications:</strong></a></form></p>";
     foreach ($profile[3] as $cert)
       echo "<p>$cert[CertName]</p>";
     echo "</div>"; //end classes and certs div
     
+    
     //display donations, visits, volunteering (recent activity div)
     echo "<div class='profileElement'>";
     echo "<h3>Recent Activity</h3>";
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addDonation' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Last Donation:</strong></a></form></p>";
-    $donation = mysqli_fetch_array($profile[4]);
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addDonation' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Last Payment:</strong></a></form></p>";
+    $payment = mysqli_fetch_array($profile[4]);
     //convert donation date to readable format
-    $donationDate = date("Y-m-d", strtotime($donation['Date']));
+    $paymentDate = date("Y-m-d", strtotime($payment['PaymentDate']));
     //check for a bogus date and blank it out if bogus
-    if ($donationDate == "1969-12-31")
-      $donationDate = '';
-    echo "<p>$donationDate: \$$donation[Amount]</p>";
+    if ($paymentDate == "1969-12-31")
+      $paymentDate = '';
+    
+    /*If last payment is more than 30 days ago, display it in red*/
+    if (strtotime($paymentDate) < strtotime('-30 days')) {
+      echo "<p><font color='red'>$paymentDate: \$$payment[Amount]</font></p>";
+    } else {
+      echo "<p>$paymentDate: \$$payment[Amount]</p>";      
+    }
+
     echo "<p><strong>Recent Visits:</strong></p>";
     foreach ($profile[5] as $visit)
       echo "<p>$visit[LoginTime]</p>";
     echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addVolunteering' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Volunteering:</strong></a></form></p>";
     foreach ($profile[6] as $event)
-      echo "<p>$event[EventDate]: <br /> $event[Event]</p>";
+      echo "<p>$event[Date]: <br /> $event[Name]</p>";
     echo "</div>"; // end recent activity div
+    
     
     //display Manager Notes
     
@@ -108,7 +119,7 @@ _END;
     echo "<div class='notes'>";
     /*The HTML below turns the "NOTES" header into a CSS powered dropdown list with embedded forms in each menu item.  The forms feed information to the popup system so the relevant information can be either collected or displayed via pop-ups.*/  
     
-    /*TODO NOTE: This is an (almost) entirely server-side solution and will eventually be replaced with a JavaScript solution.  The replacement will be more responsive on the user's end. Any advantage gained by handling everything server side is not worth the performance hit for the user.*/
+    /*TODO: This is an (almost) entirely server-side solution and will eventually be replaced with a JavaScript solution.  The replacement will be more responsive on the user's end. Any advantage gained by handling everything server side is not worth the performance hit for the user.*/
     echo "<nav>
             <ul>
               <li class='dropdown' id='noteMenu'><a><h3>Notes</h3></a>
@@ -132,12 +143,13 @@ _END;
           </nav>";
 
     foreach ($profile[7] as $note)
-      echo "<p><strong>$note[NoteTime]:</strong> $note[Note]</p>";
+      echo "<p><strong>$note[NoteTime]:</strong> $note[NoteText]</p>";
     echo "</div>"; // end manager note div
     
     echo "</div>"; //end profile window div
 
   } // end function displayProfile 
+  
   
   /*display window will display the passed content where the profile window would usually appear.  The passed value must be complete HTML*/
   public function displayWindow($content)
@@ -153,26 +165,29 @@ _END;
     $this->popUp->createPopUp($contents, $header, $action);
   }//end function insertPopUp
   
+  
   public function editMemberForm($profile)
   {
     //formContent will hold the HTML for the member update form
     $formContent = '';
     
-    //convert the mysql result to a useable form
+    //convert the mysqli result to a useable form
     $profile = $profile->fetch_assoc();
     
     /*store all the results in individual variables as trying to pull them out of the associative array doesn't work with the heredoc*/
     $firstName = $profile['FirstName'];
     $lastName = $profile['LastName'];
     $birthDay = $profile['BirthDate'];
-    $level = $profile['Level'];
-    $MemberNumber = $profile['MemberNumber'];
-    $address = $profile['Address'];
+    $membershipType = $profile['MembershipType'];
+    $memberID = $profile['MemberID'];
+    $streetAddress = $profile['StreetAddress'];
+    $city = $profile['City'];
+    $state = $profile['State'];
+    $zip = $profile['Zip'];
     $homePhone = $profile['HomePhone'];
     $cellPhone = $profile['CellPhone'];
     $email = $profile['Email'];
     $eContact = $profile['EmergencyContact'];
-    $medicalProvider = $profile['MedicalProvider'];
     $referredBy = $profile['ReferredBy'];
     $picture = $profile['Picture'];
     
@@ -182,7 +197,7 @@ $formContent .= <<<_END
   <div class='userInputFields'>
     <h2>Edit Member</h2>
   
-    <input type='hidden' name='MemberNumber' value='$MemberNumber' />
+    <input type='hidden' name='MemberNumber' value='$memberID' />
     
     <p><span class='label'>*First Name:</span><input type='text' name='firstName' value='$firstName' autofocus='autofocus'></p>
     
@@ -190,7 +205,13 @@ $formContent .= <<<_END
     
     <p><span class='label'>*Birth Date:</span><input type='date' name ='birthDate' class='dateBox' value='$birthDay' /></p>
   
-    <p><span class='label'>Address:</span><input type='text' name ='address' value='$address' /></p>  
+    <p><span class='label'>Street Address:</span><input type='text' name ='streetAddress' value='$streetAddress' /></p>  
+    
+    <p><span class='label'>City:</span><input type='text' name ='city' value='$city' /></p>  
+    
+    <p><span class='label'>State:</span><input type='text' name ='state' value='$state' /></p>  
+    
+    <p><span class='label'>Zip Code:</span><input type='text' name ='zip' value='$zip' /></p>  
     
     <p><span class='label'>Home Phone:</span><input type='tel' name ='homePhone' value='$homePhone' /></p> 
     
@@ -200,37 +221,61 @@ $formContent .= <<<_END
     
     <p><span class='label'>*Emergency Contact:</span><input type='text' name ='emergencyContact' value='$eContact' /></p>
     
-    <p><span class='label'>Medical Provider:</span><input type='text' name ='medicalProvider' value='$medicalProvider' /></p>
-    
 _END;
     
-    if ($level == 'Gold')
+    //This section sets the membership type at the right level
+    if ($membershipType == 'Non-Member')
     {
       $formContent .= <<<_END
-      <p><span class='label'>Level:</span><select name ='level'>
+      <p><span class='label'>Membership Type:</span><select name ='membershipType'>
+      <option value='Non-Member' selected>Non-Member</option>
+      <option value='Student'>Student</option>
       <option value='Standard'>Standard</option>
-      <option value='Silver'>Silver</option>
-      <option value='Gold' selected>Gold</option>
+      <option value='Voting'>Voting</option>
       </select></p>
 _END;
-    }//end if gold
-    else if ($level == "Silver")
+    }//end if Non-Member
+    else if ($membershipType == "Student")
     {
       $formContent .= <<<_END
-      <p><span class='label'>Level:</span><select name ='level'>
+      <p><span class='label'>Membership Type:</span><select name ='membershipType'>
+      <option value='Non-Member'>Non-Member</option>
+      <option value='Student' selected>Student</option>
       <option value='Standard'>Standard</option>
-      <option value='Silver' selected>Silver</option>
-      <option value='Gold'>Gold</option>
+      <option value='Voting'>Voting</option>
       </select></p>
 _END;
-    }//end if silver
+    }//end if Student
+    else if ($membershipType == "Standard")
+    {
+      $formContent .= <<<_END
+      <p><span class='label'>Membership Type:</span><select name ='membershipType'>
+      <option value='Non-Member'>Non-Member</option>
+      <option value='Student'>Student</option>
+      <option value='Standard' selected>Standard</option>
+      <option value='Voting'>Voting</option>
+      </select></p>
+_END;
+    } //end if Standard
+    else if ($membershipType == "Voting")
+    {
+      $formContent .= <<<_END
+      <p><span class='label'>Membership Type:</span><select name ='membershipType'>
+      <option value='Non-Member'>Non-Member</option>
+      <option value='Student'>Student</option>
+      <option value='Standard'>Standard</option>
+      <option value='Voting' selected>Voting</option>
+      </select></p>
+_END;
+    } //end if Voting
     else
     {
       $formContent .= <<<_END
-      <p><span class='label'>Level:</span><select name ='level'>
-      <option value='Standard' selected>Standard</option>
-      <option value='Silver'>Silver</option>
-      <option value='Gold'>Gold</option>
+      <p><span class='label'>Membership Type:</span><select name ='membershipType'>
+      <option value='Non-Member'>Non-Member</option>
+      <option value='Student'>Student</option>
+      <option value='Standard'>Standard</option>
+      <option value='Voting'>Voting</option>
       </select></p>
 _END;
     }
@@ -238,7 +283,7 @@ _END;
     $formContent .= <<<_END
     <p><span class='label'>Referred By:</span><input type='text' name='referredBy' value='$referredBy' /></p>
     
-    <p><span class='label'>Picutre:</span><label for='picture' class='fileLabel'>Select a File</label><input class='inputFile' type='file' name ='picture' id='picture'size='600'/>
+    <p><span class='label'>Picutre:</span><label for='picture' class='fileLabel'>Select a File</label><input class='inputFile' type='file' name='picture' id='picture' size='600' />
     </p>
 
     <input type="submit" name="submit" class='sbutton'>

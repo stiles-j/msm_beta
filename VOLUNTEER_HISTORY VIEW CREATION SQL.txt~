@@ -1,0 +1,84 @@
+------------VOLUNTEER_HISTORY CREATION SQL--------------------------------------
+
+CREATE VIEW VOLUNTEER_HISTORY AS
+  SELECT A.MemberID, B.ClassDate AS Date, C.CourseName AS Name FROM CLASS_VOLUNTEER AS A, 
+  CLASS AS B, COURSE AS C WHERE A.ClassReferenceNumber = B.ClassReferenceNumber
+  AND B.CourseID = C.CourseID
+  UNION
+  SELECT A.MemberID, B.EventDate AS Date, B.EventName AS Name FROM 
+  EVENT_VOLUNTEER AS A, EVENT AS B WHERE A.EventReferenceNumber = 
+  B.EventReferenceNumber;
+
+
+
+
+------------JOIN TO GET CLASS VOLUNTEERING INFO---------------------------------
+
+  SELECT A.MemberID, B.ClassDate AS Date, C.CourseName AS Name FROM CLASS_VOLUNTEER AS A, 
+  CLASS AS B, COURSE AS C WHERE A.ClassReferenceNumber = B.ClassReferenceNumber
+  AND B.CourseID = C.CourseID;
+
+
+
+------------JOIN TO GET EVENT VOLUNTEERING INFO---------------------------------
+
+  SELECT A.MemberID, B.EventDate AS Date, B.EventName AS Name FROM 
+  EVENT_VOLUNTEER AS A, EVENT AS B WHERE A.EventReferenceNumber = 
+  B.EventReferenceNumber;
+
+
+
+--------------TEST DATA BELOW---------------------------------------------------
+  
+----------------COURSE CREATION SQL---------------------------------------------
+
+INSERT INTO COURSE (CourseName) VALUES ('Basic Arduino');
+INSERT INTO COURSE (CourseName) VALUES ('Intro to Linux');
+
+
+
+--------------CLASS CREATION SQL------------------------------------------------
+
+INSERT INTO CLASS (ClassDate, CourseID) VALUES ('2017-01-20', 1);
+INSERT INTO CLASS (ClassDate, CourseID) VALUES ('2017-01-15', 2);
+
+
+
+----------------EVENT CREATION SQL----------------------------------------------
+
+INSERT INTO EVENT (EventDate, EventName) VALUES ('2017-02-01', 'Cosplay Fest 17');
+INSERT INTO EVENT (EventDate, EventName) VALUES ('2017-02-14', 'My Nerdy Valentine');
+
+
+
+--------------EVENT_VOLUNTEER CREATION SQL--------------------------------------
+
+INSERT INTO EVENT_VOLUNTEER (MemberID, LoginReferenceNumber, EventReferenceNumber)
+VALUES (17, 1, 1);
+
+INSERT INTO EVENT_VOLUNTEER (MemberID, LoginReferenceNumber, EventReferenceNumber)
+VALUES (51, 2, 1);
+
+INSERT INTO EVENT_VOLUNTEER (MemberID, LoginReferenceNumber, EventReferenceNumber)
+VALUES (51, 4, 2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

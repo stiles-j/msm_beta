@@ -17,7 +17,7 @@
                     <li>
                       <form method="post" action="smTest.php">
                         <input type="hidden" name="editMember" value="editMember" />
-                        <a href='#' onclick="this.parentNode.submit(); return false;">Update Member</a>
+                        <a href='#' onclick="this.parentNode.submit(); return false;">Edit Member</a>
                       </form>
                     </li>
                   </ul>
@@ -30,5 +30,53 @@
                   </form>
               </li>
               <li><form action='smTest.php' method="post"><input type='hidden' name='findMember'><a href ="#" onclick="this.parentNode.submit(); return false;">Reports</a></form></li>
+            </ul>
+            <ul>
+                <li class='dropdown' id='classMenu'><a>Class</a>
+                    <ul class='dropdown-content'>
+                        <li>
+                          <form method='post' action="smTest.php">
+                          <input type=hidden name='AddNewCourse' value='AddNewCourse' />
+                          <a href='#' onclick="this.parentNode.submit(); return false;">Add Course</a>
+                          </form>
+                        </li>
+                        <li>
+                          <form method='post' action="smTest.php">
+                          <input type=hidden name='EditCourse' value='EditCourse' />
+                          <a href='#' onclick="this.parentNode.submit(); return false;">Edit Course</a>
+                          </form>
+                        </li>
+                        <li>
+                          <form method='post' action="smTest.php">
+                          <input type=hidden name='AddNewClass' value='AddNewClass' />
+                          <a href='#' onclick="this.parentNode.submit(); return false;">Add Class</a>
+                          </form>
+                        </li>
+                        <li>
+                          <form method='post' action="smTest.php">
+                          <input type=hidden name='EditClass' value='EditClass' />
+                          <a href='#' onclick="this.parentNode.submit(); return false;">Edit Class</a>
+                          </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li class='dropdown' id='eventMenu'><a>Event</a>
+                    <ul class='dropdown-content'>
+                        <li>
+                          <form method='post' action="smTest.php">
+                          <input type=hidden name='AddNewEvent' value='AddNewEvent' />
+                          <a href='#' onclick="this.parentNode.submit(); return false;">Add Event</a>
+                          </form>
+                        </li>
+                        <li>
+                          <form method='post' action="smTest.php">
+                          <input type=hidden name='EditEvent' value='EditEvent' />
+                          <a href='#' onclick="this.parentNode.submit(); return false;">Edit Event</a>
+                          </form>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>

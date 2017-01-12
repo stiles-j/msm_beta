@@ -13,7 +13,7 @@ $MemberNumber = $_POST['MemberNumber'];
 /*If a valid image file is set, move it to the internal storage, otherwise, skip to the rest of the member update processing.*/
 
 if ($_FILES["picture"]["size"] > 0)
-{
+{ 
   $target_dir = "images/";
   $uploadOk = 1;
   $imageFileType = pathinfo($_FILES["picture"]["name"], PATHINFO_EXTENSION);
@@ -30,6 +30,9 @@ if ($_FILES["picture"]["size"] > 0)
   //check file size
   if ($_FILES["picture"]["size"] > 2000000)
   {
+    /*TODO: Logging this error may need to be removed after the beta period.*/
+    logError("Filesize too large; image upload from updateUser.php prohibited. Attempted upload size is: " . $_FILES["picture"]["size"]);
+    
     $popUp = new PopUpManager;
     $content = "<h2>Sorry, your image file is too large.  Max size is 2mb</h2>";
     $popUp->createPopUp($content, "Error");
@@ -73,14 +76,16 @@ else $target_file = "images/default.jpg";
 $firstName = $_POST['firstName'];
 $lastName = $_POST['lastName'];
 $birthDate = $_POST['birthDate'];
-$address = $_POST['address'];
+$streetAddress = $_POST['streetAddress'];
+$city = $_POST['city'];
+$state = $_POST['state'];
+$zip = $_POST['zip'];
 $homePhone = $_POST['homePhone'];
 $cellPhone = $_POST['cellPhone'];
 $email = $_POST['Email'];
 $eContact = $_POST['emergencyContact'];
-$medicalProvider = $_POST['medicalProvider'];
 $referredBy = $_POST['referredBy'];
-$level = $_POST['level'];
+$membershipType = $_POST['membershipType'];
 $userImage = $target_file;
 
 
@@ -114,7 +119,7 @@ if ($userImage != "images/default.jpg")
 
 $profileData = array();
 
-array_push($profileData, $MemberNumber, $firstName, $lastName, $birthDate, $address, $homePhone, $cellPhone, $email, $eContact, $medicalProvider, $referredBy, $level);
+array_push($profileData, $MemberNumber, $firstName, $lastName, $birthDate, $streetAddress, $city, $state, $zip, $homePhone, $cellPhone, $email, $eContact, $referredBy, $membershipType);
 
 /*submit the profile and check for a valid insert*/
 $result = $db->updateProfile($profileData);
@@ -132,7 +137,12 @@ else
     exit();
 }
 
-
+//TODO: This function may need to be removed after the beta period
+function logError($message) {
+      ini_set("log_errors", 1);
+      ini_set("error_log", "php-error.log");
+      error_log($message);
+  } //end function logError
 
 
 

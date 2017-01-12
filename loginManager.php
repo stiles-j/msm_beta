@@ -63,7 +63,7 @@ class loginManager{
 
   } // end function login
   
-  /*logout if private so the UserManager class can ensure logins and
+  /*logout is private so the UserManager class can ensure logins and
   logouts happen properly.  Client code simply calls login()*/
   private function logout($MemberNumber)
   { 

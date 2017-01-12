@@ -112,8 +112,8 @@ if (isset($_POST['viewAllNotes']))
 if (isset($_POST['addDonation']))
 {
   $MemberNumber = $_POST['addDonation'];
-  $content = "<h2>Enter Donation Amount:</h2><input type='text' name='donationAmount' autofocus /><input type='hidden' name='MemberNumber' value='$MemberNumber' />";
-  $um->displayPopUp($content, "Add Donation", "addDonation.php");  
+  $content = "<h2>Enter Payment Amount:</h2><input type='text' name='donationAmount' autofocus /><input type='hidden' name='MemberNumber' value='$MemberNumber' />";
+  $um->displayPopUp($content, "Add Payment", "addDonation.php");  
 }
 
 //Add class
