@@ -88,21 +88,20 @@ class dbManager{
   }//end function addCert
   
   /*Function addDonation records member donations in the database.  The function takes a member id number and donation amount as arguments and returns boolean indicating whether the insert of record was successful or not; true for success, false for failure.*/
-  public function addDonation($MemberID, $amount, $isDonation = 'N')
+  public function addPayment($MemberID, $amount, $reason = '')
   {
     //connect to database and sanitize inputs
     $db_conn = $this->connect();
     $MemberID = $this->sanitizeInput($MemberID, $db_conn);
     $amount = $this->sanitizeInput($amount, $db_conn);
-    $$isDonation = $this->sanitizeInput($isDonation, $db_conn);
     
     //generate sql and attempt query
-    $sql = "INSERT INTO PAYMENT (Amount, MemberID, Donation) VALUES ('$amount', '$MemberID', $isDonation)";
+    $sql = "INSERT INTO PAYMENT (Amount, MemberID, Reason) VALUES ('$amount', '$MemberID', '$reason')";
     
     $result = $db_conn->query($sql);
     
     //log the sql error if there is one
-    if (!result)
+    if (!$result)
       $this->logError($db_conn);
     
     $db_conn->close();
@@ -451,19 +450,75 @@ class dbManager{
     
   }//end method updateProfile
   
-  public function updatePicture($imagePath, $MemberNumber)
+  public function updatePicture($imagePath, $memberID)
   {
     $db_conn = $this->connect();
-    $this->sanitizeInput($imagePath, $db_conn);
-    $this->sanitizeInput($MemberNumber, $db_conn);
+    $imagePath = $this->sanitizeInput($imagePath, $db_conn);
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
     
-    $sql = "UPDATE Profile SET Picture='$imagePath' WHERE MemberNumber=$MemberNumber";
+    $sql = "UPDATE MEMBER SET Picture='$imagePath' WHERE MemberID=$memberID";
     
     $result = $db_conn->query($sql);
+    
+    if (!$result) $this->logError($db_conn, "Unable to update profile picture: ");
+    
     $db_conn->close();
     
     return $result;
   }//end function updateImage
+  
+  
+  public function getPendingClasses($memberID) 
+  {
+    $db_conn = $this->connect();
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+    
+    /*First check if we have a member or non-member so we can return the the appropriate fees*/
+    $memberType = $this->getMemberType($memberID);
+    
+    if ($memberType == 'Non-Member') {
+      $sql = "SELECT ReferenceNumber, Date, Name, NonMemberFee AS Fee FROM PENDING_CLASSES";
+      $result = $db_conn->query($sql);
+      if (!$result) $this->logError($db_conn, "In getPendingClasses (Non-Member).  Unable to retrieve pending classes: ");
+      $db_conn->close();
+      return $result;
+    }
+    else {
+      $sql = "SELECT ReferenceNumber, Date, Name, MemberFee AS Fee FROM PENDING_CLASSES";
+      $result = $db_conn->query($sql);
+      if (!$result) $this->logError($db_conn, "In getPendingClasses (Member).  Unable to retrieve pending classes: ");
+      $db_conn->close();
+      return $result;
+    }
+    
+  } //end getPendingClasses
+  
+  
+  public function getPendingEvents($memberID)
+  {
+    $db_conn = $this->connect();
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+   
+    /*Check if we have a member or non-member so we can return appropriate fees*/
+    $memberType = $this->getMemberType($memberID);
+    
+    if ($memberType == 'Non-Member') {
+      $sql = "SELECT ReferenceNumber, Date, Name, NonMemberFee AS Fee FROM PENDING_EVENTS";
+      $result = $db_conn->query($sql);
+      if (!$result) $this->logError($db_conn, "Unable to retrieve Non-Member pending events: ");
+      $db_conn->close();
+      return $result;
+    }
+    else {
+      $sql = "SELECT ReferenceNumber, Date, Name, MemberFee AS Fee FROM PENDING_EVENTS";
+      $result = $db_conn->query($sql);
+      if (!$result) $this->logError($db_conn, "Unable to retrieve Non-Member pending events: ");
+      $db_conn->close();
+      return $result;
+    }
+    
+  } //end getPendingEvents
+  
   
   private function logError($db_conn, $message = '') {
       ini_set("log_errors", 1);
@@ -471,6 +526,21 @@ class dbManager{
       $sqlError = $db_conn->error;
       error_log($message . " " . $sqlError);
   } //end function logError
+  
+  
+  private function getMemberType ($MemberID) {
+    $db_conn = $this->connect();
+    $sql = "SELECT MembershipType FROM MEMBER WHERE MemberID = $MemberID";
+    $MemberType = $db_conn->query($sql);
+    
+    if (!$MemberType) $this->logError($db_conn, "In getMemberType: Unable to retrieve MembershipType: ");
+    
+    $MemberType = $MemberType->fetch_assoc();
+    $MemberType = $MemberType['MembershipType'];
+    $db_conn->close();
+    
+    return $MemberType;
+  }
   
 }; //end class dbManager 
 

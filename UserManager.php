@@ -12,12 +12,12 @@ class UserManager{
     require_once 'dbManager.php';
     require_once 'OutputManager.php';
     
-    $this->db = new dbManager;
-    $this->om = new OutputManager;
-    
-    //session housekeeping
+    /*Session housekeeping.  Note that it is possible the session may already be started or an HTML header may have already been sent when the below functions are called.  If that happens the server will log a PHP error.  This error can safely be ignored, as the following lines of code function as a failsafe to ensure the session is started if it hasn't been already.*/
     session_start(); //required for this class to work, so make sure it's started
     session_regenerate_id(); //to prevent fixation
+        
+    $this->db = new dbManager;
+    $this->om = new OutputManager;
     
   } // end function __construct()
   
@@ -130,7 +130,7 @@ class UserManager{
     {
       while ($row = $result->fetch_assoc())
       {
-        $name = $this->prepName($row['MemberNumber']);
+        $name = $this->prepName($row['MemberID']);
         $content .= $name . "<br />";
       }//end while
       

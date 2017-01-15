@@ -7,7 +7,7 @@ require_once 'loginManager.php';
 
 /*LOGIN HANDLING SECTION__________________________________________________*/
 
-/*valid is used to record if we got a bogus login so it can be dealt with properly.  The value defaults to true so that if the login code in the if block below is skipped, the warning pop up does not appear*/
+/*valid is used to record if we got a bogus login so it can be dealt with properly.  The value defaults to true so that if the login code in the "if" block below is skipped, the warning pop up does not appear*/
 $valid = 1;
 
 //if this is a login/logout process and redirect
@@ -111,9 +111,21 @@ if (isset($_POST['viewAllNotes']))
 //Add donation
 if (isset($_POST['addDonation']))
 {
-  $MemberNumber = $_POST['addDonation'];
-  $content = "<h2>Enter Payment Amount:</h2><input type='text' name='donationAmount' autofocus /><input type='hidden' name='MemberNumber' value='$MemberNumber' />";
-  $um->displayPopUp($content, "Add Payment", "addDonation.php");  
+  $MemberID = $_POST['addDonation'];
+  $content = "<h2>Select Payment Type:<h2>
+<select id='paymentType' autofocus>
+  <option selected disabled hidden>Payment Type</option>
+  <option value='classEnrollment'>Class Enrollment</option>
+  <option value='eventEnrollment'>Event Enrollment</option>
+  <option value='dues'>Dues</option>
+  <option value='donation'>Donation</option>
+  <option value='merchandise'>Merchandise</option>
+  <option value='other'>Other Payment</option>
+</select>
+<script src='paymentSlider.js'></script>
+<div id='slideContent'></div>
+<input type='hidden' name='MemberID' id='MemberID' value='$MemberID' />";
+  $um->displayPopUp($content, "Add Payment", "addPayment.php");  
 }
 
 //Add class
@@ -198,12 +210,22 @@ $MemberNumber;
 if(isset($_POST['display_member']))
 {
     $MemberNumber = $_POST['display_member'];
+  
+    if (!$_SESSION) session_start();
+    //Record the last memeber displayed in the session array
+    $_SESSION['lastMemberDisplayed'] = $MemberNumber;  
+
     $um->displayProfile($MemberNumber);
 }//end if POST display_member
-//Next check the GET array incase the display request came from a redirect
+//Next check the GET array in case the display request came from a redirect
 else if(isset($_GET['display_member']))
 {
   $MemberNumber = $_GET['display_member'];
+  
+  if (!$_SESSION) session_start();
+  //Record the last memeber displayed in the session array
+  $_SESSION['lastMemberDisplayed'] = $MemberNumber;
+  
   $um->displayProfile($MemberNumber);
 }//end else if GET display_member
 //otherwise display the most recently logged in member
@@ -218,12 +240,13 @@ else
   //if we have no users logged in, display the dummy profile
   else
   {
-    $MemberNumber = 0;
+    $MemberNumber = null;
     $um->displayProfile($MemberNumber);
   }
   
-}//end else
 
+  
+}//end else
 
 
 /*NOTE ENTRY SECTION___________________________________________________*/

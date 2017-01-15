@@ -227,7 +227,19 @@ h3{
   width: 100%;
 }
 
+.popUp input, .popUp select{
+  clear: both;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+}
 
+.popUp select {
+  font-size: .75em;
+  height: 3em;
+  margin: .25em;
+  text-align: center;
+}
 
 
 

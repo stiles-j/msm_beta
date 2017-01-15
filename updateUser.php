@@ -126,6 +126,11 @@ $result = $db->updateProfile($profileData);
 
 if (!$result)
 {
+  /*If we got a bad insert, remove the updated user image (if any) from the images file*/
+  if ($_FILES["picture"]["size"] > 0) {
+    unlink($target_file);
+  }
+  
   $popUp = new PopUpManager;
   $content = "<h2>Error on updating member record.  Member Not updated</h2>";
   $popUp->createPopUp($content, "Profile Update Error");

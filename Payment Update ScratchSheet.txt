@@ -1,0 +1,71 @@
+<h2>Select Payment Type:<h2>
+<select autofocus>
+  <option value='classEnrollment'>Class Enrollment</option>
+  <option value='eventEnrollment'>Event Enrollment</option>
+  <option value='dues'>Dues</option>
+  <option value='donation'>Donation</option>
+  <option value='merchandise'>Merchandise</option>
+  <option value='other'>Other Payment</option>
+</select>
+<input type='hidden' name='MemberNumber' value='$MemberNumber' />
+
+
+
+
+-----------------OLD ADD DONATION POP UP CONTENT--------------------------------
+
+"<h2>Enter Payment Amount:</h2><input type='text' name='donationAmount' autofocus /><input type='hidden' name='MemberNumber' value='$MemberNumber' />"
+
+
+
+
+-----------------JQUERY TO CONTROL DISPLAYED CONTENT FROM SELECT BOX------------
+
+$('#paymentType').change(function() {
+  $('#slideContent').append(
+    <select id='classSelector'>
+      <option value='a'>Class A</option>
+      <option value='b'>Class B</option>
+    </select>
+  );
+}); //end change
+
+
+
+
+
+--------------------SQL TO CREATE PENDING_CLASSES VIEW--------------------------
+
+CREATE VIEW PENDING_CLASSES AS
+  SELECT ClassReferenceNumber AS ReferenceNumber, ClassDate AS Date, CourseName 
+  AS Name, CourseMemberFee AS MemberFee, CourseNonMemberFee AS NonMemberFee FROM 
+  CLASS AS A, COURSE AS B WHERE A.CourseID = B.CourseID AND ClassDate >= CURDATE();
+  
+  
+  
+------------------SQL TO CREATE PENDING_EVENTS VIEW-----------------------------
+
+CREATE VIEW PENDING_EVENTS AS
+  SELECT EventReferenceNumber AS ReferenceNumber, EventDate AS Date, EventName
+  AS Name, EventMemberFee AS MemberFee, EventNonMemberFee AS NonMemberFee from 
+  EVENT WHERE EventDate >= CURDATE();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
