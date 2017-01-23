@@ -33,13 +33,13 @@ class UserManager{
 
   } //end function displayProfile
   
-  /*Function displayPopUp is a wrapper function for the function insertPopUp of the OutputManager class.  This allows client code access to the popup functionality thorugh UserManager so a seperate OutputManager object does not need to be instantiated.*/
+  /*Function displayPopUp is a wrapper function for the function insertPopUp of the OutputManager class.  This allows client code access to the popup functionality through UserManager so a seperate OutputManager object does not need to be instantiated.*/
   public function displayPopUp($message, $header = '', $action = '')
   {
     $this->om->insertPopUp($message, $header, $action); 
   }//end function displayPopUp
   
-  /*displayWin is a wrapper function for the displayWindow method of the outputManager class.  This allows access to the fucntion through a UserManager object without needing to instantiate a seperate instance of the outputManager*/
+  /*displayWin is a wrapper function for the displayWindow method of the outputManager class.  This allows access to the fucntion through a UserManager object without needing to instantiate a separate instance of the outputManager*/
   public function displayWin($content)
   {
     $this->om->displayWindow($content);
@@ -48,61 +48,7 @@ class UserManager{
     $this->displaySidebars();
     
   }//end function displayWin
-  
-  private function displayCurrentUsers()
-  {
-    //array to build our output list
-    $currentUsers = array();
-    
-    //first check if there are any current users
-    if (isset($_SESSION['current_users']))
-    {
-      foreach($_SESSION['current_users'] as $user)
-      {
-        //get the name and make it clickable then add to the array
-        $userName = $this->prepName($user);
-        $currentUsers[] = $userName;
-      }//end foreach
-    }//end if
-    
-    //create the "Members On Site" div using the currentUsers list
-    $this->om->insertDiv("rightPannel", $currentUsers, "Members On Site");
-    
-  } //end function displayCurrentUsers
-  
-  private function displayRecentUsers()
-  {
-    /*array in which to build a human readable list of recent vistiors*/
-    $recentUsers = array();
-    
-    //first make sure there are members in the array
-    if (isset($_SESSION['recent_visitors']))
-    {
-      //keep the recent visitors array to a maximum of 20 entries
-      if (count($_SESSION['recent_visitors']) > 20)
-        array_shift($_SESSION['recent_visitors']);
-    
-      //build a human readable array of recent users
 
-      foreach($_SESSION['recent_visitors'] as $visitor)
-      {
-        $visitorName = $this->prepName($visitor);
-        $recentUsers[] = $visitorName;
-      }//end foreach
-    
-    }//end if
-    
-    //construct the recent visitors div using the new array
-    $this->om->insertDiv('recentVisitors', $recentUsers, 'Recent Visitors');
-  } //end function displayRecentUsers
-  
-  private function displaySidebars()
-  {
-    $this->displayCurrentUsers();
-    $this->displayRecentUsers();
-    
-  }
-  
   public function editMember($MemberNumber)
   {
     //get the full profile from the database
@@ -140,18 +86,7 @@ class UserManager{
     $this->displayWin($content);
     
   }//end method memberSearch
-  
-  
-  private function prepName($MemberNumber)
-  {
-    $userName = $this->db->getUserName($MemberNumber);
-    $name = "<form action='smTest.php' method='post'>
-    <input type='hidden' name='display_member' value='$MemberNumber' />
-    <input type='submit' name='submit' id='memberButton' value='$userName' /></form>";
-    
-    return $name;
-  }
-  
+
   /*Function recordManagerNote is a wrapper function for the function recordNote of the dbManager class.  This allows client code acces to the recordNote function without instantiating another dbManager instance, as dbManager should only be instantiated by the UserManager class*/
   public function recordManagerNote($MemberNumber, $note)
   {
@@ -165,9 +100,9 @@ class UserManager{
     
     //get notes from database, format and store in $content
     $notes = $this->db->getAllNotes($MemberNumber);
-    while($row = $notes->fetch_row())
+    while($row = $notes->fetch_assoc())
     {
-      $content .= "<p><strong>$row[0]:</strong> $row[1]</p>";
+      $content .= "<p><strong>" . $row['NoteTime'] . ":</strong>" . $row['NoteText'] . "</p>";
     }
     
     $content .= "<br /><br /><br /><br /><br /><br />";
@@ -175,9 +110,115 @@ class UserManager{
     
     /*call displayWin to output the notes*/
     $this->displayWin($content);
-    
   }//end method showAllNotes
-  
+
+  public function showAllEnrollments($memberId) {
+    //$content will hold the formatted notes to be displayed onscreen
+    $content = '';
+
+    //get notes from database, format and store in $content
+    $enrollments = $this->db->getPendingEnrollments($memberId);
+    while($row = $enrollments->fetch_assoc())
+    {
+      $content .= "<p><strong>" . $row['Date'] . ": </strong>" . $row['Name'] . "</p>";
+    }
+
+    $content .= "<br /><br /><br /><br /><br /><br />";
+    $enrollments->close();
+
+    /*call displayWin to output the notes*/
+    $this->displayPopUp($content, "All Enrollments");
+  }
+
+  public function addCert($memberID) {
+    $certs = $this->db->getAllCertifications();
+    $content = "<h2>New Certification Type</h2><select name='newCertName'>";
+    foreach ($certs as $cert) {
+      $content .= "<option name='$cert'>$cert</option>";
+    }
+    $content .= "</select><input type='hidden' name='memberID' value='$memberID' />";
+    $this->om->insertPopUp($content, "Add New Certification", "addCert.php");
+  } //end addCert
+
+  public function addVolunteering($memberID) {
+    $events = $this->db->getTodaysEvents();
+    $content = "<select name='eventData'>";
+
+    while($event = $events->fetch_assoc()) {
+      $content .= "<option value='{ &quot;type&quot;: &quot;$event[Type]&quot;, &quot;referenceNumber&quot;: $event[ReferenceNumber] }'>$event[Name]</option>";
+    }//end while
+
+    $content .= "</select><input type='hidden' name='memberID' value='$memberID' />";
+    $this->displayPopUp($content, "Add Volunteering", "addVolunteering.php");
+
+  } //end addVolunteering
+
+
+  /*Private Functions*/
+
+  private function prepName($MemberNumber)
+  {
+    $userName = $this->db->getUserName($MemberNumber);
+    $name = "<form action='smTest.php' method='post'>
+    <input type='hidden' name='display_member' value='$MemberNumber' />
+    <input type='submit' name='submit' id='memberButton' value='$userName' /></form>";
+
+    return $name;
+  }
+
+  private function displayCurrentUsers()
+  {
+    //array to build our output list
+    $currentUsers = array();
+
+    //first check if there are any current users
+    if (isset($_SESSION['current_users']))
+    {
+      foreach($_SESSION['current_users'] as $user)
+      {
+        //get the name and make it clickable then add to the array
+        $userName = $this->prepName($user);
+        $currentUsers[] = $userName;
+      }//end foreach
+    }//end if
+
+    //create the "Members On Site" div using the currentUsers list
+    $this->om->insertDiv("rightPannel", $currentUsers, "Members On Site");
+
+  } //end function displayCurrentUsers
+
+  private function displayRecentUsers()
+  {
+    /*array in which to build a human readable list of recent vistiors*/
+    $recentUsers = array();
+
+    //first make sure there are members in the array
+    if (isset($_SESSION['recent_visitors']))
+    {
+      //keep the recent visitors array to a maximum of 20 entries
+      if (count($_SESSION['recent_visitors']) > 20)
+        array_shift($_SESSION['recent_visitors']);
+
+      //build a human readable array of recent users
+
+      foreach($_SESSION['recent_visitors'] as $visitor)
+      {
+        $visitorName = $this->prepName($visitor);
+        $recentUsers[] = $visitorName;
+      }//end foreach
+
+    }//end if
+
+    //construct the recent visitors div using the new array
+    $this->om->insertDiv('recentVisitors', $recentUsers, 'Recent Visitors');
+  } //end function displayRecentUsers
+
+  private function displaySidebars()
+  {
+    $this->displayCurrentUsers();
+    $this->displayRecentUsers();
+
+  }
 }; //end class UserManager
 
 

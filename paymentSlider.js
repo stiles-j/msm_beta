@@ -23,7 +23,7 @@ function eventPrice(refNumber) {
   }); //end each
   
   //generate the HTML for the payment box and add it to the popup
-  var outputHTML = "<p>Payment Amount:</p><input type='number' step='any' value=" + fee + " id='paymentAmount' name='paymentAmount' autofocus />";
+  var outputHTML = "<p>Payment Amount:</p><input type='number' step='any' value=" + fee + " id='paymentAmount' name='paymentAmount' autofocus /><input type='hidden' id='referenceNumber' name='referenceNumber' value='" + refNumber + "' />";
   
   addContent(outputHTML);
 }

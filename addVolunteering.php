@@ -11,31 +11,38 @@ require_once "PopUpManager.php";
 
 //grab variables from the post array
 $db = new dbManager;
-$date = $_POST['volunteerDate'];
-$event = $_POST['volunteeringEvent'];
-$MemberNumber = $_POST['MemberNumber'];
+$data = json_decode($_POST['eventData'], true);
+$type = $data['type'];
+$referenceNumber = $data['referenceNumber'];
+$memberID = $_POST['memberID'];
 
 
 //First check if we have a blank event name or are attempting to do an insert on an invalid member id
-$memberName = $db->getUsername($MemberNumber);
-if ($MemberNumber == 0 || !$memberName || $memberName == '')
+$memberName = $db->getUsername($memberID);
+if ($memberID == 0 || !$memberName || $memberName == '')
 {
   $popup = new PopUpManager;
   $content = "<h2>Attempted to add volunteering to an invalid member number.  Record not added.</h2>";
   $popup->createPopUp($content, "Error");
   exit();
 }
-if ($event == '' || !$event)
+if ($referenceNumber == '' || !$referenceNumber)
 {
   $popup = new PopUpManager;
-  $content = "<h2>Invalid volunteering event name entered.  Record not added.</h2>";
+  $content = "<h2>Invalid volunteering event entered.  Record not added.</h2>";
   $popup->createPopUp($content, "Error");
   exit();  
 }
 
 /*attempt the insert.  If it fails, give the user an error message.  If it succeeds, redirect and display the profile with the updated volunteering*/
 
-$success = $db->addVolunteering($MemberNumber, $event, $date);
+$success = false;
+if ($type == 'CLASS') {
+  $success = $db->addClassVolunteer($memberID, $referenceNumber);
+}
+else if ($type == 'EVENT') {
+  $success = $db->addEventVolunteer($memberID, $referenceNumber);
+}
 
 if (!$success)
 {
@@ -46,7 +53,7 @@ if (!$success)
   exit();  
 }
 
-header("Location: smTest.php?display_member=$MemberNumber");
+header("Location: smTest.php?display_member=$memberID");
 exit();
 
 

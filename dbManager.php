@@ -1,5 +1,6 @@
 <?php
-// Database Manager class for SpaceManager system
+/*Database Manager class for SpaceManager system.  All database interactions
+are handled through this class only.*/
 
 class dbManager{
   
@@ -37,35 +38,6 @@ class dbManager{
     $db_conn->close();
     return $result;
   }//end function addProfile
-  
-  private function connect()
-  {
-    //NOTE: The calling function is responsible for closing the connection created by this function
-        
-    $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
-    
-    if ($conn->connect_errno)
-    {
-      die("Connection to DataBase failed: " . $conn->connect_error);
-    }
-    
-    return $conn;
-    
-  } //end function connect
-  
-  private function sanitizeInput($input, $db_conn)
-  {
-    if(get_magic_quotes_gpc())
-      $input = stripslashes($input);
-    
-    $input = $db_conn->escape_string($input);
-    $input = strip_tags($input);
-    $input = htmlentities($input, ENT_QUOTES);
-    
-    return $input;
-    
-  } // end function sanitizeInput
-  
 
   public function addCert($MemberID, $certName)
   {
@@ -130,17 +102,45 @@ class dbManager{
     
     return $result;
   }//end method addClass
-  
-  
+
+  public function addClassEnrollment($memberID, $classReferenceNumber, $paymentReferenceNumber) {
+    $db_conn = $this->connect();
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+    $classReferenceNumber = $this->sanitizeInput($classReferenceNumber, $db_conn);
+    $paymentReferenceNumber = $this->sanitizeInput($paymentReferenceNumber, $db_conn);
+    
+    $sql = "INSERT INTO CLASS_ENROLLMENT (MemberID, ClassReferenceNumber, PaymentReferenceNumber) VALUES ($memberID, $classReferenceNumber, $paymentReferenceNumber)";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "Unable to add new class enrollment: ");
+    $db_conn->close();
+    return $result;
+  }
+
+  public function addEventEnrollment($memberID, $eventReferenceNumber, $paymentReferenceNumber) {
+    $db_conn = $this->connect();
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+    $eventReferenceNumber = $this->sanitizeInput($eventReferenceNumber, $db_conn);
+    $paymentReferenceNumber = $this->sanitizeInput($paymentReferenceNumber, $db_conn);
+    
+    $sql = "INSERT INTO EVENT_ENROLLMENT (MemberID, EventReferenceNumber, PaymentReferenceNumber) VALUES ($memberID, $eventReferenceNumber, $paymentReferenceNumber)";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "Unable to add new event enrollment: ");
+    $db_conn->close();
+    return $result;
+  }
+
   public function addEventVolunteer($memberID, $eventReferenceNumber)
   {
     //establish connection to database and sanatize inputs
     $db_conn = $this->connect();
     $memberID = $this->sanitizeInput($memberID, $db_conn);
     $eventReferenceNumber = $this->sanitizeInput($eventReferenceNumber, $db_conn);
-    
-    //First, log the member in
-    $loginReferenceNumber = $this->recordLogin($MemberID);
+
+    //Get the most recent login reference number (can't enter volunteering unless the member is logged in)
+    $sql = "SELECT LoginReferenceNumber FROM LOGIN WHERE MemberID = $memberID ORDER BY LoginReferenceNumber DESC LIMIT 1";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "addEventVolunteer was unable to get members last login reference number: ");
+    $loginReferenceNumber = $result->fetch_assoc()['LoginReferenceNumber'];
     
     //generate SQL and attempt query
     $sql = "INSERT INTO EVENT_VOLUNTEER (MemberID, LoginReferenceNumber, EventReferenceNumber) VALUES ('$memberID', '$loginReferenceNumber', '$eventReferenceNumber')";
@@ -154,17 +154,19 @@ class dbManager{
     return $result;
     
   }//end method addEventVolunteer
-  
-  
+
   public function addClassVolunteer($memberID, $classReferenceNumber) 
   {
     //establish db connection and sanitize our inputs
-        $db_conn = $this->connect();
+    $db_conn = $this->connect();
     $memberID = $this->sanitizeInput($memberID, $db_conn);
     $classReferenceNumber = $this->sanitizeInput($classReferenceNumber, $db_conn);
     
-    //Log the member in 
-    $loginReferenceNumber = $this->recordLogin($MemberID);
+    //Get the most recent login reference number (can't enter volunteering unless the member is logged in)
+    $sql = "SELECT LoginReferenceNumber FROM LOGIN WHERE MemberID = $memberID ORDER BY LoginReferenceNumber DESC LIMIT 1";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "addClassVolunteer was unable to get members last login reference number: ");
+    $loginReferenceNumber = $result->fetch_assoc()['LoginReferenceNumber'];
     
     //generate SQL and attempt query
     $sql = "INSERT INTO CLASS_VOLUNTEER (MemberID, ClassReferenceNumber, LoginReferenceNumber) VALUES ('$memberID', '$classReferenceNumber', '$loginReferenceNumber')";
@@ -197,14 +199,13 @@ class dbManager{
     return $result;
     
   }//end method findMember
-  
-  
+
   /*Function getAllNotes does exactly what it says on the tin, returning all member notes for a given member ID number.  The function requires a valid MemberID as an input and retrns an SQL result to the calling code*/
   public function getAllNotes($memberID)
   {
     //establish connection and sanitze input
     $db_conn = $this->connect();
-    $memberID = $this->sanitizeInput($MemberID, $db_conn);
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
     
     //retrive all notes for the relevant user and return
     $sql = "SELECT * from NOTES WHERE MemberID=$memberID ORDER BY NoteTime DESC";
@@ -294,7 +295,7 @@ class dbManager{
     //Variables
     $image;
     $profile;
-    $classesTaken;
+    $enrollments;
     $certs;
     $payments;
     $visits;
@@ -318,11 +319,11 @@ class dbManager{
     if (!$profile)
       $this->logError($db_conn, "getProfile unable to retrieve profile data: ");
     
-    $sql = "SELECT CourseName, ClassDate FROM MEMBER_CLASS_HISTORY WHERE MemberID = $memberID ORDER BY ClassDate DESC LIMIT 5";
-    $classesTaken = $db_conn->query($sql);
+    $sql = "SELECT Name, Date FROM PENDING_ENROLLMENTS WHERE MemberID = $memberID ORDER BY Date LIMIT 5";
+    $enrollments = $db_conn->query($sql);
     
-    if (!$classesTaken)
-      $this->logError($db_conn, "getProfile unable to get classesTaken: ");
+    if (!$enrollments)
+      $this->logError($db_conn, "getProfile unable to get enrollments: ");
     
     $sql = "SELECT CertName FROM MEMBER_CERTIFICATION WHERE MemberID=$memberID";
     $certs = $db_conn->query($sql);
@@ -356,7 +357,7 @@ class dbManager{
     
     $db_conn->close();
     
-    $output = array($image, $profile, $classesTaken, $certs, $payments, $visits, $volunteering, $notes, $memberID);
+    $output = array($image, $profile, $enrollments, $certs, $payments, $visits, $volunteering, $notes, $memberID);
     
     return $output; 
     
@@ -466,8 +467,7 @@ class dbManager{
     
     return $result;
   }//end function updateImage
-  
-  
+
   public function getPendingClasses($memberID) 
   {
     $db_conn = $this->connect();
@@ -492,8 +492,7 @@ class dbManager{
     }
     
   } //end getPendingClasses
-  
-  
+
   public function getPendingEvents($memberID)
   {
     $db_conn = $this->connect();
@@ -518,29 +517,104 @@ class dbManager{
     }
     
   } //end getPendingEvents
-  
-  
+
+  public function getPendingEnrollments($memberID) {
+    $db_conn = $this->connect();
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+    $sql = "SELECT * FROM PENDING_ENROLLMENTS WHERE MemberID = $memberID";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "Unable to retrieve pending enrollments: ");
+    $db_conn->close();
+    return $result;
+  } //end getPendingEnrollments
+
+  public function getLastPayment($memberID) {
+    $db_conn = $this->connect();
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+    
+    $sql = "SELECT * FROM PAYMENT WHERE MemberID = $memberID ORDER BY PaymentReferenceNumber DESC LIMIT 1";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getLastPayment received an invalid response from the database: ");
+    $db_conn->close();
+    $result = $result->fetch_assoc();
+    return $result;
+  }
+
+  public function getAllCertifications() {
+    $db_conn = $this->connect();
+    $sql ="SELECT CertName FROM CERTIFICATION";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "Unable to retrieve list of certifications from database: ");
+    $db_conn->close();
+
+    //turn the sql result into an array
+    $output = array();
+    while ($name = $result->fetch_array()) {
+      $output[] = $name['CertName'];
+    }
+
+    return $output;
+  }
+
+  public function getTodaysEvents() {
+    $db_conn = $this->connect();
+    $sql = "SELECT * FROM PENDING_ALL WHERE Date = CURDATE()";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "Unable to retrieve todays events from database: ");
+    $db_conn->close();
+    return $result;
+  }
+
+
+  /*Private Functions*/
   private function logError($db_conn, $message = '') {
       ini_set("log_errors", 1);
       ini_set("error_log", "php-error.log");
       $sqlError = $db_conn->error;
       error_log($message . " " . $sqlError);
   } //end function logError
-  
-  
+
   private function getMemberType ($MemberID) {
     $db_conn = $this->connect();
     $sql = "SELECT MembershipType FROM MEMBER WHERE MemberID = $MemberID";
     $MemberType = $db_conn->query($sql);
-    
+
     if (!$MemberType) $this->logError($db_conn, "In getMemberType: Unable to retrieve MembershipType: ");
-    
+
     $MemberType = $MemberType->fetch_assoc();
     $MemberType = $MemberType['MembershipType'];
     $db_conn->close();
-    
+
     return $MemberType;
   }
+
+  private function connect()
+  {
+    //NOTE: The calling function is responsible for closing the connection created by this function
+
+    $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+
+    if ($conn->connect_errno)
+    {
+      die("Connection to DataBase failed: " . $conn->connect_error);
+    }
+
+    return $conn;
+
+  } //end function connect
+
+  private function sanitizeInput($input, $db_conn)
+  {
+    if(get_magic_quotes_gpc())
+      $input = stripslashes($input);
+
+    $input = $db_conn->escape_string($input);
+    $input = strip_tags($input);
+    $input = htmlentities($input, ENT_QUOTES);
+
+    return $input;
+
+  } // end function sanitizeInput
   
 }; //end class dbManager 
 

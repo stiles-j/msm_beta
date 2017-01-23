@@ -11,12 +11,12 @@ require_once "PopUpManager.php";
 $db = new dbManager;
 
 //grab the variables out of the post array
-$MemberNumber = $_POST['MemberNumber'];
+$memberID = $_POST['memberID'];
 $certName = $_POST['newCertName'];
 
 //First check if we have a blank cert name or are attempting to do an insert on an invalid member id
-$memberName = $db->getUsername($MemberNumber);
-if ($MemberNumber == 0 || !$memberName || $memberName == '')
+$memberName = $db->getUsername($memberID);
+if ($memberID == 0 || !$memberName || $memberName == '')
 {
   $popup = new PopUpManager;
   $content = "<h2>Attempted to add a certification to an invalid member number.  Record not added.</h2>";
@@ -31,9 +31,9 @@ if ($certName == '' || !$certName)
   exit();
 }
 
-/*Attempt the inserti.  If it fails, give the user an error message.  If it succeeds, redirect and display the profile with the updated certification*/
+/*Attempt the insert.  If it fails, give the user an error message.  If it succeeds, redirect and display the profile with the updated certification*/
 
-$success = $db->addCert($MemberNumber, $certName);
+$success = $db->addCert($memberID, $certName);
 
 if (!$success)
 {
@@ -44,7 +44,7 @@ if (!$success)
   exit();
 }//end if !success
 
-header("Location: smTest.php?display_member=$MemberNumber");
+header("Location: smTest.php?display_member=$memberID");
 exit();
 
 ?>

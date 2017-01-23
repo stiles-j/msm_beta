@@ -52,6 +52,39 @@ CREATE VIEW PENDING_EVENTS AS
 
 
 
+-----------------SQL TO CREATE PENDING_ENROLLMENTS VIEW-------------------------
+
+CREATE VIEW PENDING_ENROLLMENTS AS
+    SELECT A.MemberID, B.ClassReferenceNumber AS ReferenceNumber, C.CourseName AS Name,
+     B.ClassDate AS Date, 'CLASS' AS Type FROM CLASS_ENROLLMENT AS A, CLASS AS B, COURSE AS C WHERE A.ClassReferenceNumber =
+     B.ClassReferenceNumber AND B.CourseID = C.CourseID AND B.ClassDate >= NOW()
+     UNION
+     SELECT A.MemberID, B.EventReferenceNumber AS ReferenceNumber, B.EventName AS Name,
+     B.EventDate AS Date, 'EVENT' AS Type FROM EVENT_ENROLLMENT AS A, EVENT AS B WHERE A.EventReferenceNumber =
+     B.EventReferenceNumber AND B.EventDate >= NOW();
+
+
+-----------------SQL TO CREATE PENDING_ALL VIEW--------------------------------
+
+CREATE VIEW PENDING_ALL AS
+    SELECT *, 'CLASS' AS Type FROM PENDING_CLASSES
+    UNION
+    SELECT *, 'EVENT' AS Type FROM PENDING_EVENTS;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

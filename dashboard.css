@@ -89,6 +89,13 @@ input{
   width: 95%;
 }
 
+.notes p{
+  clear: left;
+  float: left;
+  margin: 0em auto 0.5em auto;
+
+}
+
 /*Button Styles*/
 #memberButton{
   background: none;
@@ -214,6 +221,7 @@ h3{
   left: 0;
   right: 0;
   margin: 30px auto;
+  max-width: 450px;
   position: absolute;
   text-align: center;
   width: 40%;
@@ -229,13 +237,14 @@ h3{
 
 .popUp input, .popUp select{
   clear: both;
+  font-size: 1.25em;
   margin-left: auto;
   margin-right: auto;
   width: 75%;
 }
 
 .popUp select {
-  font-size: .75em;
+  /*font-size: .75em;*/
   height: 3em;
   margin: .25em;
   text-align: center;

@@ -71,20 +71,23 @@ _END;
     echo "</div>";
     
     
-    //display classes and certs
+    //display enrollments and certs
     echo "<div class='profileElement'>";
-    echo "<h3>Classes and Certifications</h3>";
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addClass' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Classes Taken:</strong></a></form></p>";
-    foreach ($profile[2] as $class)
-      echo "<p>$class[ClassDate]:<br /> $class[CourseName]</p>";
+    echo "<h3>Enrollments and Certifications</h3>";
 
+    //ENROLLMENTS
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='viewAllEnrollments' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Enrollments:</strong></a></form></p>";
+    foreach ($profile[2] as $class)
+      echo "<p>$class[Date]:<br /> $class[Name]</p>";
+
+    //CERTIFICATIONS
     echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addCert' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Certifications:</strong></a></form></p>";
     foreach ($profile[3] as $cert)
       echo "<p>$cert[CertName]</p>";
-    echo "</div>"; //end classes and certs div
+    echo "</div>"; //end enrollments and certs div
     
     
-    //display donations, visits, volunteering (recent activity div)
+    //display payments, visits, volunteering (recent activity div)
     echo "<div class='profileElement'>";
     echo "<h3>Recent Activity</h3>";
     echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addDonation' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Last Payment:</strong></a></form></p>";
@@ -117,7 +120,7 @@ _END;
     $MemberNumber = $profile[8];
     
     echo "<div class='notes'>";
-    /*The HTML below turns the "NOTES" header into a CSS powered dropdown list with embedded forms in each menu item.  The forms feed information to the popup system so the relevant information can be either collected or displayed via pop-ups.*/  
+    /*The HTML below turns the "NOTES" header into a CSS powered drop-down list with embedded forms in each menu item.  The forms feed information to the popup system so the relevant information can be either collected or displayed via pop-ups.*/
     
     /*TODO: This is an (almost) entirely server-side solution and will eventually be replaced with a JavaScript solution.  The replacement will be more responsive on the user's end. Any advantage gained by handling everything server side is not worth the performance hit for the user.*/
     echo "<nav>
