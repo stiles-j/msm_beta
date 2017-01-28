@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ab73fdb4-b694-434b-8a84-4d186377ee62" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OutputManager.php" afterPath="$PROJECT_DIR$/OutputManager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManager.php" afterPath="$PROJECT_DIR$/UserManager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbManager.php" afterPath="$PROJECT_DIR$/dbManager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/loginManager.php" afterPath="$PROJECT_DIR$/loginManager.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smTest.php" afterPath="$PROJECT_DIR$/smTest.php" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DatabaseView">
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="SpaceManager" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="smTest.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/smTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="217">
+              <caret line="192" column="0" lean-forward="true" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+              <folding>
+                <marker date="1485552928184" expanded="true" signature="3471:4042" ph="..." />
+                <marker date="1485552928184" expanded="true" signature="3496:4042" ph="..." />
+                <marker date="1485552928184" expanded="true" signature="3532:3899" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UserManager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="626">
+              <caret line="211" column="41" lean-forward="false" selection-start-line="211" selection-start-column="41" selection-end-line="211" selection-end-column="41" />
+              <folding>
+                <element signature="n#__construct#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#displayProfile#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#displayDefaultProfile#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#displayPopUp#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#displayWin#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#editMember#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#memberSearch#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#recordManagerNote#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#showAllNotes#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#showAllEnrollments#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#addCert#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#addVolunteering#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#prepName#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#displayCurrentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
+                <element signature="n#displaySidebars#0;n#UserManager#0;n#!!top" expanded="false" />
+                <marker date="1485553717528" expanded="true" signature="6101:6258" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dbManager.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dbManager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="924">
+              <caret line="243" column="40" lean-forward="false" selection-start-line="243" selection-start-column="40" selection-end-line="243" selection-end-column="40" />
+              <folding>
+                <element signature="e#6#121#0#PHP" expanded="true" />
+                <element signature="n#__construct#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#addProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#addCert#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#addPayment#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#addClass#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#addClassEnrollment#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#addEventEnrollment#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#addEventVolunteer#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#addClassVolunteer#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#findMember#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getAllNotes#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getNewUserId#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getUsername#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getPersonalInfo#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#recordLogin#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#recordLogout#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#recordNote#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#updateProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#updatePicture#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getPendingClasses#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getPendingEvents#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getPendingEnrollments#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getLastPayment#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getAllCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getTodaysEvents#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#logError#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getMemberType#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#connect#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#sanitizeInput#0;n#dbManager#0;n#!!top" expanded="false" />
+                <marker date="1485553336448" expanded="true" signature="1125:1599" ph="INSERT INTO MEMBER... " />
+                <marker date="1485553336448" expanded="true" signature="2190:2275" ph="INSERT INTO MEMBER_CERTIFICATION... " />
+                <marker date="1485553336448" expanded="true" signature="3054:3143" ph="INSERT INTO PAYMENT... " />
+                <marker date="1485553336448" expanded="true" signature="4153:4300" ph="INSERT INTO CLASS_TAKEN... " />
+                <marker date="1485553336448" expanded="true" signature="4886:5038" ph="INSERT INTO CLASS_ENROLLMENT... " />
+                <marker date="1485553336448" expanded="true" signature="5588:5740" ph="INSERT INTO EVENT_ENROLLMENT... " />
+                <marker date="1485553336448" expanded="true" signature="6341:6449" ph="SELECT Login... LOGIN" />
+                <marker date="1485553336448" expanded="true" signature="6741:6894" ph="INSERT INTO EVENT_VOLUNTEER... " />
+                <marker date="1485553336448" expanded="true" signature="7543:7598" ph="SELECT Login... LOGIN" />
+                <marker date="1485553336448" expanded="true" signature="7543:7599" ph="SELECT Login... LOGIN" />
+                <marker date="1485553336448" expanded="true" signature="7543:7651" ph="SELECT Login... LOGIN" />
+                <marker date="1485553336448" expanded="true" signature="7943:8096" ph="INSERT INTO CLASS_VOLUNTEER... " />
+                <marker date="1485553336448" expanded="true" signature="8677:8778" ph="SELECT First... MEMBER" />
+                <marker date="1485553336448" expanded="true" signature="9437:9504" ph="SELECT * fro... NOTES" />
+                <marker date="1485553336448" expanded="true" signature="9959:10017" ph="SELECT Membe... MEMBER" />
+                <marker date="1485553336448" expanded="true" signature="10698:10754" ph="SELECT First... MEMBER" />
+                <marker date="1485553336448" expanded="true" signature="11391:11585" ph="SELECT First... MEMBER" />
+                <marker date="1485553336448" expanded="true" signature="12161:12205" ph="SELECT Pictu... MEMBER" />
+                <marker date="1485553336448" expanded="true" signature="12368:12519" ph="SELECT First... MEMBER" />
+                <marker date="1485553336448" expanded="true" signature="12691:12782" ph="SELECT Name,... " />
+                <marker date="1485553336448" expanded="true" signature="12947:13004" ph="SELECT CertN... MEMBER_CERTIFICATION" />
+                <marker date="1485553336448" expanded="true" signature="13160:13258" ph="SELECT Payme... PAYMENT" />
+                <marker date="1485553336448" expanded="true" signature="13414:13498" ph="SELECT Login... LOGIN" />
+                <marker date="1485553336448" expanded="true" signature="13648:13740" ph="SELECT Date,... " />
+                <marker date="1485553336448" expanded="true" signature="13908:14002" ph="SELECT NoteT... NOTES" />
+                <marker date="1485553336448" expanded="true" signature="14592:14639" ph="INSERT INTO LOGIN... " />
+                <marker date="1485553336448" expanded="true" signature="14833:14930" ph="SELECT Login... LOGIN" />
+                <marker date="1485553336448" expanded="true" signature="15513:15607" ph="UPDATE LOGIN... " />
+                <marker date="1485553336448" expanded="true" signature="16093:16159" ph="INSERT INTO NOTES... " />
+                <marker date="1485553336448" expanded="true" signature="16724:17044" ph="UPDATE MEMBE... " />
+                <marker date="1485553336448" expanded="true" signature="17481:17535" ph="UPDATE MEMBE... " />
+                <marker date="1485553336448" expanded="true" signature="18115:18191" ph="SELECT Refer... " />
+                <marker date="1485553336448" expanded="true" signature="18434:18507" ph="SELECT Refer... " />
+                <marker date="1485553336448" expanded="true" signature="19092:19167" ph="SELECT Refer... " />
+                <marker date="1485553336448" expanded="true" signature="19384:19456" ph="SELECT Refer... " />
+                <marker date="1485553336448" expanded="true" signature="19838:19889" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
+                <marker date="1485553336448" expanded="true" signature="20258:20351" ph="SELECT * FRO... PAYMENT" />
+                <marker date="1485553336448" expanded="true" signature="20676:20710" ph="SELECT CertN... CERTIFICATION" />
+                <marker date="1485553336448" expanded="true" signature="21140:21188" ph="SELECT * FRO... PENDING_ALL" />
+                <marker date="1485553336448" expanded="true" signature="21731:21782" ph="SELECT Membe... MEMBER" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OutputManager.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OutputManager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="233" column="115" lean-forward="false" selection-start-line="233" selection-start-column="110" selection-end-line="233" selection-end-column="115" />
+              <folding>
+                <element signature="n#__construct#0;n#OutputManager#0;n#!!top" expanded="false" />
+                <element signature="n#__destruct#0;n#OutputManager#0;n#!!top" expanded="false" />
+                <element signature="n#insertDiv#0;n#OutputManager#0;n#!!top" expanded="false" />
+                <element signature="n#displayProfile#0;n#OutputManager#0;n#!!top" expanded="false" />
+                <element signature="n#displayDefaultProfile#0;n#OutputManager#0;n#!!top" expanded="false" />
+                <element signature="n#displayWindow#0;n#OutputManager#0;n#!!top" expanded="false" />
+                <element signature="n#insertPopUp#0;n#OutputManager#0;n#!!top" expanded="false" />
+                <element signature="n#editMemberForm#0;n#OutputManager#0;n#!!top" expanded="false" />
+                <marker date="1485551381564" expanded="true" signature="5164:6110" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="5181:6093" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="5231:6075" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="5298:6055" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="5321:5713" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="5395:5689" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="5736:6033" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="5797:6009" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="8638:9558" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="8655:9541" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="8705:9523" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="8772:9503" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="8795:9174" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="8869:9150" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="9197:9481" ph="..." />
+                <marker date="1485551381564" expanded="true" signature="9258:9457" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loginManager.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/loginManager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1155">
+              <caret line="54" column="15" lean-forward="true" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addVolunteering.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/addVolunteering.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="651">
+              <caret line="36" column="41" lean-forward="false" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Payment Update ScratchSheet.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Payment Update ScratchSheet.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1407">
+              <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>class</find>
+      <find>enrollment</find>
+      <find>VOLUNTEER</find>
+      <find>profile</find>
+      <find>profile[</find>
+      <find>$profile[</find>
+      <find>loginManager</find>
+      <find>value</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/addCert.php" />
+        <option value="$PROJECT_DIR$/dashboard.css" />
+        <option value="$PROJECT_DIR$/Payment Update ScratchSheet.txt" />
+        <option value="$PROJECT_DIR$/addVolunteering.php" />
+        <option value="$PROJECT_DIR$/OutputManager.php" />
+        <option value="$PROJECT_DIR$/loginManager.php" />
+        <option value="$PROJECT_DIR$/smTest.php" />
+        <option value="$PROJECT_DIR$/dbManager.php" />
+        <option value="$PROJECT_DIR$/UserManager.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="24" />
+    <option name="width" value="1920" />
+    <option name="height" value="1055" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SpaceManager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.jetbrains.php.config.library.PhpExternalLibrariesNodePatcher$PatchedExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SpaceManager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SpaceManager" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JSON" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ab73fdb4-b694-434b-8a84-4d186377ee62" name="Default" comment="" />
+      <created>1485108775629</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1485108775629</updated>
+      <workItem from="1485108778523" duration="13770000" />
+      <workItem from="1485132586347" duration="13077000" />
+      <workItem from="1485546604727" duration="7716000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="34563000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="24" width="1920" height="1055" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14114584" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/smTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3171">
+          <caret line="151" column="1" lean-forward="false" selection-start-line="151" selection-start-column="1" selection-end-line="151" selection-end-column="1" />
+          <folding>
+            <marker date="1485552928184" expanded="true" signature="3471:4042" ph="..." />
+            <marker date="1485552928184" expanded="true" signature="3496:4042" ph="..." />
+            <marker date="1485552928184" expanded="true" signature="3532:3899" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="777">
+          <caret line="147" column="77" lean-forward="true" selection-start-line="147" selection-start-column="77" selection-end-line="147" selection-end-column="77" />
+          <folding>
+            <element signature="n#__construct#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayProfile#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayDefaultProfile#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayPopUp#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayWin#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#editMember#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#memberSearch#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordManagerNote#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#showAllNotes#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#showAllEnrollments#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#addCert#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#addVolunteering#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#prepName#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayCurrentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displaySidebars#0;n#UserManager#0;n#!!top" expanded="false" />
+            <marker date="1485553717528" expanded="true" signature="6101:6258" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addVolunteering.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="157" column="69" lean-forward="false" selection-start-line="157" selection-start-column="69" selection-end-line="157" selection-end-column="69" />
+          <folding>
+            <element signature="e#6#121#0#PHP" expanded="true" />
+            <element signature="n#__construct#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addCert#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addPayment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addClass#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addClassEnrollment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addEventEnrollment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addEventVolunteer#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addClassVolunteer#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#findMember#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getAllNotes#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getNewUserId#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getUsername#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPersonalInfo#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordLogin#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordLogout#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordNote#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#updateProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#updatePicture#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPendingClasses#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPendingEvents#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPendingEnrollments#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getLastPayment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getAllCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getTodaysEvents#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#logError#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getMemberType#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#connect#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#sanitizeInput#0;n#dbManager#0;n#!!top" expanded="false" />
+            <marker date="1485553336448" expanded="true" signature="1125:1599" ph="INSERT INTO MEMBER... " />
+            <marker date="1485553336448" expanded="true" signature="2190:2275" ph="INSERT INTO MEMBER_CERTIFICATION... " />
+            <marker date="1485553336448" expanded="true" signature="3054:3143" ph="INSERT INTO PAYMENT... " />
+            <marker date="1485553336448" expanded="true" signature="4153:4300" ph="INSERT INTO CLASS_TAKEN... " />
+            <marker date="1485553336448" expanded="true" signature="4886:5038" ph="INSERT INTO CLASS_ENROLLMENT... " />
+            <marker date="1485553336448" expanded="true" signature="5588:5740" ph="INSERT INTO EVENT_ENROLLMENT... " />
+            <marker date="1485553336448" expanded="true" signature="6341:6449" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="6741:6894" ph="INSERT INTO EVENT_VOLUNTEER... " />
+            <marker date="1485553336448" expanded="true" signature="7543:7598" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="7543:7599" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="7543:7651" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="7943:8096" ph="INSERT INTO CLASS_VOLUNTEER... " />
+            <marker date="1485553336448" expanded="true" signature="8677:8778" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="9437:9504" ph="SELECT * fro... NOTES" />
+            <marker date="1485553336448" expanded="true" signature="9959:10017" ph="SELECT Membe... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="10698:10754" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="11391:11585" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="12161:12205" ph="SELECT Pictu... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="12368:12519" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="12691:12782" ph="SELECT Name,... " />
+            <marker date="1485553336448" expanded="true" signature="12947:13004" ph="SELECT CertN... MEMBER_CERTIFICATION" />
+            <marker date="1485553336448" expanded="true" signature="13160:13258" ph="SELECT Payme... PAYMENT" />
+            <marker date="1485553336448" expanded="true" signature="13414:13498" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="13648:13740" ph="SELECT Date,... " />
+            <marker date="1485553336448" expanded="true" signature="13908:14002" ph="SELECT NoteT... NOTES" />
+            <marker date="1485553336448" expanded="true" signature="14592:14639" ph="INSERT INTO LOGIN... " />
+            <marker date="1485553336448" expanded="true" signature="14833:14930" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="15513:15607" ph="UPDATE LOGIN... " />
+            <marker date="1485553336448" expanded="true" signature="16093:16159" ph="INSERT INTO NOTES... " />
+            <marker date="1485553336448" expanded="true" signature="16724:17044" ph="UPDATE MEMBE... " />
+            <marker date="1485553336448" expanded="true" signature="17481:17535" ph="UPDATE MEMBE... " />
+            <marker date="1485553336448" expanded="true" signature="18115:18191" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="18434:18507" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="19092:19167" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="19384:19456" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="19838:19889" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
+            <marker date="1485553336448" expanded="true" signature="20258:20351" ph="SELECT * FRO... PAYMENT" />
+            <marker date="1485553336448" expanded="true" signature="20676:20710" ph="SELECT CertN... CERTIFICATION" />
+            <marker date="1485553336448" expanded="true" signature="21140:21188" ph="SELECT * FRO... PENDING_ALL" />
+            <marker date="1485553336448" expanded="true" signature="21731:21782" ph="SELECT Membe... MEMBER" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OutputManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+          <folding>
+            <element signature="n#__construct#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#__destruct#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#insertDiv#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayProfile#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayDefaultProfile#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayWindow#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#insertPopUp#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#editMemberForm#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <marker date="1485551381564" expanded="true" signature="5164:6110" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5181:6093" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5231:6075" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5298:6055" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5321:5713" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5395:5689" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5736:6033" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5797:6009" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8638:9558" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8655:9541" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8705:9523" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8772:9503" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8795:9174" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8869:9150" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="9197:9481" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="9258:9457" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Payment Update ScratchSheet.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1407">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3549">
+          <caret line="169" column="1" lean-forward="false" selection-start-line="169" selection-start-column="1" selection-end-line="169" selection-end-column="1" />
+          <folding>
+            <marker date="1485552928184" expanded="true" signature="3471:4042" ph="..." />
+            <marker date="1485552928184" expanded="true" signature="3496:4042" ph="..." />
+            <marker date="1485552928184" expanded="true" signature="3532:3899" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#121#0#PHP" expanded="true" />
+            <element signature="n#__construct#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addCert#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addPayment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addClass#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addClassEnrollment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addEventEnrollment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addEventVolunteer#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addClassVolunteer#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#findMember#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getAllNotes#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getNewUserId#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getUsername#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPersonalInfo#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordLogin#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordLogout#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordNote#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#updateProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#updatePicture#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPendingClasses#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPendingEvents#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPendingEnrollments#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getLastPayment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getAllCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getTodaysEvents#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#logError#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getMemberType#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#connect#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#sanitizeInput#0;n#dbManager#0;n#!!top" expanded="false" />
+            <marker date="1485553336448" expanded="true" signature="1125:1599" ph="INSERT INTO MEMBER... " />
+            <marker date="1485553336448" expanded="true" signature="2190:2275" ph="INSERT INTO MEMBER_CERTIFICATION... " />
+            <marker date="1485553336448" expanded="true" signature="3054:3143" ph="INSERT INTO PAYMENT... " />
+            <marker date="1485553336448" expanded="true" signature="4153:4300" ph="INSERT INTO CLASS_TAKEN... " />
+            <marker date="1485553336448" expanded="true" signature="4886:5038" ph="INSERT INTO CLASS_ENROLLMENT... " />
+            <marker date="1485553336448" expanded="true" signature="5588:5740" ph="INSERT INTO EVENT_ENROLLMENT... " />
+            <marker date="1485553336448" expanded="true" signature="6341:6449" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="6741:6894" ph="INSERT INTO EVENT_VOLUNTEER... " />
+            <marker date="1485553336448" expanded="true" signature="7543:7598" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="7543:7599" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="7543:7651" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="7943:8096" ph="INSERT INTO CLASS_VOLUNTEER... " />
+            <marker date="1485553336448" expanded="true" signature="8677:8778" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="9437:9504" ph="SELECT * fro... NOTES" />
+            <marker date="1485553336448" expanded="true" signature="9959:10017" ph="SELECT Membe... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="10698:10754" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="11391:11585" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="12161:12205" ph="SELECT Pictu... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="12368:12519" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="12691:12782" ph="SELECT Name,... " />
+            <marker date="1485553336448" expanded="true" signature="12947:13004" ph="SELECT CertN... MEMBER_CERTIFICATION" />
+            <marker date="1485553336448" expanded="true" signature="13160:13258" ph="SELECT Payme... PAYMENT" />
+            <marker date="1485553336448" expanded="true" signature="13414:13498" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="13648:13740" ph="SELECT Date,... " />
+            <marker date="1485553336448" expanded="true" signature="13908:14002" ph="SELECT NoteT... NOTES" />
+            <marker date="1485553336448" expanded="true" signature="14592:14639" ph="INSERT INTO LOGIN... " />
+            <marker date="1485553336448" expanded="true" signature="14833:14930" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="15513:15607" ph="UPDATE LOGIN... " />
+            <marker date="1485553336448" expanded="true" signature="16093:16159" ph="INSERT INTO NOTES... " />
+            <marker date="1485553336448" expanded="true" signature="16724:17044" ph="UPDATE MEMBE... " />
+            <marker date="1485553336448" expanded="true" signature="17481:17535" ph="UPDATE MEMBE... " />
+            <marker date="1485553336448" expanded="true" signature="18115:18191" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="18434:18507" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="19092:19167" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="19384:19456" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="19838:19889" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
+            <marker date="1485553336448" expanded="true" signature="20258:20351" ph="SELECT * FRO... PAYMENT" />
+            <marker date="1485553336448" expanded="true" signature="20676:20710" ph="SELECT CertN... CERTIFICATION" />
+            <marker date="1485553336448" expanded="true" signature="21140:21188" ph="SELECT * FRO... PENDING_ALL" />
+            <marker date="1485553336448" expanded="true" signature="21731:21782" ph="SELECT Membe... MEMBER" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="882">
+          <caret line="197" column="0" lean-forward="false" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
+          <folding>
+            <element signature="n#__construct#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayProfile#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayDefaultProfile#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayPopUp#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayWin#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#editMember#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#memberSearch#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordManagerNote#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#showAllNotes#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#showAllEnrollments#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#addCert#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#addVolunteering#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#prepName#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayCurrentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displaySidebars#0;n#UserManager#0;n#!!top" expanded="false" />
+            <marker date="1485553717528" expanded="true" signature="6101:6258" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addCert.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="33" column="42" lean-forward="true" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OutputManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="80" column="35" lean-forward="false" selection-start-line="80" selection-start-column="35" selection-end-line="80" selection-end-column="35" />
+          <folding>
+            <element signature="n#__construct#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#__destruct#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#insertDiv#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayProfile#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayDefaultProfile#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayWindow#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#insertPopUp#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#editMemberForm#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <marker date="1485551381564" expanded="true" signature="5164:6110" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5181:6093" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5231:6075" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5298:6055" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5321:5713" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5395:5689" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5736:6033" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5797:6009" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8638:9558" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8655:9541" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8705:9523" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8772:9503" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8795:9174" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8869:9150" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="9197:9481" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="9258:9457" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Payment Update ScratchSheet.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1176">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="63" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addCert.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="13" column="28" lean-forward="false" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dashboard.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="238" column="14" lean-forward="true" selection-start-line="238" selection-start-column="14" selection-end-line="238" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Payment Update ScratchSheet.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1407">
+          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addVolunteering.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="36" column="41" lean-forward="false" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loginManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1155">
+          <caret line="54" column="15" lean-forward="true" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="924">
+          <caret line="243" column="40" lean-forward="false" selection-start-line="243" selection-start-column="40" selection-end-line="243" selection-end-column="40" />
+          <folding>
+            <element signature="e#6#121#0#PHP" expanded="true" />
+            <element signature="n#__construct#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addCert#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addPayment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addClass#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addClassEnrollment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addEventEnrollment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addEventVolunteer#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addClassVolunteer#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#findMember#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getAllNotes#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getNewUserId#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getUsername#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPersonalInfo#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordLogin#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordLogout#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordNote#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#updateProfile#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#updatePicture#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPendingClasses#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPendingEvents#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getPendingEnrollments#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getLastPayment#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getAllCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getTodaysEvents#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#logError#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getMemberType#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#connect#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#sanitizeInput#0;n#dbManager#0;n#!!top" expanded="false" />
+            <marker date="1485553336448" expanded="true" signature="1125:1599" ph="INSERT INTO MEMBER... " />
+            <marker date="1485553336448" expanded="true" signature="2190:2275" ph="INSERT INTO MEMBER_CERTIFICATION... " />
+            <marker date="1485553336448" expanded="true" signature="3054:3143" ph="INSERT INTO PAYMENT... " />
+            <marker date="1485553336448" expanded="true" signature="4153:4300" ph="INSERT INTO CLASS_TAKEN... " />
+            <marker date="1485553336448" expanded="true" signature="4886:5038" ph="INSERT INTO CLASS_ENROLLMENT... " />
+            <marker date="1485553336448" expanded="true" signature="5588:5740" ph="INSERT INTO EVENT_ENROLLMENT... " />
+            <marker date="1485553336448" expanded="true" signature="6341:6449" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="6741:6894" ph="INSERT INTO EVENT_VOLUNTEER... " />
+            <marker date="1485553336448" expanded="true" signature="7543:7598" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="7543:7599" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="7543:7651" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="7943:8096" ph="INSERT INTO CLASS_VOLUNTEER... " />
+            <marker date="1485553336448" expanded="true" signature="8677:8778" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="9437:9504" ph="SELECT * fro... NOTES" />
+            <marker date="1485553336448" expanded="true" signature="9959:10017" ph="SELECT Membe... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="10698:10754" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="11391:11585" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="12161:12205" ph="SELECT Pictu... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="12368:12519" ph="SELECT First... MEMBER" />
+            <marker date="1485553336448" expanded="true" signature="12691:12782" ph="SELECT Name,... " />
+            <marker date="1485553336448" expanded="true" signature="12947:13004" ph="SELECT CertN... MEMBER_CERTIFICATION" />
+            <marker date="1485553336448" expanded="true" signature="13160:13258" ph="SELECT Payme... PAYMENT" />
+            <marker date="1485553336448" expanded="true" signature="13414:13498" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="13648:13740" ph="SELECT Date,... " />
+            <marker date="1485553336448" expanded="true" signature="13908:14002" ph="SELECT NoteT... NOTES" />
+            <marker date="1485553336448" expanded="true" signature="14592:14639" ph="INSERT INTO LOGIN... " />
+            <marker date="1485553336448" expanded="true" signature="14833:14930" ph="SELECT Login... LOGIN" />
+            <marker date="1485553336448" expanded="true" signature="15513:15607" ph="UPDATE LOGIN... " />
+            <marker date="1485553336448" expanded="true" signature="16093:16159" ph="INSERT INTO NOTES... " />
+            <marker date="1485553336448" expanded="true" signature="16724:17044" ph="UPDATE MEMBE... " />
+            <marker date="1485553336448" expanded="true" signature="17481:17535" ph="UPDATE MEMBE... " />
+            <marker date="1485553336448" expanded="true" signature="18115:18191" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="18434:18507" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="19092:19167" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="19384:19456" ph="SELECT Refer... " />
+            <marker date="1485553336448" expanded="true" signature="19838:19889" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
+            <marker date="1485553336448" expanded="true" signature="20258:20351" ph="SELECT * FRO... PAYMENT" />
+            <marker date="1485553336448" expanded="true" signature="20676:20710" ph="SELECT CertN... CERTIFICATION" />
+            <marker date="1485553336448" expanded="true" signature="21140:21188" ph="SELECT * FRO... PENDING_ALL" />
+            <marker date="1485553336448" expanded="true" signature="21731:21782" ph="SELECT Membe... MEMBER" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OutputManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="233" column="115" lean-forward="false" selection-start-line="233" selection-start-column="110" selection-end-line="233" selection-end-column="115" />
+          <folding>
+            <element signature="n#__construct#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#__destruct#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#insertDiv#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayProfile#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayDefaultProfile#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayWindow#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#insertPopUp#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <element signature="n#editMemberForm#0;n#OutputManager#0;n#!!top" expanded="false" />
+            <marker date="1485551381564" expanded="true" signature="5164:6110" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5181:6093" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5231:6075" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5298:6055" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5321:5713" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5395:5689" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5736:6033" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="5797:6009" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8638:9558" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8655:9541" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8705:9523" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8772:9503" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8795:9174" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="8869:9150" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="9197:9481" ph="..." />
+            <marker date="1485551381564" expanded="true" signature="9258:9457" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UserManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="626">
+          <caret line="211" column="41" lean-forward="false" selection-start-line="211" selection-start-column="41" selection-end-line="211" selection-end-column="41" />
+          <folding>
+            <element signature="n#__construct#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayProfile#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayDefaultProfile#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayPopUp#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayWin#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#editMember#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#memberSearch#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#recordManagerNote#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#showAllNotes#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#showAllEnrollments#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#addCert#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#addVolunteering#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#prepName#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displayCurrentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
+            <element signature="n#displaySidebars#0;n#UserManager#0;n#!!top" expanded="false" />
+            <marker date="1485553717528" expanded="true" signature="6101:6258" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="192" column="0" lean-forward="true" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+          <folding>
+            <marker date="1485552928184" expanded="true" signature="3471:4042" ph="..." />
+            <marker date="1485552928184" expanded="true" signature="3496:4042" ph="..." />
+            <marker date="1485552928184" expanded="true" signature="3532:3899" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

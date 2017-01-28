@@ -12,8 +12,8 @@ class UserManager{
     require_once 'dbManager.php';
     require_once 'OutputManager.php';
     
-    /*Session housekeeping.  Note that it is possible the session may already be started or an HTML header may have already been sent when the below functions are called.  If that happens the server will log a PHP error.  This error can safely be ignored, as the following lines of code function as a failsafe to ensure the session is started if it hasn't been already.*/
-    session_start(); //required for this class to work, so make sure it's started
+    /*Session housekeeping.  Note that it is possible the session may already be started or an HTML header may have already been sent when the below functions are called.  If that happens the server will log a PHP error.  This error can safely be ignored, as the following lines of code function as a fail-safe to ensure the session is started if it hasn't been already.*/
+    if (session_status() == PHP_SESSION_NONE) session_start(); //required for this class to work, so make sure it's started
     session_regenerate_id(); //to prevent fixation
         
     $this->db = new dbManager;
@@ -32,6 +32,11 @@ class UserManager{
     $this->displaySidebars();
 
   } //end function displayProfile
+
+  public function displayDefaultProfile() {
+    $this->om->displayDefaultProfile();
+    $this->displaySidebars();
+  }
   
   /*Function displayPopUp is a wrapper function for the function insertPopUp of the OutputManager class.  This allows client code access to the popup functionality through UserManager so a seperate OutputManager object does not need to be instantiated.*/
   public function displayPopUp($message, $header = '', $action = '')
@@ -189,7 +194,7 @@ class UserManager{
 
   private function displayRecentUsers()
   {
-    /*array in which to build a human readable list of recent vistiors*/
+    /*array in which to build a human readable list of recent visitors*/
     $recentUsers = array();
 
     //first make sure there are members in the array
@@ -204,7 +209,8 @@ class UserManager{
       foreach($_SESSION['recent_visitors'] as $visitor)
       {
         $visitorName = $this->prepName($visitor);
-        $recentUsers[] = $visitorName;
+        //use array_unshift so more recent visitors are at top of list
+        array_unshift($recentUsers, $visitorName);
       }//end foreach
 
     }//end if

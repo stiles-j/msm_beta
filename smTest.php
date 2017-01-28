@@ -182,56 +182,44 @@ if (isset($_GET['memberSearch']))
 
 /*PROFILE DISPLAY HANDLING SECTION_____________________________________*/
 
-/*MemberNumber will cache the member id of the currently displayed profile for use in other areas of the program*/
-$MemberNumber;
+/*memberID will cache the MemberID of the currently displayed profile for use in other areas of the program*/
+$memberID = null;
 
-//if this is a display request, display the selected profile.  First check the POST array
-if(isset($_POST['display_member']))
-{
-    $MemberNumber = $_POST['display_member'];
-  
-    if (!$_SESSION) session_start();
-    //Record the last member displayed in the session array
-    $_SESSION['lastMemberDisplayed'] = $MemberNumber;  
+//start the session if it hasn't been already, we need it
+if (session_status() == PHP_SESSION_NONE) session_start();
 
-    $um->displayProfile($MemberNumber);
-}//end if POST display_member
-//Next check the GET array in case the display request came from a redirect
-else if(isset($_GET['display_member']))
-{
-  $MemberNumber = $_GET['display_member'];
-  
-  if (!$_SESSION) session_start();
-  //Record the last member displayed in the session array
-  $_SESSION['lastMemberDisplayed'] = $MemberNumber;
-  
-  $um->displayProfile($MemberNumber);
-}//end else if GET display_member
-//otherwise display the most recently logged in member
-else
-{
+if (isset($_POST['display_member'])) $memberID = $_POST['display_member'];
+else if (isset($_GET['display_member'])) $memberID = $_GET['display_member'];
+
+//if we have a bogus memberID display the most recently logged in member, or if there are none, the default profile
+if ($memberID == '' || $memberID == null || $memberID == ' ' || !$memberID) {
+
   //check if there are any current users
-  if(isset($_SESSION['current_users']))
+  if(count($_SESSION['current_users']) != 0)
   {
-    $MemberNumber = end($_SESSION['current_users']);
-    $um->displayProfile($MemberNumber);    
+    $memberID = end($_SESSION['current_users']);
+    $um->displayProfile($memberID);
+
   }//end if current_users
   //if we have no users logged in, display the dummy profile
   else
   {
-    $MemberNumber = null;
-    $um->displayProfile($MemberNumber);
+    $um->displayDefaultProfile();
   }
-
-}//end else
-
+} //end if bogus memberID
+//otherwise display the profile
+else {
+  //Record the last member displayed in the session array
+  $_SESSION['lastMemberDisplayed'] = $memberID;
+  $um->displayProfile($memberID);
+} //end else
 
 /*NOTE ENTRY SECTION___________________________________________________*/
 
 /*If we received a request to add a new note, spawn a note entry window*/
 if (isset($_POST['noteAdd']))
 {
-  $windowContent = "<textarea id='noteContent' name='noteContent' autofocus></textarea><input type='hidden' name='display_member' value='$MemberNumber' />";
+  $windowContent = "<textarea id='noteContent' name='noteContent' autofocus></textarea><input type='hidden' name='display_member' value='$memberID' />";
   
   $um->displayPopUp($windowContent, "Enter New Member Note");
 }//end if noteAdd

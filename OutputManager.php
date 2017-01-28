@@ -153,7 +153,84 @@ _END;
 
   } // end function displayProfile 
   
-  
+  public function displayDefaultProfile() {
+    echo "<div class='profileWindow'>";
+
+    //display profile pic
+    echo "<img src='images/default.jpg' class='profilePic' />";
+
+    //display basic member info
+    echo "<div class='profileElement'>";
+    echo "<h3>Basic Info</h3>";
+    echo "<p>Member Name:<br /> </p>";
+    echo "<p>DOB:<br /> <br />";
+    echo "<p>Member Since:<br /> </p> <p>Membership Type:<br /> </p>";
+    echo "<p>Member Number:<br /> </p>";
+    echo "</div>";
+
+
+    //display enrollments and certs
+    echo "<div class='profileElement'>";
+    echo "<h3>Enrollments and Certifications</h3>";
+
+    //ENROLLMENTS
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='viewAllEnrollments' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Enrollments:</strong></a></form></p>";
+    echo "<p> </p>";
+
+    //CERTIFICATIONS
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addCert' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Certifications:</strong></a></form></p>";
+    echo "<p> </p>";
+    echo "</div>"; //end enrollments and certs div
+
+
+    //display payments, visits, volunteering (recent activity div)
+    echo "<div class='profileElement'>";
+    echo "<h3>Recent Activity</h3>";
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addDonation' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Last Payment:</strong></a></form></p>";
+    echo "<p> </p>";
+
+
+    echo "<p><strong>Recent Visits:</strong></p>";
+      echo "<p> </p>";
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addVolunteering' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Volunteering:</strong></a></form></p>";
+    echo "<p> <br /> </p>";
+    echo "</div>"; // end recent activity div
+
+
+    //display Manager Notes
+
+    echo "<div class='notes'>";
+
+    echo "<nav>
+            <ul>
+              <li class='dropdown' id='noteMenu'><a><h3>Notes</h3></a>
+                <ul class='dropdown-content'>
+                  <li>
+                    <form id='addNote' action='smTest.php' method='post'>
+                      <input type='hidden' name='noteAdd' value='noteAdd' /> 
+                      <input type='hidden' name='display_member' value='' /> 
+                      <a href='#' onclick='this.parentNode.submit(); return false;'>Add Note</a>
+                    </form>
+                  </li>
+                  <li>
+                    <form action='smTest.php' method='post'>
+                      <input type='hidden' name='viewAllNotes' value=''> 
+                      <a href='#' onclick='this.parentNode.submit(); return false;'>View All</a>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>";
+
+    echo "<p><strong> </p>";
+    echo "</div>"; // end manager note div
+
+    echo "</div>"; //end profile window div
+
+
+  } //end displayDefaultProfile
+
   /*display window will display the passed content where the profile window would usually appear.  The passed value must be complete HTML*/
   public function displayWindow($content)
   {

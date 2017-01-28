@@ -22,7 +22,7 @@ class loginManager{
   
   public function login($MemberNumber)
   {
-    //first check to ensure the meber number is valid, if not, do not record the login
+    //first check to ensure the member number is valid, if not, do not record the login
     $result = $this->db->getUsername($MemberNumber);
     /*If our result is null, it was an invalid login so punt*/
     if (!$result)

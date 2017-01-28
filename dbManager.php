@@ -258,7 +258,7 @@ class dbManager{
     
     $db_conn->close();
         
-    if ($result)
+    if ($result && mysqli_num_rows($result) != 0)
     {
       
       foreach($result->fetch_array(MYSQLI_NUM) as $row)
