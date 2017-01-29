@@ -119,23 +119,10 @@ if (isset($_POST['viewAllEnrollments'])) {
 }
 
 //Add Payment
-if (isset($_POST['addDonation']))
+if (isset($_POST['addPayment']))
 {
-  $MemberID = $_POST['addDonation'];
-  $content = "<h2>Select Payment Type:</h2>
-<select id='paymentType' autofocus>
-  <option selected disabled hidden>Payment Type</option>
-  <option value='classEnrollment'>Class Enrollment</option>
-  <option value='eventEnrollment'>Event Enrollment</option>
-  <option value='dues'>Dues</option>
-  <option value='donation'>Donation</option>
-  <option value='merchandise'>Merchandise</option>
-  <option value='other'>Other Payment</option>
-</select>
-<script src='paymentSlider.js'></script>
-<div id='slideContent'></div>
-<input type='hidden' name='MemberID' id='MemberID' value='$MemberID' />";
-  $um->displayPopUp($content, "Add Payment", "addPayment.php");  
+  $MemberID = $_POST['addPayment'];
+  $um->addPayment($MemberID);
 }
 
 
@@ -195,7 +182,7 @@ else if (isset($_GET['display_member'])) $memberID = $_GET['display_member'];
 if ($memberID == '' || $memberID == null || $memberID == ' ' || !$memberID) {
 
   //check if there are any current users
-  if(count($_SESSION['current_users']) != 0)
+  if(isset($_SESSION['current_users']) && count($_SESSION['current_users']) != 0)
   {
     $memberID = end($_SESSION['current_users']);
     $um->displayProfile($memberID);

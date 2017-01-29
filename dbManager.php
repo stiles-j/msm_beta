@@ -17,8 +17,31 @@ class dbManager{
     $this->password = $db_password;
     $this->database = $db_database;   
   } // end function __construct
-  
-  /*addProfile will insert provided information into the database.  The required argument is a numeric array of user data in the following format: firstName, lastName, birthdate, joindate, addresss, homephone,cellphone, email, emergency contact, medical provider, referred by, member id number, user image, level.  Null values should be  used in place of any missing information. The function will return true on a successful insert or false on a failed insert*/
+
+  public function addAttendance ($memberID, $referenceNumber, $type) {
+    $db_conn = $this->connect();
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+    $referenceNumber = $this->sanitizeInput($referenceNumber, $db_conn);
+    $type = $this->sanitizeInput($type, $db_conn);
+    $result = null;
+    $loginReferenceNumber = $this->getLastLogin($memberID);
+    //determine where we need to handle the insert
+    if ($type == 'CLASS') {
+      $sql = "INSERT INTO CLASS_TAKEN (ClassReferenceNumber, MemberID, LoginReferenceNumber) VALUES ($referenceNumber, $memberID, $loginReferenceNumber)";
+      $result = $db_conn->query($sql);
+      if (!$result) $this->logError($db_conn, "addAttendance was unable to insert into CLASS_TAKEN: ");
+    }
+    else {
+      $sql = "INSERT INTO EVENT_ATTENDED (EventReferenceNumber, MemberID, LoginReferenceNumber) VALUES ($referenceNumber, $memberID, $loginReferenceNumber)";
+      $result = $db_conn->query($sql);
+      if (!$result) $this->logError($db_conn, "addAttendance was unable to insert into EVENT_ATTENDED: ");
+    }
+
+    $db_conn->close();
+    return $result;
+  } //end function addAttendance
+
+  /*addProfile will insert provided information into the database.  The required argument is a numeric array of user data in the following format: firstName, lastName, birthDate, joinDate, address, homePhone, cellphone, email, emergency contact, medical provider, referred by, member id number, user image, level.  Null values should be  used in place of any missing information. The function will return true on a successful insert or false on a failed insert*/
   public function addProfile($profileData)
   {
     //handle blank ReferredBy field
@@ -59,7 +82,7 @@ class dbManager{
     
   }//end function addCert
   
-  /*Function addDonation records member donations in the database.  The function takes a member id number and donation amount as arguments and returns boolean indicating whether the insert of record was successful or not; true for success, false for failure.*/
+  /*Function addPayment records member donations in the database.  The function takes a member id number and donation amount as arguments and returns boolean indicating whether the insert of record was successful or not; true for success, false for failure.*/
   public function addPayment($MemberID, $amount, $reason = '')
   {
     //connect to database and sanitize inputs
@@ -80,7 +103,7 @@ class dbManager{
     
     return $result;
     
-  }//end method addDonation
+  }//end method addPayment
  
   /*Function addClass attempts to add a new class to the database's "ClassesTaken" table.  The function requires three arguments, a member number as an int, a string containing the class name and a string in the form yyyy-mm-dd for the date the class was completed.  The function returns true on a successful insert or false on a failed insert.*/
   public function addClass($MemberID, $classReferenceNumber, $loginReferenceNumber)
@@ -137,10 +160,7 @@ class dbManager{
     $eventReferenceNumber = $this->sanitizeInput($eventReferenceNumber, $db_conn);
 
     //Get the most recent login reference number (can't enter volunteering unless the member is logged in)
-    $sql = "SELECT LoginReferenceNumber FROM LOGIN WHERE MemberID = $memberID ORDER BY LoginReferenceNumber DESC LIMIT 1";
-    $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "addEventVolunteer was unable to get members last login reference number: ");
-    $loginReferenceNumber = $result->fetch_assoc()['LoginReferenceNumber'];
+    $loginReferenceNumber = $this->getLastLogin($memberID);
     
     //generate SQL and attempt query
     $sql = "INSERT INTO EVENT_VOLUNTEER (MemberID, LoginReferenceNumber, EventReferenceNumber) VALUES ('$memberID', '$loginReferenceNumber', '$eventReferenceNumber')";
@@ -163,10 +183,7 @@ class dbManager{
     $classReferenceNumber = $this->sanitizeInput($classReferenceNumber, $db_conn);
     
     //Get the most recent login reference number (can't enter volunteering unless the member is logged in)
-    $sql = "SELECT LoginReferenceNumber FROM LOGIN WHERE MemberID = $memberID ORDER BY LoginReferenceNumber DESC LIMIT 1";
-    $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "addClassVolunteer was unable to get members last login reference number: ");
-    $loginReferenceNumber = $result->fetch_assoc()['LoginReferenceNumber'];
+    $loginReferenceNumber = $this->getLastLogin($memberID);
     
     //generate SQL and attempt query
     $sql = "INSERT INTO CLASS_VOLUNTEER (MemberID, ClassReferenceNumber, LoginReferenceNumber) VALUES ('$memberID', '$classReferenceNumber', '$loginReferenceNumber')";
@@ -200,7 +217,7 @@ class dbManager{
     
   }//end method findMember
 
-  /*Function getAllNotes does exactly what it says on the tin, returning all member notes for a given member ID number.  The function requires a valid MemberID as an input and retrns an SQL result to the calling code*/
+  /*Function getAllNotes does exactly what it says on the tin, returning all member notes for a given member ID number.  The function requires a valid MemberID as an input and returns an SQL result to the calling code*/
   public function getAllNotes($memberID)
   {
     //establish connection and sanitze input
@@ -218,6 +235,32 @@ class dbManager{
     return $result;
     
   }//end method getAllNotes
+
+  public function getClassCertifications($classReferenceNumber) {
+    $db_conn = $this->connect();
+    $classReferenceNumber = $this->sanitizeInput($classReferenceNumber, $db_conn);
+    $output = array();
+    $sql = "SELECT CourseID FROM CLASS WHERE ClassReferenceNumber = $classReferenceNumber";
+
+    //find the CourseID
+    $courseID = $db_conn->query($sql);
+    if (!$courseID) $this->logError($db_conn, "getClassCertifications was unable to retrieve CourseID: ");
+    $courseID = $courseID->fetch_assoc()['CourseID'];
+
+    //get the certs associated with this course
+    $sql = "SELECT CertName FROM COURSE_CERTIFICATION WHERE CourseID = $courseID";
+    $certs = $db_conn->query($sql);
+    if (!$certs) $this->logError($db_conn, "getClassCertification was unable to get the list of certs: ");
+
+    //package the sql result into the output and return
+    if ($certs->num_rows == 0) return false;
+
+    foreach($certs as $cert) {
+      $output[] = $cert['CertName'];
+    }
+    return $output;
+
+  } //end function getClassCertifications
   
   public function getNewUserId()
   {
@@ -319,7 +362,7 @@ class dbManager{
     if (!$profile)
       $this->logError($db_conn, "getProfile unable to retrieve profile data: ");
     
-    $sql = "SELECT Name, Date FROM PENDING_ENROLLMENTS WHERE MemberID = $memberID ORDER BY Date LIMIT 5";
+    $sql = "SELECT * FROM PENDING_ENROLLMENTS WHERE MemberID = $memberID ORDER BY Date LIMIT 5";
     $enrollments = $db_conn->query($sql);
     
     if (!$enrollments)
@@ -615,6 +658,17 @@ class dbManager{
     return $input;
 
   } // end function sanitizeInput
+
+  private function getLastLogin($memberID) {
+    $db_conn = $this->connect();
+    $sql = "SELECT LoginReferenceNumber FROM LOGIN WHERE MemberID = $memberID ORDER BY LoginReferenceNumber DESC LIMIT 1";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getLastLogin was unable to get members last login reference number: ");
+    $loginReferenceNumber = $result->fetch_assoc()['LoginReferenceNumber'];
+    $db_conn->close();
+    return $loginReferenceNumber;
+  }
+
   
 }; //end class dbManager 
 

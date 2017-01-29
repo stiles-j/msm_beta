@@ -77,8 +77,13 @@ _END;
 
     //ENROLLMENTS
     echo "<p><form action='smTest.php' method='post'><input type='hidden' name='viewAllEnrollments' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Enrollments:</strong></a></form></p>";
-    foreach ($profile[2] as $class)
-      echo "<p>$class[Date]:<br /> $class[Name]</p>";
+
+    if ($profile[2]->num_rows != 0) {
+      $memberEnrollments = $this->prepEnrollment($profile[2]);
+      foreach ($memberEnrollments as $memberEnrollment) {
+        echo $memberEnrollment;
+      } //end foreach
+    } //end if
 
     //CERTIFICATIONS
     echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addCert' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Certifications:</strong></a></form></p>";
@@ -90,7 +95,7 @@ _END;
     //display payments, visits, volunteering (recent activity div)
     echo "<div class='profileElement'>";
     echo "<h3>Recent Activity</h3>";
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addDonation' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Last Payment:</strong></a></form></p>";
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addPayment' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Last Payment:</strong></a></form></p>";
     $payment = mysqli_fetch_array($profile[4]);
     //convert donation date to readable format
     $paymentDate = date("Y-m-d", strtotime($payment['PaymentDate']));
@@ -244,8 +249,7 @@ _END;
   {
     $this->popUp->createPopUp($contents, $header, $action);
   }//end function insertPopUp
-  
-  
+
   public function editMemberForm($profile)
   {
     //formContent will hold the HTML for the member update form
@@ -377,8 +381,33 @@ _END;
     $this->displayWindow($formContent);
     
   }//end function editMemberForm
-  
-  
+
+
+
+  /*Private functions*/
+
+  private function prepEnrollment($enrollments) {
+
+    $output = array();
+
+    foreach ($enrollments as $enrollment) {
+
+      $event = "<form action='addAttendance.php' method='post'>
+      <input type='hidden' name='memberID' value='$enrollment[MemberID]' />
+      <input type='hidden' name='type' value='$enrollment[Type]' />
+      <input type='hidden' name='referenceNumber' value='$enrollment[ReferenceNumber]' />
+      <input type='hidden' name='eventDate' value='$enrollment[Date]' />
+      <input type='hidden' name='eventName' value='$enrollment[Name]' />
+      <button type='submit' class='dashButton'>$enrollment[Date]:<br />$enrollment[Name]</button>
+    </form>";
+
+      $output[] = $event;
+
+    } //end foreach
+
+    return $output;
+
+  } //end function prepEnrollment
   
 }; //end class OutputManager 
 

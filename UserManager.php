@@ -38,7 +38,7 @@ class UserManager{
     $this->displaySidebars();
   }
   
-  /*Function displayPopUp is a wrapper function for the function insertPopUp of the OutputManager class.  This allows client code access to the popup functionality through UserManager so a seperate OutputManager object does not need to be instantiated.*/
+  /*Function displayPopUp is a wrapper function for the function insertPopUp of the OutputManager class.  This allows client code access to the popup functionality through UserManager so a separate OutputManager object does not need to be instantiated.*/
   public function displayPopUp($message, $header = '', $action = '')
   {
     $this->om->insertPopUp($message, $header, $action); 
@@ -158,14 +158,32 @@ class UserManager{
 
   } //end addVolunteering
 
+  public function addPayment ($memberID) {
+    $content = "<h2>Select Payment Type:</h2>
+    <select id='paymentType' autofocus>
+      <option selected disabled hidden>Payment Type</option>
+      <option value='classEnrollment'>Class Enrollment</option>
+      <option value='eventEnrollment'>Event Enrollment</option>
+      <option value='dues'>Dues</option>
+      <option value='donation'>Donation</option>
+      <option value='merchandise'>Merchandise</option>
+      <option value='other'>Other Payment</option>
+    </select>
+    <script src='paymentSlider.js'></script>
+    <div id='slideContent'></div>
+    <input type='hidden' name='MemberID' id='MemberID' value='$memberID' />";
+    $this->displayPopUp($content, "Add Payment", "addPayment.php");
+
+  }
+
 
   /*Private Functions*/
 
-  private function prepName($MemberNumber)
+  private function prepName($memberID)
   {
-    $userName = $this->db->getUserName($MemberNumber);
+    $userName = $this->db->getUserName($memberID);
     $name = "<form action='smTest.php' method='post'>
-    <input type='hidden' name='display_member' value='$MemberNumber' />
+    <input type='hidden' name='display_member' value='$memberID' />
     <input type='submit' name='submit' id='memberButton' value='$userName' /></form>";
 
     return $name;

@@ -180,6 +180,54 @@ CREATE TABLE CLASS_TAKEN (
   FOREIGN KEY (LoginReferenceNumber) REFERENCES LOGIN(LoginReferenceNumber)
 );
 
+CREATE TABLE EVENT_ATTENDED (
+    EventReferenceNumber    INTEGER NOT NULL,
+    MemberID                INTEGER NOT NULL,
+    LoginReferenceNumber    INTEGER,
+
+    PRIMARY KEY (EventReferenceNumber, MemberID),
+    FOREIGN KEY (EventReferenceNumber) REFERENCES EVENT(EventReferenceNumber),
+    FOREIGN KEY (MemberID)             REFERENCES MEMBER(MemberID),
+    FOREIGN KEY (LoginReferenceNumber) REFERENCES LOGIN(LoginReferenceNumber)
+);
+
+
+--------------------SQL TO CREATE PENDING_CLASSES VIEW--------------------------
+
+CREATE VIEW PENDING_CLASSES AS
+  SELECT ClassReferenceNumber AS ReferenceNumber, ClassDate AS Date, CourseName
+  AS Name, CourseMemberFee AS MemberFee, CourseNonMemberFee AS NonMemberFee FROM
+  CLASS AS A, COURSE AS B WHERE A.CourseID = B.CourseID AND ClassDate >= CURDATE();
+
+
+
+------------------SQL TO CREATE PENDING_EVENTS VIEW-----------------------------
+
+CREATE VIEW PENDING_EVENTS AS
+  SELECT EventReferenceNumber AS ReferenceNumber, EventDate AS Date, EventName
+  AS Name, EventMemberFee AS MemberFee, EventNonMemberFee AS NonMemberFee from
+  EVENT WHERE EventDate >= CURDATE();
+
+
+
+-----------------SQL TO CREATE PENDING_ENROLLMENTS VIEW-------------------------
+
+CREATE VIEW PENDING_ENROLLMENTS AS
+    SELECT A.MemberID, B.ClassReferenceNumber AS ReferenceNumber, C.CourseName AS Name,
+     B.ClassDate AS Date, 'CLASS' AS Type FROM CLASS_ENROLLMENT AS A, CLASS AS B, COURSE AS C WHERE A.ClassReferenceNumber =
+     B.ClassReferenceNumber AND B.CourseID = C.CourseID AND B.ClassDate >= CURDATE()
+     UNION
+     SELECT A.MemberID, B.EventReferenceNumber AS ReferenceNumber, B.EventName AS Name,
+     B.EventDate AS Date, 'EVENT' AS Type FROM EVENT_ENROLLMENT AS A, EVENT AS B WHERE A.EventReferenceNumber =
+     B.EventReferenceNumber AND B.EventDate >= CURDATE();
+
+
+-----------------SQL TO CREATE PENDING_ALL VIEW--------------------------------
+
+CREATE VIEW PENDING_ALL AS
+    SELECT *, 'CLASS' AS Type FROM PENDING_CLASSES
+    UNION
+    SELECT *, 'EVENT' AS Type FROM PENDING_EVENTS;
 
 
 

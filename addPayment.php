@@ -1,13 +1,13 @@
 <?php
 /*
-Add donation script for MakerSpaceManager
+addPayment script for MakerSpaceManager
 Last Updated: 2017/01/15
 Author: Justice Stiles
 Description:  This script should be called to add a new payment to the database.  No HTML is sent from this script if there are no errors adding the payment, as a post/redirect/get is used.  
 */
 
+require_once "UserManager.php";
 require_once "dbManager.php";
-require_once "PopUpManager.php";
 
 $db = new dbManager;
 $amount = $_POST['paymentAmount'];
@@ -24,11 +24,12 @@ if (isset($_POST['referenceNumber']))
 /*-----------------Handle Payment Insert-------------------------------*/
 
 //verify we have a valid amount, give the user an error if not
-if ($amount == 0 || !is_numeric($amount))
+if (!is_numeric($amount))
 {
-  $popup = new PopUpManager;
+  $popup = new UserManager();
   $content = "<h2>Invalid payment amount.  Payment not added</h2>";
-  $popup->createPopUp($content, "Error");
+  $popup->displayProfile($memberID);
+  $popup->displayPopUp($content, "Error", 'smTest.php');
   exit();
 }
 
@@ -37,15 +38,15 @@ $success = $db->addPayment($memberID, $amount, $reason);
 
 if (!$success)
 {
-  $popup = new PopUpManager;
+  $popup = new UserManager();
   $content = "<h2>Error adding payment.  Payment not added</h2>";
-  
-  $popup->createPopUp($content, "Error");
+  $popup->displayProfile($memberID);
+  $popup->displayPopUp($content, "Error", 'smTest.php');
   exit();
 }
 
 
-/*-------------Handle Ancilliary Effects of Payment--------------------*/
+/*-------------Handle Ancillary Effects of Payment--------------------*/
 
 /*If this was a payment for a class or event, add the enrollment*/
 if ($reason == "class"){

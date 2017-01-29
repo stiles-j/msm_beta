@@ -126,6 +126,7 @@ input{
   font-size: 1.1em;  
   line-height: 1.35em;
   margin: auto;
+  text-align: left;
   text-decoration: none;
   transition-property: background-color;
   transition-duration: .15s;
