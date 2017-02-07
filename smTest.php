@@ -211,6 +211,11 @@ if (isset($_POST['noteAdd']))
   $um->displayPopUp($windowContent, "Enter New Member Note");
 }//end if noteAdd
 
+/*EDIT COURSE SECTION_________________________________________________*/
+if (isset($_POST['editCourse'])) {
+  $um->getCourseToEdit();
+}
+
 //session_destroy();
 
   

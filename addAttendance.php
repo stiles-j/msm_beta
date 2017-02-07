@@ -34,7 +34,7 @@ if ($_POST['type'] == 'CLASS') {
   //if we have certs, add them to the member's record
   if ($certs) {
     foreach ($certs as $cert) {
-      $db->addCert($_POST['memberID'], $cert);
+      $db->addMemberCert($_POST['memberID'], $cert);
     } //end foreach
   } //end if
 }

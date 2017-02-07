@@ -33,7 +33,7 @@ if ($certName == '' || !$certName)
 
 /*Attempt the insert.  If it fails, give the user an error message.  If it succeeds, redirect and display the profile with the updated certification*/
 
-$success = $db->addCert($memberID, $certName);
+$success = $db->addMemberCert($memberID, $certName);
 
 if (!$success)
 {

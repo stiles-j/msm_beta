@@ -384,6 +384,7 @@ _END;
 
 
 
+
   /*Private functions*/
 
   private function prepEnrollment($enrollments) {

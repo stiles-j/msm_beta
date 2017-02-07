@@ -9,6 +9,8 @@ Description:  This script should be called to add a new payment to the database.
 require_once "UserManager.php";
 require_once "dbManager.php";
 
+/*---Grab Post Data----------------------------------------------------*/
+
 $db = new dbManager;
 $amount = $_POST['paymentAmount'];
 $memberID = intval($_POST['MemberID']);

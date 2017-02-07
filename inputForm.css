@@ -44,10 +44,31 @@ Stylesheet for all UserManager input forms
 .userInputFields h2{
   display: block;
   text-align: center;
-  width: 50%;
+  width: 60%;
   margin: auto;
   margin-top: 1.5em;
   padding: 1em;
+}
+
+.userInputFields textarea {
+  height: 15em;
+  margin: 2em 0.25em 1em -5em;
+  width: 102%;
+}
+
+.userInputFields input, .userInputFields select, .userInputFields label {
+  display: block;
+  width: 99%;
+}
+
+.userInputFields .sbutton{
+  display: block;
+  float: left;
+  padding: 0.5em;
+  position: relative;
+  margin: 1em auto 2em auto;
+  font-size: 1.25em;
+  width: 99%;
 }
 
 .inputFile{
@@ -75,17 +96,8 @@ Stylesheet for all UserManager input forms
   display: inline-block;
   font-size: 1.25em;
   margin-left: -2em;
+  margin-top: 1em;
   padding: 0em;
 
 }
 
-.userInputFields .sbutton{
-  display: block;
-  float: left;
-  padding: 0.5em;
-  position: relative;
-  margin: 1em auto 2em auto;
-  font-size: 1.25em;
-  width: 16em;
-
-}

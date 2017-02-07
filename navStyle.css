@@ -64,6 +64,7 @@ nav{
 
 .dropdown-content{
   border-radius: 0.35em;
+  justify-content: center;
   display: none;
   position: absolute;
   width: 81.5%;

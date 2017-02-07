@@ -20,7 +20,48 @@ class UserManager{
     $this->om = new OutputManager;
     
   } // end function __construct()
-  
+
+  public function addCert($memberID) {
+    $certs = $this->db->getAllCertifications();
+    $content = "<h2>New Certification Type</h2><select name='newCertName'>";
+    foreach ($certs as $cert) {
+      $content .= "<option name='$cert'>$cert</option>";
+    }
+    $content .= "</select><input type='hidden' name='memberID' value='$memberID' />";
+    $this->om->insertPopUp($content, "Add New Certification", "addMemberCert.php");
+  } //end addCert
+
+  public function addVolunteering($memberID) {
+    $events = $this->db->getTodaysEvents();
+    $content = "<select name='eventData'>";
+
+    while($event = $events->fetch_assoc()) {
+      $content .= "<option value='{ &quot;type&quot;: &quot;$event[Type]&quot;, &quot;referenceNumber&quot;: $event[ReferenceNumber] }'>$event[Name]</option>";
+    }//end while
+
+    $content .= "</select><input type='hidden' name='memberID' value='$memberID' />";
+    $this->displayPopUp($content, "Add Volunteering", "addVolunteering.php");
+
+  } //end addVolunteering
+
+  public function addPayment ($memberID) {
+    $content = "<h2>Select Payment Type:</h2>
+    <select id='paymentType' autofocus>
+      <option selected disabled hidden>Payment Type</option>
+      <option value='classEnrollment'>Class Enrollment</option>
+      <option value='eventEnrollment'>Event Enrollment</option>
+      <option value='dues'>Dues</option>
+      <option value='donation'>Donation</option>
+      <option value='merchandise'>Merchandise</option>
+      <option value='other'>Other Payment</option>
+    </select>
+    <script src='paymentSlider.js'></script>
+    <div id='slideContent'></div>
+    <input type='hidden' name='MemberID' id='MemberID' value='$memberID' />";
+    $this->displayPopUp($content, "Add Payment", "addPayment.php");
+
+  }
+
   public function displayProfile($MemberNumber)
   {
     //display the actual profile
@@ -44,7 +85,7 @@ class UserManager{
     $this->om->insertPopUp($message, $header, $action); 
   }//end function displayPopUp
   
-  /*displayWin is a wrapper function for the displayWindow method of the outputManager class.  This allows access to the fucntion through a UserManager object without needing to instantiate a separate instance of the outputManager*/
+  /*displayWin is a wrapper function for the displayWindow method of the outputManager class.  This allows access to the function through a UserManager object without needing to instantiate a separate instance of the outputManager*/
   public function displayWin($content)
   {
     $this->om->displayWindow($content);
@@ -63,7 +104,20 @@ class UserManager{
     $this->displaySidebars();
     
   }//end function editMember
-  
+
+  public function getCourseToEdit() {
+    $courses = $this->db->getAllCourses();
+    $content = "<h2>Select Course To Edit</h2>";
+    $content .= "<select name='courseToEdit'>";
+
+    //add each course to the select
+    while ($course = $courses->fetch_assoc()) {
+      $content .= "<option value='$course[CourseID]'>$course[CourseName]</option>";
+    }
+    $content .= "</select>";
+    $this->displayPopUp($content, "Select Course", "editCourseForm.php");
+  }
+
   public function memberSearch($firstName, $lastName)
   {
     //Get the search results from the database
@@ -92,7 +146,7 @@ class UserManager{
     
   }//end method memberSearch
 
-  /*Function recordManagerNote is a wrapper function for the function recordNote of the dbManager class.  This allows client code acces to the recordNote function without instantiating another dbManager instance, as dbManager should only be instantiated by the UserManager class*/
+  /*Function recordManagerNote is a wrapper function for the function recordNote of the dbManager class.  This allows client code access to the recordNote function without instantiating another dbManager instance, as dbManager should only be instantiated by the UserManager class*/
   public function recordManagerNote($MemberNumber, $note)
   {
     $this->db->recordNote($MemberNumber, $note);
@@ -135,46 +189,7 @@ class UserManager{
     $this->displayPopUp($content, "All Enrollments");
   }
 
-  public function addCert($memberID) {
-    $certs = $this->db->getAllCertifications();
-    $content = "<h2>New Certification Type</h2><select name='newCertName'>";
-    foreach ($certs as $cert) {
-      $content .= "<option name='$cert'>$cert</option>";
-    }
-    $content .= "</select><input type='hidden' name='memberID' value='$memberID' />";
-    $this->om->insertPopUp($content, "Add New Certification", "addCert.php");
-  } //end addCert
 
-  public function addVolunteering($memberID) {
-    $events = $this->db->getTodaysEvents();
-    $content = "<select name='eventData'>";
-
-    while($event = $events->fetch_assoc()) {
-      $content .= "<option value='{ &quot;type&quot;: &quot;$event[Type]&quot;, &quot;referenceNumber&quot;: $event[ReferenceNumber] }'>$event[Name]</option>";
-    }//end while
-
-    $content .= "</select><input type='hidden' name='memberID' value='$memberID' />";
-    $this->displayPopUp($content, "Add Volunteering", "addVolunteering.php");
-
-  } //end addVolunteering
-
-  public function addPayment ($memberID) {
-    $content = "<h2>Select Payment Type:</h2>
-    <select id='paymentType' autofocus>
-      <option selected disabled hidden>Payment Type</option>
-      <option value='classEnrollment'>Class Enrollment</option>
-      <option value='eventEnrollment'>Event Enrollment</option>
-      <option value='dues'>Dues</option>
-      <option value='donation'>Donation</option>
-      <option value='merchandise'>Merchandise</option>
-      <option value='other'>Other Payment</option>
-    </select>
-    <script src='paymentSlider.js'></script>
-    <div id='slideContent'></div>
-    <input type='hidden' name='MemberID' id='MemberID' value='$memberID' />";
-    $this->displayPopUp($content, "Add Payment", "addPayment.php");
-
-  }
 
 
   /*Private Functions*/

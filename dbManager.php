@@ -41,6 +41,50 @@ class dbManager{
     return $result;
   } //end function addAttendance
 
+  public function addNewCert ($certName, $description) {
+    $db_conn = $this->connect();
+    $certName = $this->sanitizeInput($certName, $db_conn);
+    $description = $this->sanitizeInput($description, $db_conn);
+    $sql = "INSERT INTO CERTIFICATION VALUES ('$certName', '$description')";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "addNewCert was unable to insert a certification: ");
+    $db_conn->close();
+    return $result;
+  }
+
+  /*addNewCourse will add a new course to the database and return the courseID number.  Returns false if the
+  attempt to insert fails*/
+  public function addNewCourse ($courseName, $courseMemberFee, $courseNonMemberFee, $courseDescription) {
+    //sanitize our inputs
+    $db_conn = $this->connect();
+    $courseName = $this->sanitizeInput($courseName, $db_conn);
+    $courseNonMemberFee = $this->sanitizeInput($courseNonMemberFee, $db_conn);
+    $courseMemberFee = $this->sanitizeInput($courseMemberFee, $db_conn);
+    $courseDescription = $this->sanitizeInput($courseDescription, $db_conn);
+
+    //attempt to insert the course
+    $sql = "INSERT INTO COURSE (CourseName, CourseDescription, CourseMemberFee, CourseNonMemberFee) VALUE ('$courseName', '$courseDescription', '$courseMemberFee', '$courseNonMemberFee')";
+    $result = $db_conn->query($sql);
+    if (!$result) {
+      $this->logError($db_conn, "addNewCourse was unable to insert into the database: ");
+      $db_conn->close();
+      return false;
+    }
+
+    //get the courseID to return
+    $sql = "SELECT CourseID FROM COURSE WHERE CourseName = '$courseName'";
+    $id = $db_conn->query($sql);
+    if (!$id) {
+      $this->logError($db_conn, "addNewCourse was unable to retrieve new CourseID: ");
+      $db_conn->close();
+      return false;
+    }
+    $id = $id->fetch_assoc()['CourseID'];
+    $db_conn->close();
+
+    return $id;
+  } //end method addNewCourse
+
   /*addProfile will insert provided information into the database.  The required argument is a numeric array of user data in the following format: firstName, lastName, birthDate, joinDate, address, homePhone, cellphone, email, emergency contact, medical provider, referred by, member id number, user image, level.  Null values should be  used in place of any missing information. The function will return true on a successful insert or false on a failed insert*/
   public function addProfile($profileData)
   {
@@ -62,7 +106,18 @@ class dbManager{
     return $result;
   }//end function addProfile
 
-  public function addCert($MemberID, $certName)
+  public function addCourseCert ($courseID, $cert) {
+    $db_conn = $this->connect();
+    $courseID = $this->sanitizeInput($courseID, $db_conn);
+    $cert = $this->sanitizeInput($cert, $db_conn);
+    $sql = "INSERT INTO COURSE_CERTIFICATION (CourseID, CertName) VALUES ($courseID, '$cert')";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "addCourseCert was unable to add a new record: ");
+    $db_conn->close();
+    return $result;
+  } //end function addCourseCert
+
+  public function addMemberCert($MemberID, $certName)
   {
     //connect to database and sanitize inputs
     $db_conn = $this->connect();
@@ -236,6 +291,31 @@ class dbManager{
     
   }//end method getAllNotes
 
+  public function getAllCertifications() {
+    $db_conn = $this->connect();
+    $sql ="SELECT CertName FROM CERTIFICATION";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "Unable to retrieve list of certifications from database: ");
+    $db_conn->close();
+
+    //turn the sql result into an array
+    $output = array();
+    while ($name = $result->fetch_array()) {
+      $output[] = $name['CertName'];
+    }
+
+    return $output;
+  }
+
+  public function getAllCourses() {
+    $db_conn = $this->connect();
+    $sql = "SELECT CourseID, CourseName FROM COURSE";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getAllCourses was unable to retrieve course list: ");
+    $db_conn->close();
+    return $result;
+  }
+
   public function getClassCertifications($classReferenceNumber) {
     $db_conn = $this->connect();
     $classReferenceNumber = $this->sanitizeInput($classReferenceNumber, $db_conn);
@@ -282,7 +362,7 @@ class dbManager{
     $db_conn->close();
     
     return $MemberNumber;
-  }
+  } // end function getNewUserId
   
   public function getUsername($memberID)
   {
@@ -336,15 +416,15 @@ class dbManager{
   public function getProfile($memberID)
   {
     //Variables
-    $image;
-    $profile;
-    $enrollments;
-    $certs;
-    $payments;
-    $visits;
-    $volunteering;
-    $notes;
-    $output;
+    $image = null;
+    $profile = null;
+    $enrollments = null;
+    $certs = null;
+    $payments = null;
+    $visits = null;
+    $volunteering = null;
+    $notes = null;
+    $output = null;
     $db_conn = $this->connect();
     
     $memberID = $this->sanitizeInput($memberID, $db_conn);
@@ -356,7 +436,7 @@ class dbManager{
     if (!$image)
       $this->logError($db_conn, "getProfile unable to retrieve Picture: ");
     
-    $sql = "SELECT FirstName, LastName, JoinDate, BirthDate, MembershipType, TIMESTAMPDIFF(YEAR, BirthDate, CURDATE()) AS Age, MemberID FROM MEMBER WHERE MemberID=$memberID";
+    $sql = "SELECT FirstName, LastName, DATE(JoinDate) AS JoinDate, BirthDate, MembershipType, TIMESTAMPDIFF(YEAR, BirthDate, CURDATE()) AS Age, MemberID FROM MEMBER WHERE MemberID=$memberID";
     $profile = $db_conn->query($sql);
     
     if (!$profile)
@@ -405,111 +485,6 @@ class dbManager{
     return $output; 
     
   } // end function getProfile
-  
-  public function recordLogin($MemberID)
-  {
-    $db_conn = $this->connect();
-    $MemberID = $this->sanitizeInput($MemberID, $db_conn);
-    
-    //Just insert memberID because the table will auto fill login time with the current time
-    $sql = "INSERT INTO LOGIN (MemberID) VALUES ($MemberID)";
-    $result = $db_conn->query($sql);
-    
-    if (!$result)
-      $this->logError($db_conn, "Error inserting login: ");
-    
-    //Grab the reference number so it can be returned
-    $sql = "SELECT LoginReferenceNumber FROM LOGIN WHERE MemberID = $MemberID ORDER BY LoginTime DESC LIMIT 1";
-    
-    $result = $db_conn->query($sql);
-    
-    if (!$result)
-      $this->logError($db_conn, "Error retrieveing LoginReferenceNumber after login insert: ");
-    
-    //convert to an associative array for use
-    $result = $result->fetch_assoc();
-    
-    $loginReferenceNumber = intval($result["LoginReferenceNumber"]);
-    
-    $db_conn->close();
-    return $loginReferenceNumber;
-    
-  } //end function recordLogin
-  
-  public function recordLogout($MemberID)
-  {
-    $db_conn = $this->connect();
-    $MemberID = $this->sanitizeInput($MemberID, $db_conn);
-    
-    $sql = "UPDATE LOGIN SET LogoutTime = NOW() Where MemberID = $MemberID ORDER BY LoginTime DESC LIMIT 1";
-    $result = $db_conn->query($sql);
-    
-    if (!$result)
-      $this->logError($db_conn, "Error recording logout: ");
-    
-    $db_conn->close();
-    
-  } //end function recordLogout
-  
-  public function recordNote($memberID, $note)
-  {
-    $db_conn = $this->connect();
-    
-    //First sanitize all inputs
-    $memberID = $this->sanitizeInput($memberID, $db_conn);
-    $note = $this->sanitizeInput($note, $db_conn);
-    
-    //generate query and insert into database
-    $sql = "INSERT INTO NOTES (MemberID, NoteText) VALUES ($memberID, '$note')";
-    $result = $db_conn->query($sql);
-    
-    if (!$result)
-      $this->logError($db_conn, "recordNote unable to insert new note: ");
-    
-    $db_conn->close();
-    
-  }//end function recordNote
-  
-  public function updateProfile($data)
-  {
-    //connect to db and sanitize all input
-    $db_conn = $this->connect();
-    foreach ($data as $input)
-    {
-      $input = $this->sanitizeInput($input, $db_conn);
-    }
-    
-    //Handle an empty ReferredBy field
-    if ($data[12] == '') $data[12] = 0;
-    
-    //generate sql query, and attempt update
-    $sql = "UPDATE MEMBER set FirstName='$data[1]', LastName='$data[2]', BirthDate='$data[3]', StreetAddress='$data[4]', City='$data[5]', State='$data[6]', Zip='$data[7]', HomePhone='$data[8]', CellPhone='$data[9]', Email='$data[10]', EmergencyContact='$data[11]',  ReferredBy='$data[12]', MembershipType='$data[13]' WHERE MemberID=$data[0]";
-    
-    $result = $db_conn->query($sql);
-    
-    if (!$result)
-      $this->logError($db_conn, "updateProfile unable to update: ");
-    
-    return $result;
-    
-  }//end method updateProfile
-  
-  public function updatePicture($imagePath, $memberID)
-  {
-    $db_conn = $this->connect();
-    $imagePath = $this->sanitizeInput($imagePath, $db_conn);
-    $memberID = $this->sanitizeInput($memberID, $db_conn);
-    
-    $sql = "UPDATE MEMBER SET Picture='$imagePath' WHERE MemberID=$memberID";
-    
-    $result = $db_conn->query($sql);
-    
-    if (!$result) $this->logError($db_conn, "Unable to update profile picture: ");
-    
-    $db_conn->close();
-    
-    return $result;
-  }//end function updateImage
 
   public function getPendingClasses($memberID) 
   {
@@ -583,22 +558,6 @@ class dbManager{
     return $result;
   }
 
-  public function getAllCertifications() {
-    $db_conn = $this->connect();
-    $sql ="SELECT CertName FROM CERTIFICATION";
-    $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "Unable to retrieve list of certifications from database: ");
-    $db_conn->close();
-
-    //turn the sql result into an array
-    $output = array();
-    while ($name = $result->fetch_array()) {
-      $output[] = $name['CertName'];
-    }
-
-    return $output;
-  }
-
   public function getTodaysEvents() {
     $db_conn = $this->connect();
     $sql = "SELECT * FROM PENDING_ALL WHERE Date = CURDATE()";
@@ -607,6 +566,112 @@ class dbManager{
     $db_conn->close();
     return $result;
   }
+
+  public function recordLogin($MemberID)
+  {
+    $db_conn = $this->connect();
+    $MemberID = $this->sanitizeInput($MemberID, $db_conn);
+
+    //Just insert memberID because the table will auto fill login time with the current time
+    $sql = "INSERT INTO LOGIN (MemberID) VALUES ($MemberID)";
+    $result = $db_conn->query($sql);
+
+    if (!$result)
+      $this->logError($db_conn, "Error inserting login: ");
+
+    //Grab the reference number so it can be returned
+    $sql = "SELECT LoginReferenceNumber FROM LOGIN WHERE MemberID = $MemberID ORDER BY LoginTime DESC LIMIT 1";
+
+    $result = $db_conn->query($sql);
+
+    if (!$result)
+      $this->logError($db_conn, "Error retrieveing LoginReferenceNumber after login insert: ");
+
+    //convert to an associative array for use
+    $result = $result->fetch_assoc();
+
+    $loginReferenceNumber = intval($result["LoginReferenceNumber"]);
+
+    $db_conn->close();
+    return $loginReferenceNumber;
+
+  } //end function recordLogin
+
+  public function recordLogout($MemberID)
+  {
+    $db_conn = $this->connect();
+    $MemberID = $this->sanitizeInput($MemberID, $db_conn);
+
+    $sql = "UPDATE LOGIN SET LogoutTime = NOW() Where MemberID = $MemberID ORDER BY LoginTime DESC LIMIT 1";
+    $result = $db_conn->query($sql);
+
+    if (!$result)
+      $this->logError($db_conn, "Error recording logout: ");
+
+    $db_conn->close();
+
+  } //end function recordLogout
+
+  public function recordNote($memberID, $note)
+  {
+    $db_conn = $this->connect();
+
+    //First sanitize all inputs
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+    $note = $this->sanitizeInput($note, $db_conn);
+
+    //generate query and insert into database
+    $sql = "INSERT INTO NOTES (MemberID, NoteText) VALUES ($memberID, '$note')";
+    $result = $db_conn->query($sql);
+
+    if (!$result)
+      $this->logError($db_conn, "recordNote unable to insert new note: ");
+
+    $db_conn->close();
+
+  }//end function recordNote
+
+  public function updateProfile($data)
+  {
+    //connect to db and sanitize all input
+    $db_conn = $this->connect();
+    foreach ($data as $input)
+    {
+      $input = $this->sanitizeInput($input, $db_conn);
+    }
+
+    //Handle an empty ReferredBy field
+    if ($data[12] == '') $data[12] = 0;
+
+    //generate sql query, and attempt update
+    $sql = "UPDATE MEMBER set FirstName='$data[1]', LastName='$data[2]', BirthDate='$data[3]', StreetAddress='$data[4]', City='$data[5]', State='$data[6]', Zip='$data[7]', HomePhone='$data[8]', CellPhone='$data[9]', Email='$data[10]', EmergencyContact='$data[11]',  ReferredBy='$data[12]', MembershipType='$data[13]' WHERE MemberID=$data[0]";
+
+    $result = $db_conn->query($sql);
+
+    if (!$result)
+      $this->logError($db_conn, "updateProfile unable to update: ");
+
+    return $result;
+
+  }//end method updateProfile
+
+  public function updatePicture($imagePath, $memberID)
+  {
+    $db_conn = $this->connect();
+    $imagePath = $this->sanitizeInput($imagePath, $db_conn);
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+
+    $sql = "UPDATE MEMBER SET Picture='$imagePath' WHERE MemberID=$memberID";
+
+    $result = $db_conn->query($sql);
+
+    if (!$result) $this->logError($db_conn, "Unable to update profile picture: ");
+
+    $db_conn->close();
+
+    return $result;
+  }//end function updateImage
+
 
 
   /*Private Functions*/
