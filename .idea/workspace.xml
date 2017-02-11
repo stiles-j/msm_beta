@@ -2,27 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab73fdb4-b694-434b-8a84-4d186377ee62" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/addNewCert.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/addNewCourse.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/certAdd.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/certAdd.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/courseAdd.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/refreshSession.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/refresher.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/addCert.php" afterPath="$PROJECT_DIR$/addMemberCert.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/courseEdit.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/updateCourse.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OutputManager.php" afterPath="$PROJECT_DIR$/OutputManager.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UserManager.php" afterPath="$PROJECT_DIR$/UserManager.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/addAttendance.php" afterPath="$PROJECT_DIR$/addAttendance.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/addPayment.php" afterPath="$PROJECT_DIR$/addPayment.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard.css" afterPath="$PROJECT_DIR$/dashboard.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbManager.php" afterPath="$PROJECT_DIR$/dbManager.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/header.html" afterPath="$PROJECT_DIR$/header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inputForm.css" afterPath="$PROJECT_DIR$/inputForm.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nav.html" afterPath="$PROJECT_DIR$/nav.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/navStyle.css" afterPath="$PROJECT_DIR$/navStyle.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php-error.log" afterPath="$PROJECT_DIR$/php-error.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smTest.php" afterPath="$PROJECT_DIR$/smTest.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -89,7 +74,7 @@
       <file leaf-file-name="smTest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="773">
+            <state relative-caret-position="668">
               <caret line="215" column="25" lean-forward="false" selection-start-line="215" selection-start-column="25" selection-end-line="215" selection-end-column="25" />
               <folding />
             </state>
@@ -99,8 +84,8 @@
       <file leaf-file-name="nav.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nav.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="56" column="71" lean-forward="false" selection-start-line="56" selection-start-column="71" selection-end-line="56" selection-end-column="71" />
+            <state relative-caret-position="254">
+              <caret line="55" column="60" lean-forward="false" selection-start-line="55" selection-start-column="54" selection-end-line="55" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -109,8 +94,8 @@
       <file leaf-file-name="UserManager.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UserManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="117" column="66" lean-forward="false" selection-start-line="117" selection-start-column="66" selection-end-line="117" selection-end-column="66" />
+            <state relative-caret-position="609">
+              <caret line="117" column="62" lean-forward="false" selection-start-line="117" selection-start-column="62" selection-end-line="117" selection-end-column="62" />
               <folding>
                 <element signature="n#__construct#0;n#UserManager#0;n#!!top" expanded="false" />
                 <element signature="n#addCert#0;n#UserManager#0;n#!!top" expanded="false" />
@@ -129,8 +114,8 @@
                 <element signature="n#displayCurrentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
                 <element signature="n#displayRecentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
                 <element signature="n#displaySidebars#0;n#UserManager#0;n#!!top" expanded="false" />
-                <marker date="1486360013400" expanded="true" signature="2151:2550" ph="..." />
-                <marker date="1486360013400" expanded="true" signature="7318:7471" ph="..." />
+                <marker date="1486760181321" expanded="true" signature="2151:2550" ph="..." />
+                <marker date="1486760181321" expanded="true" signature="7314:7467" ph="..." />
               </folding>
             </state>
           </provider>
@@ -175,8 +160,8 @@
       <file leaf-file-name="addNewCourse.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/addNewCourse.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="23" column="33" lean-forward="false" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+            <state relative-caret-position="399">
+              <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
               <folding>
                 <element signature="e#6#181#0#PHP" expanded="true" />
               </folding>
@@ -184,23 +169,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="courseAdd.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/courseAdd.php">
+      <file leaf-file-name="updateCourse.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/updateCourse.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
-              <caret line="36" column="17" lean-forward="false" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
-              <folding>
-                <element signature="e#6#62#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="inputForm.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/inputForm.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="98" column="15" lean-forward="false" selection-start-line="98" selection-start-column="15" selection-end-line="98" selection-end-column="15" />
+            <state relative-caret-position="252">
+              <caret line="12" column="69" lean-forward="false" selection-start-line="12" selection-start-column="69" selection-end-line="12" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -209,13 +182,14 @@
       <file leaf-file-name="dbManager.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dbManager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="316" column="3" lean-forward="true" selection-start-line="316" selection-start-column="3" selection-end-line="316" selection-end-column="3" />
+            <state relative-caret-position="504">
+              <caret line="719" column="14" lean-forward="false" selection-start-line="719" selection-start-column="14" selection-end-line="719" selection-end-column="14" />
               <folding>
                 <element signature="e#6#121#0#PHP" expanded="true" />
                 <element signature="n#__construct#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#addAttendance#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#addNewCert#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#addNewCourse#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#addProfile#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#addCourseCert#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#addMemberCert#0;n#dbManager#0;n#!!top" expanded="false" />
@@ -230,6 +204,7 @@
                 <element signature="n#getAllCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#getAllCourses#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#getClassCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
+                <element signature="n#getCourseCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#getNewUserId#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#getUsername#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#getPersonalInfo#0;n#dbManager#0;n#!!top" expanded="false" />
@@ -249,55 +224,93 @@
                 <element signature="n#connect#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#sanitizeInput#0;n#dbManager#0;n#!!top" expanded="false" />
                 <element signature="n#getLastLogin#0;n#dbManager#0;n#!!top" expanded="false" />
-                <marker date="1486357737996" expanded="true" signature="966:1104" ph="INSERT INTO CLASS_TAKEN... " />
-                <marker date="1486357737996" expanded="true" signature="1281:1422" ph="INSERT INTO EVENT_ATTENDED... " />
-                <marker date="1486357737996" expanded="true" signature="1881:1943" ph="INSERT INTO CERTIFICATION... " />
-                <marker date="1486357737996" expanded="true" signature="2771:2858" ph="INSERT INTO COURSE... " />
-                <marker date="1486357737996" expanded="true" signature="2771:2945" ph="INSERT INTO COURSE... " />
-                <marker date="1486357737996" expanded="true" signature="3192:3252" ph="SELECT Cours... COURSE" />
-                <marker date="1486357737996" expanded="true" signature="4172:4646" ph="INSERT INTO MEMBER... " />
-                <marker date="1486357737996" expanded="true" signature="5141:5222" ph="INSERT INTO COURSE_CERTIFICATION... " />
-                <marker date="1486357737996" expanded="true" signature="5744:5829" ph="INSERT INTO MEMBER_CERTIFICATION... " />
-                <marker date="1486357737996" expanded="true" signature="6607:6696" ph="INSERT INTO PAYMENT... " />
-                <marker date="1486357737996" expanded="true" signature="7705:7852" ph="INSERT INTO CLASS_TAKEN... " />
-                <marker date="1486357737996" expanded="true" signature="8438:8590" ph="INSERT INTO CLASS_ENROLLMENT... " />
-                <marker date="1486357737996" expanded="true" signature="9140:9292" ph="INSERT INTO EVENT_ENROLLMENT... " />
-                <marker date="1486357737996" expanded="true" signature="9995:10148" ph="INSERT INTO EVENT_VOLUNTEER... " />
-                <marker date="1486357737996" expanded="true" signature="10899:11052" ph="INSERT INTO CLASS_VOLUNTEER... " />
-                <marker date="1486357737996" expanded="true" signature="11633:11734" ph="SELECT First... MEMBER" />
-                <marker date="1486357737996" expanded="true" signature="12394:12461" ph="SELECT * fro... NOTES" />
-                <marker date="1486357737996" expanded="true" signature="12752:12786" ph="SELECT CertN... CERTIFICATION" />
-                <marker date="1486357737996" expanded="true" signature="13214:13253" ph="SELECT Cours... COURSE" />
-                <marker date="1486357737996" expanded="true" signature="13657:13712" ph="SELECT Cours... CLASS" />
-                <marker date="1486357737996" expanded="true" signature="13657:13713" ph="SELECT Cours... CLASS" />
-                <marker date="1486357737996" expanded="true" signature="14023:14082" ph="SELECT CertN... COURSE_CERTIFICATION" />
-                <marker date="1486357737996" expanded="true" signature="14023:14083" ph="SELECT CertN... COURSE_CERTIFICATION" />
-                <marker date="1486357737996" expanded="true" signature="14729:14787" ph="SELECT Membe... MEMBER" />
-                <marker date="1486357737996" expanded="true" signature="15497:15553" ph="SELECT First... MEMBER" />
-                <marker date="1486357737996" expanded="true" signature="16190:16384" ph="SELECT First... MEMBER" />
-                <marker date="1486357737996" expanded="true" signature="17023:17067" ph="SELECT Pictu... MEMBER" />
-                <marker date="1486357737996" expanded="true" signature="17230:17399" ph="SELECT First... MEMBER" />
-                <marker date="1486357737996" expanded="true" signature="17571:17653" ph="SELECT Name,... " />
-                <marker date="1486357737996" expanded="true" signature="17818:17875" ph="SELECT CertN... MEMBER_CERTIFICATION" />
-                <marker date="1486357737996" expanded="true" signature="18031:18129" ph="SELECT Payme... PAYMENT" />
-                <marker date="1486357737996" expanded="true" signature="18285:18369" ph="SELECT Login... LOGIN" />
-                <marker date="1486357737996" expanded="true" signature="18519:18611" ph="SELECT Date,... " />
-                <marker date="1486357737996" expanded="true" signature="18779:18873" ph="SELECT NoteT... NOTES" />
-                <marker date="1486357737996" expanded="true" signature="19568:19644" ph="SELECT Refer... " />
-                <marker date="1486357737996" expanded="true" signature="19887:19960" ph="SELECT Refer... " />
-                <marker date="1486357737996" expanded="true" signature="20545:20620" ph="SELECT Refer... " />
-                <marker date="1486357737996" expanded="true" signature="20837:20909" ph="SELECT Refer... " />
-                <marker date="1486357737996" expanded="true" signature="21291:21342" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
-                <marker date="1486357737996" expanded="true" signature="21711:21804" ph="SELECT * FRO... PAYMENT" />
-                <marker date="1486357737996" expanded="true" signature="22125:22173" ph="SELECT * FRO... PENDING_ALL" />
-                <marker date="1486357737996" expanded="true" signature="22601:22648" ph="INSERT INTO LOGIN... " />
-                <marker date="1486357737996" expanded="true" signature="22834:22931" ph="SELECT Login... LOGIN" />
-                <marker date="1486357737996" expanded="true" signature="23484:23578" ph="UPDATE LOGIN... " />
-                <marker date="1486357737996" expanded="true" signature="24042:24108" ph="INSERT INTO NOTES... " />
-                <marker date="1486357737996" expanded="true" signature="24651:24971" ph="UPDATE MEMBE... " />
-                <marker date="1486357737996" expanded="true" signature="25386:25440" ph="UPDATE MEMBE... " />
-                <marker date="1486357737996" expanded="true" signature="26009:26060" ph="SELECT Membe... MEMBER" />
-                <marker date="1486357737996" expanded="true" signature="27151:27259" ph="SELECT Login... LOGIN" />
+                <marker date="1486781234838" expanded="true" signature="966:1104" ph="INSERT INTO CLASS_TAKEN... " />
+                <marker date="1486781234838" expanded="true" signature="1281:1422" ph="INSERT INTO EVENT_ATTENDED... " />
+                <marker date="1486781234838" expanded="true" signature="1881:1943" ph="INSERT INTO CERTIFICATION... " />
+                <marker date="1486781234838" expanded="true" signature="2771:2858" ph="INSERT INTO COURSE... " />
+                <marker date="1486781234838" expanded="true" signature="2771:2945" ph="INSERT INTO COURSE... " />
+                <marker date="1486781234838" expanded="true" signature="3192:3252" ph="SELECT Cours... COURSE" />
+                <marker date="1486781234838" expanded="true" signature="4172:4646" ph="INSERT INTO MEMBER... " />
+                <marker date="1486781234838" expanded="true" signature="5141:5222" ph="INSERT INTO COURSE_CERTIFICATION... " />
+                <marker date="1486781234838" expanded="true" signature="5744:5829" ph="INSERT INTO MEMBER_CERTIFICATION... " />
+                <marker date="1486781234838" expanded="true" signature="6607:6696" ph="INSERT INTO PAYMENT... " />
+                <marker date="1486781234838" expanded="true" signature="7705:7852" ph="INSERT INTO CLASS_TAKEN... " />
+                <marker date="1486781234838" expanded="true" signature="8438:8590" ph="INSERT INTO CLASS_ENROLLMENT... " />
+                <marker date="1486781234838" expanded="true" signature="9140:9292" ph="INSERT INTO EVENT_ENROLLMENT... " />
+                <marker date="1486781234838" expanded="true" signature="9995:10148" ph="INSERT INTO EVENT_VOLUNTEER... " />
+                <marker date="1486781234838" expanded="true" signature="10899:11052" ph="INSERT INTO CLASS_VOLUNTEER... " />
+                <marker date="1486781234838" expanded="true" signature="11438:11487" ph="DELETE FROM " />
+                <marker date="1486781234838" expanded="true" signature="11438:11488" ph="DELETE FROM " />
+                <marker date="1486781234838" expanded="true" signature="12090:12191" ph="SELECT First... MEMBER" />
+                <marker date="1486781234838" expanded="true" signature="12851:12918" ph="SELECT * fro... NOTES" />
+                <marker date="1486781234838" expanded="true" signature="13209:13243" ph="SELECT CertN... CERTIFICATION" />
+                <marker date="1486781234838" expanded="true" signature="13671:13710" ph="SELECT Cours... COURSE" />
+                <marker date="1486781234838" expanded="true" signature="14237:14292" ph="SELECT Cours... CLASS" />
+                <marker date="1486781234838" expanded="true" signature="14237:14293" ph="SELECT Cours... CLASS" />
+                <marker date="1486781234838" expanded="true" signature="15059:15118" ph="SELECT CertN... COURSE_CERTIFICATION" />
+                <marker date="1486781234838" expanded="false" signature="15582:16154" ph="..." />
+                <marker date="1486781234838" expanded="true" signature="15687:15772" ph="SELECT (Cour... COURSE" />
+                <marker date="1486781234838" expanded="true" signature="15687:15790" ph="SELECT (Cour... COURSE" />
+                <marker date="1486781234838" expanded="true" signature="15687:15791" ph="SELECT (Cour... COURSE" />
+                <marker date="1486781234838" expanded="true" signature="16437:16495" ph="SELECT Membe... MEMBER" />
+                <marker date="1486781234838" expanded="true" signature="17205:17261" ph="SELECT First... MEMBER" />
+                <marker date="1486781234838" expanded="true" signature="17898:18092" ph="SELECT First... MEMBER" />
+                <marker date="1486781234838" expanded="true" signature="18731:18775" ph="SELECT Pictu... MEMBER" />
+                <marker date="1486781234838" expanded="true" signature="18938:19107" ph="SELECT First... MEMBER" />
+                <marker date="1486781234838" expanded="true" signature="19279:19361" ph="SELECT Name,... " />
+                <marker date="1486781234838" expanded="true" signature="19526:19583" ph="SELECT CertN... MEMBER_CERTIFICATION" />
+                <marker date="1486781234838" expanded="true" signature="19739:19837" ph="SELECT Payme... PAYMENT" />
+                <marker date="1486781234838" expanded="true" signature="19993:20077" ph="SELECT Login... LOGIN" />
+                <marker date="1486781234838" expanded="true" signature="20227:20319" ph="SELECT Date,... " />
+                <marker date="1486781234838" expanded="true" signature="20487:20581" ph="SELECT NoteT... NOTES" />
+                <marker date="1486781234838" expanded="true" signature="21276:21352" ph="SELECT Refer... " />
+                <marker date="1486781234838" expanded="true" signature="21595:21668" ph="SELECT Refer... " />
+                <marker date="1486781234838" expanded="true" signature="22253:22328" ph="SELECT Refer... " />
+                <marker date="1486781234838" expanded="true" signature="22545:22617" ph="SELECT Refer... " />
+                <marker date="1486781234838" expanded="true" signature="22999:23050" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
+                <marker date="1486781234838" expanded="true" signature="23419:23512" ph="SELECT * FRO... PAYMENT" />
+                <marker date="1486781234838" expanded="true" signature="23833:23881" ph="SELECT * FRO... PENDING_ALL" />
+                <marker date="1486781234838" expanded="true" signature="24309:24356" ph="INSERT INTO LOGIN... " />
+                <marker date="1486781234838" expanded="true" signature="24542:24639" ph="SELECT Login... LOGIN" />
+                <marker date="1486781234838" expanded="true" signature="25192:25286" ph="UPDATE LOGIN... " />
+                <marker date="1486781234838" expanded="true" signature="25750:25816" ph="INSERT INTO NOTES... " />
+                <marker date="1486781234838" expanded="true" signature="26359:26679" ph="UPDATE MEMBE... " />
+                <marker date="1486781234838" expanded="true" signature="27094:27148" ph="UPDATE MEMBE... " />
+                <marker date="1486781234838" expanded="true" signature="27872:27916" ph="UPDATE COURS... " />
+                <marker date="1486781234838" expanded="true" signature="27872:27935" ph="UPDATE COURS... " />
+                <marker date="1486781234838" expanded="true" signature="27872:27936" ph="UPDATE COURS... " />
+                <marker date="1486781234838" expanded="true" signature="27872:27953" ph="UPDATE COURS... " />
+                <marker date="1486781234838" expanded="true" signature="27872:27975" ph="UPDATE COURS... " />
+                <marker date="1486781234838" expanded="true" signature="27872:27976" ph="UPDATE COURS... " />
+                <marker date="1486781234838" expanded="true" signature="27872:27995" ph="UPDATE COURS... " />
+                <marker date="1486781234838" expanded="true" signature="27872:28015" ph="UPDATE COURS... " />
+                <marker date="1486781234838" expanded="true" signature="27872:28036" ph="UPDATE COURS... " />
+                <marker date="1486781234838" expanded="true" signature="27872:28054" ph="UPDATE COURS... " />
+                <marker date="1486781234838" expanded="true" signature="27872:28055" ph="UPDATE COURS... " />
+                <marker date="1486781234838" expanded="true" signature="28629:28680" ph="SELECT Membe... MEMBER" />
+                <marker date="1486781234838" expanded="true" signature="29771:29879" ph="SELECT Login... LOGIN" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="courseEdit.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/courseEdit.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="672">
+              <caret line="44" column="55" lean-forward="false" selection-start-line="44" selection-start-column="55" selection-end-line="44" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="courseAdd.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/courseAdd.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="721">
+              <caret line="39" column="26" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="39" selection-end-column="26" />
+              <folding>
+                <element signature="e#6#62#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -335,6 +348,7 @@
       <find>number</find>
       <find>type='number</find>
       <find>edit course</find>
+      <find>$db</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -363,11 +377,13 @@
         <option value="$PROJECT_DIR$/courseAdd.php" />
         <option value="$PROJECT_DIR$/inputForm.css" />
         <option value="$PROJECT_DIR$/addNewCourse.php" />
-        <option value="$PROJECT_DIR$/dbManager.php" />
         <option value="$PROJECT_DIR$/nav.html" />
         <option value="$PROJECT_DIR$/OutputManager.php" />
         <option value="$PROJECT_DIR$/smTest.php" />
         <option value="$PROJECT_DIR$/UserManager.php" />
+        <option value="$PROJECT_DIR$/dbManager.php" />
+        <option value="$PROJECT_DIR$/courseEdit.php" />
+        <option value="$PROJECT_DIR$/updateCourse.php" />
       </list>
     </option>
   </component>
@@ -382,9 +398,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="24" />
+    <option name="y" value="-4" />
     <option name="width" value="1920" />
-    <option name="height" value="1055" />
+    <option name="height" value="1083" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -401,7 +417,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -426,6 +441,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -515,11 +531,12 @@
       <workItem from="1485657667532" duration="6705000" />
       <workItem from="1486155788265" duration="3245000" />
       <workItem from="1486248285096" duration="28204000" />
+      <workItem from="1486759644596" duration="8314000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93715000" />
+    <option name="totallyTimeSpent" value="102029000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -531,26 +548,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1920" height="1055" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="-4" width="1920" height="1083" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15260416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15260416" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -566,42 +583,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/smTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UserManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="211" column="41" lean-forward="false" selection-start-line="211" selection-start-column="41" selection-end-line="211" selection-end-column="41" />
-          <folding>
-            <element signature="n#__construct#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#addCert#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#addVolunteering#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#addPayment#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#displayProfile#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#displayDefaultProfile#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#displayPopUp#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#displayWin#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#editMember#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#memberSearch#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#recordManagerNote#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#showAllNotes#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#showAllEnrollments#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#prepName#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#displayCurrentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#displayRecentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
-            <element signature="n#displaySidebars#0;n#UserManager#0;n#!!top" expanded="false" />
-            <marker date="1486360013400" expanded="true" signature="2151:2550" ph="..." />
-            <marker date="1486360013400" expanded="true" signature="7318:7471" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dbManager.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="777">
@@ -611,6 +592,7 @@
             <element signature="n#__construct#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addAttendance#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addNewCert#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addNewCourse#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addProfile#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addCourseCert#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addMemberCert#0;n#dbManager#0;n#!!top" expanded="false" />
@@ -625,6 +607,7 @@
             <element signature="n#getAllCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getAllCourses#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getClassCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getCourseCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getNewUserId#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getUsername#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getPersonalInfo#0;n#dbManager#0;n#!!top" expanded="false" />
@@ -644,55 +627,71 @@
             <element signature="n#connect#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#sanitizeInput#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getLastLogin#0;n#dbManager#0;n#!!top" expanded="false" />
-            <marker date="1486357737996" expanded="true" signature="966:1104" ph="INSERT INTO CLASS_TAKEN... " />
-            <marker date="1486357737996" expanded="true" signature="1281:1422" ph="INSERT INTO EVENT_ATTENDED... " />
-            <marker date="1486357737996" expanded="true" signature="1881:1943" ph="INSERT INTO CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="2771:2858" ph="INSERT INTO COURSE... " />
-            <marker date="1486357737996" expanded="true" signature="2771:2945" ph="INSERT INTO COURSE... " />
-            <marker date="1486357737996" expanded="true" signature="3192:3252" ph="SELECT Cours... COURSE" />
-            <marker date="1486357737996" expanded="true" signature="4172:4646" ph="INSERT INTO MEMBER... " />
-            <marker date="1486357737996" expanded="true" signature="5141:5222" ph="INSERT INTO COURSE_CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="5744:5829" ph="INSERT INTO MEMBER_CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="6607:6696" ph="INSERT INTO PAYMENT... " />
-            <marker date="1486357737996" expanded="true" signature="7705:7852" ph="INSERT INTO CLASS_TAKEN... " />
-            <marker date="1486357737996" expanded="true" signature="8438:8590" ph="INSERT INTO CLASS_ENROLLMENT... " />
-            <marker date="1486357737996" expanded="true" signature="9140:9292" ph="INSERT INTO EVENT_ENROLLMENT... " />
-            <marker date="1486357737996" expanded="true" signature="9995:10148" ph="INSERT INTO EVENT_VOLUNTEER... " />
-            <marker date="1486357737996" expanded="true" signature="10899:11052" ph="INSERT INTO CLASS_VOLUNTEER... " />
-            <marker date="1486357737996" expanded="true" signature="11633:11734" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="12394:12461" ph="SELECT * fro... NOTES" />
-            <marker date="1486357737996" expanded="true" signature="12752:12786" ph="SELECT CertN... CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="13214:13253" ph="SELECT Cours... COURSE" />
-            <marker date="1486357737996" expanded="true" signature="13657:13712" ph="SELECT Cours... CLASS" />
-            <marker date="1486357737996" expanded="true" signature="13657:13713" ph="SELECT Cours... CLASS" />
-            <marker date="1486357737996" expanded="true" signature="14023:14082" ph="SELECT CertN... COURSE_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="14023:14083" ph="SELECT CertN... COURSE_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="14729:14787" ph="SELECT Membe... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="15497:15553" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="16190:16384" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17023:17067" ph="SELECT Pictu... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17230:17399" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17571:17653" ph="SELECT Name,... " />
-            <marker date="1486357737996" expanded="true" signature="17818:17875" ph="SELECT CertN... MEMBER_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="18031:18129" ph="SELECT Payme... PAYMENT" />
-            <marker date="1486357737996" expanded="true" signature="18285:18369" ph="SELECT Login... LOGIN" />
-            <marker date="1486357737996" expanded="true" signature="18519:18611" ph="SELECT Date,... " />
-            <marker date="1486357737996" expanded="true" signature="18779:18873" ph="SELECT NoteT... NOTES" />
-            <marker date="1486357737996" expanded="true" signature="19568:19644" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="19887:19960" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="20545:20620" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="20837:20909" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="21291:21342" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
-            <marker date="1486357737996" expanded="true" signature="21711:21804" ph="SELECT * FRO... PAYMENT" />
-            <marker date="1486357737996" expanded="true" signature="22125:22173" ph="SELECT * FRO... PENDING_ALL" />
-            <marker date="1486357737996" expanded="true" signature="22601:22648" ph="INSERT INTO LOGIN... " />
-            <marker date="1486357737996" expanded="true" signature="22834:22931" ph="SELECT Login... LOGIN" />
-            <marker date="1486357737996" expanded="true" signature="23484:23578" ph="UPDATE LOGIN... " />
-            <marker date="1486357737996" expanded="true" signature="24042:24108" ph="INSERT INTO NOTES... " />
-            <marker date="1486357737996" expanded="true" signature="24651:24971" ph="UPDATE MEMBE... " />
-            <marker date="1486357737996" expanded="true" signature="25386:25440" ph="UPDATE MEMBE... " />
-            <marker date="1486357737996" expanded="true" signature="26009:26060" ph="SELECT Membe... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="27151:27259" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="966:1104" ph="INSERT INTO CLASS_TAKEN... " />
+            <marker date="1486781234838" expanded="true" signature="1281:1422" ph="INSERT INTO EVENT_ATTENDED... " />
+            <marker date="1486781234838" expanded="true" signature="1881:1943" ph="INSERT INTO CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="2771:2858" ph="INSERT INTO COURSE... " />
+            <marker date="1486781234838" expanded="true" signature="2771:2945" ph="INSERT INTO COURSE... " />
+            <marker date="1486781234838" expanded="true" signature="3192:3252" ph="SELECT Cours... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="4172:4646" ph="INSERT INTO MEMBER... " />
+            <marker date="1486781234838" expanded="true" signature="5141:5222" ph="INSERT INTO COURSE_CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="5744:5829" ph="INSERT INTO MEMBER_CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="6607:6696" ph="INSERT INTO PAYMENT... " />
+            <marker date="1486781234838" expanded="true" signature="7705:7852" ph="INSERT INTO CLASS_TAKEN... " />
+            <marker date="1486781234838" expanded="true" signature="8438:8590" ph="INSERT INTO CLASS_ENROLLMENT... " />
+            <marker date="1486781234838" expanded="true" signature="9140:9292" ph="INSERT INTO EVENT_ENROLLMENT... " />
+            <marker date="1486781234838" expanded="true" signature="9995:10148" ph="INSERT INTO EVENT_VOLUNTEER... " />
+            <marker date="1486781234838" expanded="true" signature="10899:11052" ph="INSERT INTO CLASS_VOLUNTEER... " />
+            <marker date="1486781234838" expanded="true" signature="11438:11487" ph="DELETE FROM " />
+            <marker date="1486781234838" expanded="true" signature="11438:11488" ph="DELETE FROM " />
+            <marker date="1486781234838" expanded="true" signature="12090:12191" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="12851:12918" ph="SELECT * fro... NOTES" />
+            <marker date="1486781234838" expanded="true" signature="13209:13243" ph="SELECT CertN... CERTIFICATION" />
+            <marker date="1486781234838" expanded="true" signature="13671:13710" ph="SELECT Cours... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="14237:14292" ph="SELECT Cours... CLASS" />
+            <marker date="1486781234838" expanded="true" signature="14237:14293" ph="SELECT Cours... CLASS" />
+            <marker date="1486781234838" expanded="true" signature="15059:15118" ph="SELECT CertN... COURSE_CERTIFICATION" />
+            <marker date="1486781234838" expanded="false" signature="15582:16154" ph="..." />
+            <marker date="1486781234838" expanded="true" signature="15687:15772" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="15687:15790" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="15687:15791" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="16437:16495" ph="SELECT Membe... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="17205:17261" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="17898:18092" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="18731:18775" ph="SELECT Pictu... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="18938:19107" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="19279:19361" ph="SELECT Name,... " />
+            <marker date="1486781234838" expanded="true" signature="19526:19583" ph="SELECT CertN... MEMBER_CERTIFICATION" />
+            <marker date="1486781234838" expanded="true" signature="19739:19837" ph="SELECT Payme... PAYMENT" />
+            <marker date="1486781234838" expanded="true" signature="19993:20077" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="20227:20319" ph="SELECT Date,... " />
+            <marker date="1486781234838" expanded="true" signature="20487:20581" ph="SELECT NoteT... NOTES" />
+            <marker date="1486781234838" expanded="true" signature="21276:21352" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="21595:21668" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22253:22328" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22545:22617" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22999:23050" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
+            <marker date="1486781234838" expanded="true" signature="23419:23512" ph="SELECT * FRO... PAYMENT" />
+            <marker date="1486781234838" expanded="true" signature="23833:23881" ph="SELECT * FRO... PENDING_ALL" />
+            <marker date="1486781234838" expanded="true" signature="24309:24356" ph="INSERT INTO LOGIN... " />
+            <marker date="1486781234838" expanded="true" signature="24542:24639" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="25192:25286" ph="UPDATE LOGIN... " />
+            <marker date="1486781234838" expanded="true" signature="25750:25816" ph="INSERT INTO NOTES... " />
+            <marker date="1486781234838" expanded="true" signature="26359:26679" ph="UPDATE MEMBE... " />
+            <marker date="1486781234838" expanded="true" signature="27094:27148" ph="UPDATE MEMBE... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27916" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27935" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27936" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27953" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27975" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27976" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27995" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28015" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28036" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28054" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28055" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="28629:28680" ph="SELECT Membe... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="29771:29879" ph="SELECT Login... LOGIN" />
           </folding>
         </state>
       </provider>
@@ -778,8 +777,8 @@
             <element signature="n#displayCurrentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#displayRecentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#displaySidebars#0;n#UserManager#0;n#!!top" expanded="false" />
-            <marker date="1486360013400" expanded="true" signature="2151:2550" ph="..." />
-            <marker date="1486360013400" expanded="true" signature="7318:7471" ph="..." />
+            <marker date="1486760181321" expanded="true" signature="2151:2550" ph="..." />
+            <marker date="1486760181321" expanded="true" signature="7314:7467" ph="..." />
           </folding>
         </state>
       </provider>
@@ -801,6 +800,7 @@
             <element signature="n#__construct#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addAttendance#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addNewCert#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addNewCourse#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addProfile#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addCourseCert#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addMemberCert#0;n#dbManager#0;n#!!top" expanded="false" />
@@ -815,6 +815,7 @@
             <element signature="n#getAllCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getAllCourses#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getClassCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getCourseCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getNewUserId#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getUsername#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getPersonalInfo#0;n#dbManager#0;n#!!top" expanded="false" />
@@ -834,55 +835,71 @@
             <element signature="n#connect#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#sanitizeInput#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getLastLogin#0;n#dbManager#0;n#!!top" expanded="false" />
-            <marker date="1486357737996" expanded="true" signature="966:1104" ph="INSERT INTO CLASS_TAKEN... " />
-            <marker date="1486357737996" expanded="true" signature="1281:1422" ph="INSERT INTO EVENT_ATTENDED... " />
-            <marker date="1486357737996" expanded="true" signature="1881:1943" ph="INSERT INTO CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="2771:2858" ph="INSERT INTO COURSE... " />
-            <marker date="1486357737996" expanded="true" signature="2771:2945" ph="INSERT INTO COURSE... " />
-            <marker date="1486357737996" expanded="true" signature="3192:3252" ph="SELECT Cours... COURSE" />
-            <marker date="1486357737996" expanded="true" signature="4172:4646" ph="INSERT INTO MEMBER... " />
-            <marker date="1486357737996" expanded="true" signature="5141:5222" ph="INSERT INTO COURSE_CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="5744:5829" ph="INSERT INTO MEMBER_CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="6607:6696" ph="INSERT INTO PAYMENT... " />
-            <marker date="1486357737996" expanded="true" signature="7705:7852" ph="INSERT INTO CLASS_TAKEN... " />
-            <marker date="1486357737996" expanded="true" signature="8438:8590" ph="INSERT INTO CLASS_ENROLLMENT... " />
-            <marker date="1486357737996" expanded="true" signature="9140:9292" ph="INSERT INTO EVENT_ENROLLMENT... " />
-            <marker date="1486357737996" expanded="true" signature="9995:10148" ph="INSERT INTO EVENT_VOLUNTEER... " />
-            <marker date="1486357737996" expanded="true" signature="10899:11052" ph="INSERT INTO CLASS_VOLUNTEER... " />
-            <marker date="1486357737996" expanded="true" signature="11633:11734" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="12394:12461" ph="SELECT * fro... NOTES" />
-            <marker date="1486357737996" expanded="true" signature="12752:12786" ph="SELECT CertN... CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="13214:13253" ph="SELECT Cours... COURSE" />
-            <marker date="1486357737996" expanded="true" signature="13657:13712" ph="SELECT Cours... CLASS" />
-            <marker date="1486357737996" expanded="true" signature="13657:13713" ph="SELECT Cours... CLASS" />
-            <marker date="1486357737996" expanded="true" signature="14023:14082" ph="SELECT CertN... COURSE_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="14023:14083" ph="SELECT CertN... COURSE_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="14729:14787" ph="SELECT Membe... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="15497:15553" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="16190:16384" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17023:17067" ph="SELECT Pictu... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17230:17399" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17571:17653" ph="SELECT Name,... " />
-            <marker date="1486357737996" expanded="true" signature="17818:17875" ph="SELECT CertN... MEMBER_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="18031:18129" ph="SELECT Payme... PAYMENT" />
-            <marker date="1486357737996" expanded="true" signature="18285:18369" ph="SELECT Login... LOGIN" />
-            <marker date="1486357737996" expanded="true" signature="18519:18611" ph="SELECT Date,... " />
-            <marker date="1486357737996" expanded="true" signature="18779:18873" ph="SELECT NoteT... NOTES" />
-            <marker date="1486357737996" expanded="true" signature="19568:19644" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="19887:19960" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="20545:20620" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="20837:20909" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="21291:21342" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
-            <marker date="1486357737996" expanded="true" signature="21711:21804" ph="SELECT * FRO... PAYMENT" />
-            <marker date="1486357737996" expanded="true" signature="22125:22173" ph="SELECT * FRO... PENDING_ALL" />
-            <marker date="1486357737996" expanded="true" signature="22601:22648" ph="INSERT INTO LOGIN... " />
-            <marker date="1486357737996" expanded="true" signature="22834:22931" ph="SELECT Login... LOGIN" />
-            <marker date="1486357737996" expanded="true" signature="23484:23578" ph="UPDATE LOGIN... " />
-            <marker date="1486357737996" expanded="true" signature="24042:24108" ph="INSERT INTO NOTES... " />
-            <marker date="1486357737996" expanded="true" signature="24651:24971" ph="UPDATE MEMBE... " />
-            <marker date="1486357737996" expanded="true" signature="25386:25440" ph="UPDATE MEMBE... " />
-            <marker date="1486357737996" expanded="true" signature="26009:26060" ph="SELECT Membe... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="27151:27259" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="966:1104" ph="INSERT INTO CLASS_TAKEN... " />
+            <marker date="1486781234838" expanded="true" signature="1281:1422" ph="INSERT INTO EVENT_ATTENDED... " />
+            <marker date="1486781234838" expanded="true" signature="1881:1943" ph="INSERT INTO CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="2771:2858" ph="INSERT INTO COURSE... " />
+            <marker date="1486781234838" expanded="true" signature="2771:2945" ph="INSERT INTO COURSE... " />
+            <marker date="1486781234838" expanded="true" signature="3192:3252" ph="SELECT Cours... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="4172:4646" ph="INSERT INTO MEMBER... " />
+            <marker date="1486781234838" expanded="true" signature="5141:5222" ph="INSERT INTO COURSE_CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="5744:5829" ph="INSERT INTO MEMBER_CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="6607:6696" ph="INSERT INTO PAYMENT... " />
+            <marker date="1486781234838" expanded="true" signature="7705:7852" ph="INSERT INTO CLASS_TAKEN... " />
+            <marker date="1486781234838" expanded="true" signature="8438:8590" ph="INSERT INTO CLASS_ENROLLMENT... " />
+            <marker date="1486781234838" expanded="true" signature="9140:9292" ph="INSERT INTO EVENT_ENROLLMENT... " />
+            <marker date="1486781234838" expanded="true" signature="9995:10148" ph="INSERT INTO EVENT_VOLUNTEER... " />
+            <marker date="1486781234838" expanded="true" signature="10899:11052" ph="INSERT INTO CLASS_VOLUNTEER... " />
+            <marker date="1486781234838" expanded="true" signature="11438:11487" ph="DELETE FROM " />
+            <marker date="1486781234838" expanded="true" signature="11438:11488" ph="DELETE FROM " />
+            <marker date="1486781234838" expanded="true" signature="12090:12191" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="12851:12918" ph="SELECT * fro... NOTES" />
+            <marker date="1486781234838" expanded="true" signature="13209:13243" ph="SELECT CertN... CERTIFICATION" />
+            <marker date="1486781234838" expanded="true" signature="13671:13710" ph="SELECT Cours... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="14237:14292" ph="SELECT Cours... CLASS" />
+            <marker date="1486781234838" expanded="true" signature="14237:14293" ph="SELECT Cours... CLASS" />
+            <marker date="1486781234838" expanded="true" signature="15059:15118" ph="SELECT CertN... COURSE_CERTIFICATION" />
+            <marker date="1486781234838" expanded="false" signature="15582:16154" ph="..." />
+            <marker date="1486781234838" expanded="true" signature="15687:15772" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="15687:15790" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="15687:15791" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="16437:16495" ph="SELECT Membe... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="17205:17261" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="17898:18092" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="18731:18775" ph="SELECT Pictu... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="18938:19107" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="19279:19361" ph="SELECT Name,... " />
+            <marker date="1486781234838" expanded="true" signature="19526:19583" ph="SELECT CertN... MEMBER_CERTIFICATION" />
+            <marker date="1486781234838" expanded="true" signature="19739:19837" ph="SELECT Payme... PAYMENT" />
+            <marker date="1486781234838" expanded="true" signature="19993:20077" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="20227:20319" ph="SELECT Date,... " />
+            <marker date="1486781234838" expanded="true" signature="20487:20581" ph="SELECT NoteT... NOTES" />
+            <marker date="1486781234838" expanded="true" signature="21276:21352" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="21595:21668" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22253:22328" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22545:22617" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22999:23050" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
+            <marker date="1486781234838" expanded="true" signature="23419:23512" ph="SELECT * FRO... PAYMENT" />
+            <marker date="1486781234838" expanded="true" signature="23833:23881" ph="SELECT * FRO... PENDING_ALL" />
+            <marker date="1486781234838" expanded="true" signature="24309:24356" ph="INSERT INTO LOGIN... " />
+            <marker date="1486781234838" expanded="true" signature="24542:24639" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="25192:25286" ph="UPDATE LOGIN... " />
+            <marker date="1486781234838" expanded="true" signature="25750:25816" ph="INSERT INTO NOTES... " />
+            <marker date="1486781234838" expanded="true" signature="26359:26679" ph="UPDATE MEMBE... " />
+            <marker date="1486781234838" expanded="true" signature="27094:27148" ph="UPDATE MEMBE... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27916" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27935" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27936" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27953" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27975" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27976" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27995" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28015" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28036" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28054" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28055" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="28629:28680" ph="SELECT Membe... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="29771:29879" ph="SELECT Login... LOGIN" />
           </folding>
         </state>
       </provider>
@@ -939,6 +956,7 @@
             <element signature="n#__construct#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addAttendance#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addNewCert#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addNewCourse#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addProfile#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addCourseCert#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addMemberCert#0;n#dbManager#0;n#!!top" expanded="false" />
@@ -953,6 +971,7 @@
             <element signature="n#getAllCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getAllCourses#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getClassCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getCourseCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getNewUserId#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getUsername#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getPersonalInfo#0;n#dbManager#0;n#!!top" expanded="false" />
@@ -972,55 +991,71 @@
             <element signature="n#connect#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#sanitizeInput#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getLastLogin#0;n#dbManager#0;n#!!top" expanded="false" />
-            <marker date="1486357737996" expanded="true" signature="966:1104" ph="INSERT INTO CLASS_TAKEN... " />
-            <marker date="1486357737996" expanded="true" signature="1281:1422" ph="INSERT INTO EVENT_ATTENDED... " />
-            <marker date="1486357737996" expanded="true" signature="1881:1943" ph="INSERT INTO CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="2771:2858" ph="INSERT INTO COURSE... " />
-            <marker date="1486357737996" expanded="true" signature="2771:2945" ph="INSERT INTO COURSE... " />
-            <marker date="1486357737996" expanded="true" signature="3192:3252" ph="SELECT Cours... COURSE" />
-            <marker date="1486357737996" expanded="true" signature="4172:4646" ph="INSERT INTO MEMBER... " />
-            <marker date="1486357737996" expanded="true" signature="5141:5222" ph="INSERT INTO COURSE_CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="5744:5829" ph="INSERT INTO MEMBER_CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="6607:6696" ph="INSERT INTO PAYMENT... " />
-            <marker date="1486357737996" expanded="true" signature="7705:7852" ph="INSERT INTO CLASS_TAKEN... " />
-            <marker date="1486357737996" expanded="true" signature="8438:8590" ph="INSERT INTO CLASS_ENROLLMENT... " />
-            <marker date="1486357737996" expanded="true" signature="9140:9292" ph="INSERT INTO EVENT_ENROLLMENT... " />
-            <marker date="1486357737996" expanded="true" signature="9995:10148" ph="INSERT INTO EVENT_VOLUNTEER... " />
-            <marker date="1486357737996" expanded="true" signature="10899:11052" ph="INSERT INTO CLASS_VOLUNTEER... " />
-            <marker date="1486357737996" expanded="true" signature="11633:11734" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="12394:12461" ph="SELECT * fro... NOTES" />
-            <marker date="1486357737996" expanded="true" signature="12752:12786" ph="SELECT CertN... CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="13214:13253" ph="SELECT Cours... COURSE" />
-            <marker date="1486357737996" expanded="true" signature="13657:13712" ph="SELECT Cours... CLASS" />
-            <marker date="1486357737996" expanded="true" signature="13657:13713" ph="SELECT Cours... CLASS" />
-            <marker date="1486357737996" expanded="true" signature="14023:14082" ph="SELECT CertN... COURSE_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="14023:14083" ph="SELECT CertN... COURSE_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="14729:14787" ph="SELECT Membe... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="15497:15553" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="16190:16384" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17023:17067" ph="SELECT Pictu... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17230:17399" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17571:17653" ph="SELECT Name,... " />
-            <marker date="1486357737996" expanded="true" signature="17818:17875" ph="SELECT CertN... MEMBER_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="18031:18129" ph="SELECT Payme... PAYMENT" />
-            <marker date="1486357737996" expanded="true" signature="18285:18369" ph="SELECT Login... LOGIN" />
-            <marker date="1486357737996" expanded="true" signature="18519:18611" ph="SELECT Date,... " />
-            <marker date="1486357737996" expanded="true" signature="18779:18873" ph="SELECT NoteT... NOTES" />
-            <marker date="1486357737996" expanded="true" signature="19568:19644" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="19887:19960" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="20545:20620" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="20837:20909" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="21291:21342" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
-            <marker date="1486357737996" expanded="true" signature="21711:21804" ph="SELECT * FRO... PAYMENT" />
-            <marker date="1486357737996" expanded="true" signature="22125:22173" ph="SELECT * FRO... PENDING_ALL" />
-            <marker date="1486357737996" expanded="true" signature="22601:22648" ph="INSERT INTO LOGIN... " />
-            <marker date="1486357737996" expanded="true" signature="22834:22931" ph="SELECT Login... LOGIN" />
-            <marker date="1486357737996" expanded="true" signature="23484:23578" ph="UPDATE LOGIN... " />
-            <marker date="1486357737996" expanded="true" signature="24042:24108" ph="INSERT INTO NOTES... " />
-            <marker date="1486357737996" expanded="true" signature="24651:24971" ph="UPDATE MEMBE... " />
-            <marker date="1486357737996" expanded="true" signature="25386:25440" ph="UPDATE MEMBE... " />
-            <marker date="1486357737996" expanded="true" signature="26009:26060" ph="SELECT Membe... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="27151:27259" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="966:1104" ph="INSERT INTO CLASS_TAKEN... " />
+            <marker date="1486781234838" expanded="true" signature="1281:1422" ph="INSERT INTO EVENT_ATTENDED... " />
+            <marker date="1486781234838" expanded="true" signature="1881:1943" ph="INSERT INTO CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="2771:2858" ph="INSERT INTO COURSE... " />
+            <marker date="1486781234838" expanded="true" signature="2771:2945" ph="INSERT INTO COURSE... " />
+            <marker date="1486781234838" expanded="true" signature="3192:3252" ph="SELECT Cours... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="4172:4646" ph="INSERT INTO MEMBER... " />
+            <marker date="1486781234838" expanded="true" signature="5141:5222" ph="INSERT INTO COURSE_CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="5744:5829" ph="INSERT INTO MEMBER_CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="6607:6696" ph="INSERT INTO PAYMENT... " />
+            <marker date="1486781234838" expanded="true" signature="7705:7852" ph="INSERT INTO CLASS_TAKEN... " />
+            <marker date="1486781234838" expanded="true" signature="8438:8590" ph="INSERT INTO CLASS_ENROLLMENT... " />
+            <marker date="1486781234838" expanded="true" signature="9140:9292" ph="INSERT INTO EVENT_ENROLLMENT... " />
+            <marker date="1486781234838" expanded="true" signature="9995:10148" ph="INSERT INTO EVENT_VOLUNTEER... " />
+            <marker date="1486781234838" expanded="true" signature="10899:11052" ph="INSERT INTO CLASS_VOLUNTEER... " />
+            <marker date="1486781234838" expanded="true" signature="11438:11487" ph="DELETE FROM " />
+            <marker date="1486781234838" expanded="true" signature="11438:11488" ph="DELETE FROM " />
+            <marker date="1486781234838" expanded="true" signature="12090:12191" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="12851:12918" ph="SELECT * fro... NOTES" />
+            <marker date="1486781234838" expanded="true" signature="13209:13243" ph="SELECT CertN... CERTIFICATION" />
+            <marker date="1486781234838" expanded="true" signature="13671:13710" ph="SELECT Cours... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="14237:14292" ph="SELECT Cours... CLASS" />
+            <marker date="1486781234838" expanded="true" signature="14237:14293" ph="SELECT Cours... CLASS" />
+            <marker date="1486781234838" expanded="true" signature="15059:15118" ph="SELECT CertN... COURSE_CERTIFICATION" />
+            <marker date="1486781234838" expanded="false" signature="15582:16154" ph="..." />
+            <marker date="1486781234838" expanded="true" signature="15687:15772" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="15687:15790" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="15687:15791" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="16437:16495" ph="SELECT Membe... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="17205:17261" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="17898:18092" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="18731:18775" ph="SELECT Pictu... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="18938:19107" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="19279:19361" ph="SELECT Name,... " />
+            <marker date="1486781234838" expanded="true" signature="19526:19583" ph="SELECT CertN... MEMBER_CERTIFICATION" />
+            <marker date="1486781234838" expanded="true" signature="19739:19837" ph="SELECT Payme... PAYMENT" />
+            <marker date="1486781234838" expanded="true" signature="19993:20077" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="20227:20319" ph="SELECT Date,... " />
+            <marker date="1486781234838" expanded="true" signature="20487:20581" ph="SELECT NoteT... NOTES" />
+            <marker date="1486781234838" expanded="true" signature="21276:21352" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="21595:21668" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22253:22328" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22545:22617" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22999:23050" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
+            <marker date="1486781234838" expanded="true" signature="23419:23512" ph="SELECT * FRO... PAYMENT" />
+            <marker date="1486781234838" expanded="true" signature="23833:23881" ph="SELECT * FRO... PENDING_ALL" />
+            <marker date="1486781234838" expanded="true" signature="24309:24356" ph="INSERT INTO LOGIN... " />
+            <marker date="1486781234838" expanded="true" signature="24542:24639" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="25192:25286" ph="UPDATE LOGIN... " />
+            <marker date="1486781234838" expanded="true" signature="25750:25816" ph="INSERT INTO NOTES... " />
+            <marker date="1486781234838" expanded="true" signature="26359:26679" ph="UPDATE MEMBE... " />
+            <marker date="1486781234838" expanded="true" signature="27094:27148" ph="UPDATE MEMBE... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27916" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27935" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27936" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27953" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27975" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27976" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27995" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28015" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28036" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28054" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28055" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="28629:28680" ph="SELECT Membe... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="29771:29879" ph="SELECT Login... LOGIN" />
           </folding>
         </state>
       </provider>
@@ -1047,8 +1082,8 @@
             <element signature="n#displayCurrentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#displayRecentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#displaySidebars#0;n#UserManager#0;n#!!top" expanded="false" />
-            <marker date="1486360013400" expanded="true" signature="2151:2550" ph="..." />
-            <marker date="1486360013400" expanded="true" signature="7318:7471" ph="..." />
+            <marker date="1486760181321" expanded="true" signature="2151:2550" ph="..." />
+            <marker date="1486760181321" expanded="true" signature="7314:7467" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1142,7 +1177,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="63">
           <caret line="3" column="29" lean-forward="false" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1158,7 +1192,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1182,7 +1215,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
           <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1190,7 +1222,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="149">
           <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1198,7 +1229,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="252" column="0" lean-forward="true" selection-start-line="252" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1206,7 +1236,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="16" column="10" lean-forward="false" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1238,7 +1267,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1246,7 +1274,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="337">
           <caret line="68" column="73" lean-forward="false" selection-start-line="68" selection-start-column="61" selection-end-line="68" selection-end-column="73" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1264,18 +1291,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/addCourseForm.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/addCourseForm.html" />
     <entry file="file://$PROJECT_DIR$/addNewCert.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="546">
@@ -1288,29 +1307,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/inputForm.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
+        <state relative-caret-position="2058">
           <caret line="98" column="15" lean-forward="false" selection-start-line="98" selection-start-column="15" selection-end-line="98" selection-end-column="15" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/courseAdd.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="36" column="17" lean-forward="false" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
-          <folding>
-            <element signature="e#6#62#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/addNewCourse.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="23" column="33" lean-forward="false" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
-          <folding>
-            <element signature="e#6#181#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1350,15 +1349,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nav.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="56" column="71" lean-forward="false" selection-start-line="56" selection-start-column="71" selection-end-line="56" selection-end-column="71" />
+        <state relative-caret-position="254">
+          <caret line="55" column="60" lean-forward="false" selection-start-line="55" selection-start-column="54" selection-end-line="55" selection-end-column="60" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/smTest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="773">
+        <state relative-caret-position="668">
           <caret line="215" column="25" lean-forward="false" selection-start-line="215" selection-start-column="25" selection-end-line="215" selection-end-column="25" />
           <folding />
         </state>
@@ -1366,8 +1365,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/UserManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="117" column="66" lean-forward="false" selection-start-line="117" selection-start-column="66" selection-end-line="117" selection-end-column="66" />
+        <state relative-caret-position="609">
+          <caret line="117" column="62" lean-forward="false" selection-start-line="117" selection-start-column="62" selection-end-line="117" selection-end-column="62" />
           <folding>
             <element signature="n#__construct#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#addCert#0;n#UserManager#0;n#!!top" expanded="false" />
@@ -1386,21 +1385,58 @@
             <element signature="n#displayCurrentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#displayRecentUsers#0;n#UserManager#0;n#!!top" expanded="false" />
             <element signature="n#displaySidebars#0;n#UserManager#0;n#!!top" expanded="false" />
-            <marker date="1486360013400" expanded="true" signature="2151:2550" ph="..." />
-            <marker date="1486360013400" expanded="true" signature="7318:7471" ph="..." />
+            <marker date="1486760181321" expanded="true" signature="2151:2550" ph="..." />
+            <marker date="1486760181321" expanded="true" signature="7314:7467" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/courseAdd.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="721">
+          <caret line="39" column="26" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="39" selection-end-column="26" />
+          <folding>
+            <element signature="e#6#62#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/addNewCourse.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <element signature="e#6#181#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/courseEdit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="44" column="55" lean-forward="false" selection-start-line="44" selection-start-column="55" selection-end-line="44" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/updateCourse.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="69" lean-forward="false" selection-start-line="12" selection-start-column="69" selection-end-line="12" selection-end-column="69" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dbManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="316" column="3" lean-forward="true" selection-start-line="316" selection-start-column="3" selection-end-line="316" selection-end-column="3" />
+        <state relative-caret-position="504">
+          <caret line="719" column="14" lean-forward="false" selection-start-line="719" selection-start-column="14" selection-end-line="719" selection-end-column="14" />
           <folding>
             <element signature="e#6#121#0#PHP" expanded="true" />
             <element signature="n#__construct#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addAttendance#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addNewCert#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#addNewCourse#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addProfile#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addCourseCert#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#addMemberCert#0;n#dbManager#0;n#!!top" expanded="false" />
@@ -1415,6 +1451,7 @@
             <element signature="n#getAllCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getAllCourses#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getClassCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
+            <element signature="n#getCourseCertifications#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getNewUserId#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getUsername#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getPersonalInfo#0;n#dbManager#0;n#!!top" expanded="false" />
@@ -1434,55 +1471,71 @@
             <element signature="n#connect#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#sanitizeInput#0;n#dbManager#0;n#!!top" expanded="false" />
             <element signature="n#getLastLogin#0;n#dbManager#0;n#!!top" expanded="false" />
-            <marker date="1486357737996" expanded="true" signature="966:1104" ph="INSERT INTO CLASS_TAKEN... " />
-            <marker date="1486357737996" expanded="true" signature="1281:1422" ph="INSERT INTO EVENT_ATTENDED... " />
-            <marker date="1486357737996" expanded="true" signature="1881:1943" ph="INSERT INTO CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="2771:2858" ph="INSERT INTO COURSE... " />
-            <marker date="1486357737996" expanded="true" signature="2771:2945" ph="INSERT INTO COURSE... " />
-            <marker date="1486357737996" expanded="true" signature="3192:3252" ph="SELECT Cours... COURSE" />
-            <marker date="1486357737996" expanded="true" signature="4172:4646" ph="INSERT INTO MEMBER... " />
-            <marker date="1486357737996" expanded="true" signature="5141:5222" ph="INSERT INTO COURSE_CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="5744:5829" ph="INSERT INTO MEMBER_CERTIFICATION... " />
-            <marker date="1486357737996" expanded="true" signature="6607:6696" ph="INSERT INTO PAYMENT... " />
-            <marker date="1486357737996" expanded="true" signature="7705:7852" ph="INSERT INTO CLASS_TAKEN... " />
-            <marker date="1486357737996" expanded="true" signature="8438:8590" ph="INSERT INTO CLASS_ENROLLMENT... " />
-            <marker date="1486357737996" expanded="true" signature="9140:9292" ph="INSERT INTO EVENT_ENROLLMENT... " />
-            <marker date="1486357737996" expanded="true" signature="9995:10148" ph="INSERT INTO EVENT_VOLUNTEER... " />
-            <marker date="1486357737996" expanded="true" signature="10899:11052" ph="INSERT INTO CLASS_VOLUNTEER... " />
-            <marker date="1486357737996" expanded="true" signature="11633:11734" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="12394:12461" ph="SELECT * fro... NOTES" />
-            <marker date="1486357737996" expanded="true" signature="12752:12786" ph="SELECT CertN... CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="13214:13253" ph="SELECT Cours... COURSE" />
-            <marker date="1486357737996" expanded="true" signature="13657:13712" ph="SELECT Cours... CLASS" />
-            <marker date="1486357737996" expanded="true" signature="13657:13713" ph="SELECT Cours... CLASS" />
-            <marker date="1486357737996" expanded="true" signature="14023:14082" ph="SELECT CertN... COURSE_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="14023:14083" ph="SELECT CertN... COURSE_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="14729:14787" ph="SELECT Membe... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="15497:15553" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="16190:16384" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17023:17067" ph="SELECT Pictu... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17230:17399" ph="SELECT First... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="17571:17653" ph="SELECT Name,... " />
-            <marker date="1486357737996" expanded="true" signature="17818:17875" ph="SELECT CertN... MEMBER_CERTIFICATION" />
-            <marker date="1486357737996" expanded="true" signature="18031:18129" ph="SELECT Payme... PAYMENT" />
-            <marker date="1486357737996" expanded="true" signature="18285:18369" ph="SELECT Login... LOGIN" />
-            <marker date="1486357737996" expanded="true" signature="18519:18611" ph="SELECT Date,... " />
-            <marker date="1486357737996" expanded="true" signature="18779:18873" ph="SELECT NoteT... NOTES" />
-            <marker date="1486357737996" expanded="true" signature="19568:19644" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="19887:19960" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="20545:20620" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="20837:20909" ph="SELECT Refer... " />
-            <marker date="1486357737996" expanded="true" signature="21291:21342" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
-            <marker date="1486357737996" expanded="true" signature="21711:21804" ph="SELECT * FRO... PAYMENT" />
-            <marker date="1486357737996" expanded="true" signature="22125:22173" ph="SELECT * FRO... PENDING_ALL" />
-            <marker date="1486357737996" expanded="true" signature="22601:22648" ph="INSERT INTO LOGIN... " />
-            <marker date="1486357737996" expanded="true" signature="22834:22931" ph="SELECT Login... LOGIN" />
-            <marker date="1486357737996" expanded="true" signature="23484:23578" ph="UPDATE LOGIN... " />
-            <marker date="1486357737996" expanded="true" signature="24042:24108" ph="INSERT INTO NOTES... " />
-            <marker date="1486357737996" expanded="true" signature="24651:24971" ph="UPDATE MEMBE... " />
-            <marker date="1486357737996" expanded="true" signature="25386:25440" ph="UPDATE MEMBE... " />
-            <marker date="1486357737996" expanded="true" signature="26009:26060" ph="SELECT Membe... MEMBER" />
-            <marker date="1486357737996" expanded="true" signature="27151:27259" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="966:1104" ph="INSERT INTO CLASS_TAKEN... " />
+            <marker date="1486781234838" expanded="true" signature="1281:1422" ph="INSERT INTO EVENT_ATTENDED... " />
+            <marker date="1486781234838" expanded="true" signature="1881:1943" ph="INSERT INTO CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="2771:2858" ph="INSERT INTO COURSE... " />
+            <marker date="1486781234838" expanded="true" signature="2771:2945" ph="INSERT INTO COURSE... " />
+            <marker date="1486781234838" expanded="true" signature="3192:3252" ph="SELECT Cours... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="4172:4646" ph="INSERT INTO MEMBER... " />
+            <marker date="1486781234838" expanded="true" signature="5141:5222" ph="INSERT INTO COURSE_CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="5744:5829" ph="INSERT INTO MEMBER_CERTIFICATION... " />
+            <marker date="1486781234838" expanded="true" signature="6607:6696" ph="INSERT INTO PAYMENT... " />
+            <marker date="1486781234838" expanded="true" signature="7705:7852" ph="INSERT INTO CLASS_TAKEN... " />
+            <marker date="1486781234838" expanded="true" signature="8438:8590" ph="INSERT INTO CLASS_ENROLLMENT... " />
+            <marker date="1486781234838" expanded="true" signature="9140:9292" ph="INSERT INTO EVENT_ENROLLMENT... " />
+            <marker date="1486781234838" expanded="true" signature="9995:10148" ph="INSERT INTO EVENT_VOLUNTEER... " />
+            <marker date="1486781234838" expanded="true" signature="10899:11052" ph="INSERT INTO CLASS_VOLUNTEER... " />
+            <marker date="1486781234838" expanded="true" signature="11438:11487" ph="DELETE FROM " />
+            <marker date="1486781234838" expanded="true" signature="11438:11488" ph="DELETE FROM " />
+            <marker date="1486781234838" expanded="true" signature="12090:12191" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="12851:12918" ph="SELECT * fro... NOTES" />
+            <marker date="1486781234838" expanded="true" signature="13209:13243" ph="SELECT CertN... CERTIFICATION" />
+            <marker date="1486781234838" expanded="true" signature="13671:13710" ph="SELECT Cours... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="14237:14292" ph="SELECT Cours... CLASS" />
+            <marker date="1486781234838" expanded="true" signature="14237:14293" ph="SELECT Cours... CLASS" />
+            <marker date="1486781234838" expanded="true" signature="15059:15118" ph="SELECT CertN... COURSE_CERTIFICATION" />
+            <marker date="1486781234838" expanded="false" signature="15582:16154" ph="..." />
+            <marker date="1486781234838" expanded="true" signature="15687:15772" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="15687:15790" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="15687:15791" ph="SELECT (Cour... COURSE" />
+            <marker date="1486781234838" expanded="true" signature="16437:16495" ph="SELECT Membe... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="17205:17261" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="17898:18092" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="18731:18775" ph="SELECT Pictu... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="18938:19107" ph="SELECT First... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="19279:19361" ph="SELECT Name,... " />
+            <marker date="1486781234838" expanded="true" signature="19526:19583" ph="SELECT CertN... MEMBER_CERTIFICATION" />
+            <marker date="1486781234838" expanded="true" signature="19739:19837" ph="SELECT Payme... PAYMENT" />
+            <marker date="1486781234838" expanded="true" signature="19993:20077" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="20227:20319" ph="SELECT Date,... " />
+            <marker date="1486781234838" expanded="true" signature="20487:20581" ph="SELECT NoteT... NOTES" />
+            <marker date="1486781234838" expanded="true" signature="21276:21352" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="21595:21668" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22253:22328" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22545:22617" ph="SELECT Refer... " />
+            <marker date="1486781234838" expanded="true" signature="22999:23050" ph="SELECT * FRO... PENDING_ENROLLMENTS" />
+            <marker date="1486781234838" expanded="true" signature="23419:23512" ph="SELECT * FRO... PAYMENT" />
+            <marker date="1486781234838" expanded="true" signature="23833:23881" ph="SELECT * FRO... PENDING_ALL" />
+            <marker date="1486781234838" expanded="true" signature="24309:24356" ph="INSERT INTO LOGIN... " />
+            <marker date="1486781234838" expanded="true" signature="24542:24639" ph="SELECT Login... LOGIN" />
+            <marker date="1486781234838" expanded="true" signature="25192:25286" ph="UPDATE LOGIN... " />
+            <marker date="1486781234838" expanded="true" signature="25750:25816" ph="INSERT INTO NOTES... " />
+            <marker date="1486781234838" expanded="true" signature="26359:26679" ph="UPDATE MEMBE... " />
+            <marker date="1486781234838" expanded="true" signature="27094:27148" ph="UPDATE MEMBE... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27916" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27935" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27936" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27953" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27975" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27976" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:27995" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28015" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28036" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28054" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="27872:28055" ph="UPDATE COURS... " />
+            <marker date="1486781234838" expanded="true" signature="28629:28680" ph="SELECT Membe... MEMBER" />
+            <marker date="1486781234838" expanded="true" signature="29771:29879" ph="SELECT Login... LOGIN" />
           </folding>
         </state>
       </provider>

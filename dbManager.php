@@ -252,6 +252,16 @@ class dbManager{
     return $result;
     
   } //end function addClassVolunteer
+
+  public function deleteCourseCertifications($courseID) {
+    $db_conn = $this->connect();
+    $courseID = $this->sanitizeInput($courseID, $db_conn);
+    $sql = "DELETE FROM COURSE_CERTIFICATION WHERE CourseID = $courseID";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "deleteCourseCertifications was unable to remove records: ");
+    $db_conn->close();
+    return $result;
+  } //end function deleteCourseCertifications
   
   public function findMember($firstName, $lastName)
   {
@@ -316,16 +326,30 @@ class dbManager{
     return $result;
   }
 
+  /*getClassCertifications returns an array of all the certifications associated with a class by
+  looking at the underlying course information*/
   public function getClassCertifications($classReferenceNumber) {
     $db_conn = $this->connect();
     $classReferenceNumber = $this->sanitizeInput($classReferenceNumber, $db_conn);
-    $output = array();
     $sql = "SELECT CourseID FROM CLASS WHERE ClassReferenceNumber = $classReferenceNumber";
 
     //find the CourseID
     $courseID = $db_conn->query($sql);
     if (!$courseID) $this->logError($db_conn, "getClassCertifications was unable to retrieve CourseID: ");
     $courseID = $courseID->fetch_assoc()['CourseID'];
+
+    //get the certs associated with this course
+    $output = $this->getCourseCertifications($courseID);
+    $db_conn->close();
+    return $output;
+
+  } //end function getClassCertifications
+
+  /*getCourseCertification returns all certifications associated with a course as an array*/
+  public function getCourseCertifications($courseID) {
+    $db_conn = $this->connect();
+    $courseID = $this->sanitizeInput($courseID, $db_conn);
+    $output = array();
 
     //get the certs associated with this course
     $sql = "SELECT CertName FROM COURSE_CERTIFICATION WHERE CourseID = $courseID";
@@ -338,9 +362,24 @@ class dbManager{
     foreach($certs as $cert) {
       $output[] = $cert['CertName'];
     }
+
+    $db_conn->close();
     return $output;
 
-  } //end function getClassCertifications
+  } //end function getCourseCertification
+
+  public function getCourseInfo($courseID) {
+    $db_conn = $this->connect();
+    $courseID = $this->sanitizeInput($courseID, $db_conn);
+    $sql = "SELECT CourseName, CourseDescription, CourseMemberFee, CourseNonMemberFee FROM COURSE WHERE CourseID = $courseID";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getCourseInfo was unable to retrieve information on course: ");
+    $db_conn->close();
+
+    //Turn the result into an associative array and send that back since the function only returns results for one course
+    $result = $result->fetch_assoc();
+    return $result;
+  } //end function getCourseInfo
   
   public function getNewUserId()
   {
@@ -672,7 +711,20 @@ class dbManager{
     return $result;
   }//end function updateImage
 
+  public function updateCourse ($courseID, $courseName, $courseMemberFee, $courseNonMemberFee, $courseDescription) {
+    $db_conn = $this->connect();
+    $courseID = $this->sanitizeInput($courseID, $db_conn);
+    $courseName = $this->sanitizeInput($courseName, $db_conn);
+    $courseMemberFee = $this->sanitizeInput($courseMemberFee, $db_conn);
+    $courseNonMemberFee = $this->sanitizeInput($courseNonMemberFee, $db_conn);
+    $courseDescription = $this->sanitizeInput($courseDescription, $db_conn);
 
+    $sql = "UPDATE COURSE SET CourseName = '$courseName', CourseMemberFee = $courseMemberFee, CourseNonMemberFee = $courseNonMemberFee, CourseDescription = '$courseDescription' WHERE CourseID = $courseID";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "updateCourse was unable to update a record: ");
+    $db_conn->close();
+    return $result;
+  } //end function updateCourse
 
   /*Private Functions*/
   private function logError($db_conn, $message = '') {

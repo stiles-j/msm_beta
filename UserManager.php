@@ -115,7 +115,7 @@ class UserManager{
       $content .= "<option value='$course[CourseID]'>$course[CourseName]</option>";
     }
     $content .= "</select>";
-    $this->displayPopUp($content, "Select Course", "editCourseForm.php");
+    $this->displayPopUp($content, "Select Course", "courseEdit.php");
   }
 
   public function memberSearch($firstName, $lastName)
