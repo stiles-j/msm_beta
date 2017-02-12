@@ -34,7 +34,7 @@ if ($className == '' || !$className)
 
 
 /*attempt the insert.  if it fails, give the user an error message.  If it succeeds, redirect and display the profile with the updated class.*/  
-$success = $db->addClass($MemberNumber, $className, $date);
+$success = $db->addClassTaken($MemberNumber, $className, $date);
 
 if (!$success)
 {

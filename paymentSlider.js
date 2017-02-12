@@ -45,7 +45,7 @@ function processPending(data) {
   dbResult = data;
   
   showContent(outputHTML);
-} //end funciton processPending
+} //end function processPending
 
 
 

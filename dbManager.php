@@ -159,9 +159,20 @@ class dbManager{
     return $result;
     
   }//end method addPayment
- 
-  /*Function addClass attempts to add a new class to the database's "ClassesTaken" table.  The function requires three arguments, a member number as an int, a string containing the class name and a string in the form yyyy-mm-dd for the date the class was completed.  The function returns true on a successful insert or false on a failed insert.*/
-  public function addClass($MemberID, $classReferenceNumber, $loginReferenceNumber)
+
+  public function addNewClass ($courseID, $classDate) {
+    $db_conn = $this->connect();
+    $courseID = $this->sanitizeInput($courseID, $db_conn);
+    $classDate = $this->sanitizeInput($classDate, $db_conn);
+    $sql = "INSERT INTO CLASS (ClassDate, CourseID) VALUES ('$classDate', $courseID)";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "addNewClass was unable to insert a new record: ");
+    $db_conn->close();
+    return $result;
+  } //end function addNewClass
+
+  /*Function addClassTaken attempts to add a new class to the database's "ClassesTaken" table.  The function requires three arguments, a member number as an int, a string containing the class name and a string in the form yyyy-mm-dd for the date the class was completed.  The function returns true on a successful insert or false on a failed insert.*/
+  public function addClassTaken($MemberID, $classReferenceNumber, $loginReferenceNumber)
   {
     //connect and sanitize inputs
     $db_conn = $this->connect();
@@ -368,6 +379,28 @@ class dbManager{
 
   } //end function getCourseCertification
 
+  /**
+   * Function getClassInfo returns pertinent information on a class
+   *
+   * @param $classReferenceNumber a valid classReferenceNumber
+   * @return array|bool an associative array containing the class ReferenceNumber, Date, Name, MemberFee
+   * and NonMemberFee if the query is successful, or false if it is not
+   */
+  public function getClassInfo ($classReferenceNumber) {
+    $db_conn = $this->connect();
+    $classReferenceNumber = $this->sanitizeInput($classReferenceNumber, $db_conn);
+    $sql = "SELECT * FROM PENDING_CLASSES WHERE ReferenceNumber = $classReferenceNumber";
+    $result = $db_conn->query($sql);
+    if (!$result) {
+      $this->logError($db_conn, "getClassInfo was unable to retrieve class data: ");
+      $db_conn->close();
+      return $result;
+    }
+    $db_conn->close();
+    $result = $result->fetch_assoc();
+    return $result;
+  }
+
   public function getCourseInfo($courseID) {
     $db_conn = $this->connect();
     $courseID = $this->sanitizeInput($courseID, $db_conn);
@@ -525,7 +558,7 @@ class dbManager{
     
   } // end function getProfile
 
-  public function getPendingClasses($memberID) 
+  public function getPendingClasses($memberID = 0)
   {
     $db_conn = $this->connect();
     $memberID = $this->sanitizeInput($memberID, $db_conn);
@@ -670,6 +703,49 @@ class dbManager{
 
   }//end function recordNote
 
+  public function updateClass($classReferenceNumber, $newClassDate) {
+    $db_conn = $this->connect();
+    $classReferenceNumber = $this->sanitizeInput($classReferenceNumber, $db_conn);
+    $newClassDate = $this->sanitizeInput($newClassDate, $db_conn);
+    $sql = "UPDATE CLASS SET ClassDate = '$newClassDate' WHERE ClassReferenceNumber = $classReferenceNumber";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "updateClass was unable to modify a record: ");
+    $db_conn->close();
+    return $result;
+  } //end function updateClass
+
+  public function updateCourse ($courseID, $courseName, $courseMemberFee, $courseNonMemberFee, $courseDescription) {
+    $db_conn = $this->connect();
+    $courseID = $this->sanitizeInput($courseID, $db_conn);
+    $courseName = $this->sanitizeInput($courseName, $db_conn);
+    $courseMemberFee = $this->sanitizeInput($courseMemberFee, $db_conn);
+    $courseNonMemberFee = $this->sanitizeInput($courseNonMemberFee, $db_conn);
+    $courseDescription = $this->sanitizeInput($courseDescription, $db_conn);
+
+    $sql = "UPDATE COURSE SET CourseName = '$courseName', CourseMemberFee = $courseMemberFee, CourseNonMemberFee = $courseNonMemberFee, CourseDescription = '$courseDescription' WHERE CourseID = $courseID";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "updateCourse was unable to update a record: ");
+    $db_conn->close();
+    return $result;
+  } //end function updateCourse
+
+  public function updatePicture($imagePath, $memberID)
+  {
+    $db_conn = $this->connect();
+    $imagePath = $this->sanitizeInput($imagePath, $db_conn);
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+
+    $sql = "UPDATE MEMBER SET Picture='$imagePath' WHERE MemberID=$memberID";
+
+    $result = $db_conn->query($sql);
+
+    if (!$result) $this->logError($db_conn, "Unable to update profile picture: ");
+
+    $db_conn->close();
+
+    return $result;
+  }//end function updateImage
+
   public function updateProfile($data)
   {
     //connect to db and sanitize all input
@@ -693,38 +769,6 @@ class dbManager{
     return $result;
 
   }//end method updateProfile
-
-  public function updatePicture($imagePath, $memberID)
-  {
-    $db_conn = $this->connect();
-    $imagePath = $this->sanitizeInput($imagePath, $db_conn);
-    $memberID = $this->sanitizeInput($memberID, $db_conn);
-
-    $sql = "UPDATE MEMBER SET Picture='$imagePath' WHERE MemberID=$memberID";
-
-    $result = $db_conn->query($sql);
-
-    if (!$result) $this->logError($db_conn, "Unable to update profile picture: ");
-
-    $db_conn->close();
-
-    return $result;
-  }//end function updateImage
-
-  public function updateCourse ($courseID, $courseName, $courseMemberFee, $courseNonMemberFee, $courseDescription) {
-    $db_conn = $this->connect();
-    $courseID = $this->sanitizeInput($courseID, $db_conn);
-    $courseName = $this->sanitizeInput($courseName, $db_conn);
-    $courseMemberFee = $this->sanitizeInput($courseMemberFee, $db_conn);
-    $courseNonMemberFee = $this->sanitizeInput($courseNonMemberFee, $db_conn);
-    $courseDescription = $this->sanitizeInput($courseDescription, $db_conn);
-
-    $sql = "UPDATE COURSE SET CourseName = '$courseName', CourseMemberFee = $courseMemberFee, CourseNonMemberFee = $courseNonMemberFee, CourseDescription = '$courseDescription' WHERE CourseID = $courseID";
-    $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "updateCourse was unable to update a record: ");
-    $db_conn->close();
-    return $result;
-  } //end function updateCourse
 
   /*Private Functions*/
   private function logError($db_conn, $message = '') {

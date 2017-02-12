@@ -1,11 +1,10 @@
 <?php
 
 /* loginManager class for the SpaceManager program This class contains all the data processing functions of the UserManager class without any display methods and without sending any HTML*/
-// class UserManager manages all user data in memory, but does not make changes to the database directly which is the job of the dbManager class.
 
 class loginManager{
   
-  private $db, $om;
+  private $db;
   
   public function __construct()
   {
@@ -58,7 +57,7 @@ class loginManager{
     else
     {
       $this->logout($MemberNumber);
-      return 1;
+      return 2;
     }//end else
 
   } // end function login
@@ -67,7 +66,7 @@ class loginManager{
   logouts happen properly.  Client code simply calls login()*/
   private function logout($MemberNumber)
   { 
-    //first make sure this isnt a bogus logout
+    //first make sure this isn't a bogus logout
     if (isset($_SESSION['current_users']))
     {
       //remove the user from the session array of current users

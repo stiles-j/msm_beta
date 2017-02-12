@@ -31,21 +31,24 @@ class UserManager{
     $this->om->insertPopUp($content, "Add New Certification", "addMemberCert.php");
   } //end addCert
 
-  public function addVolunteering($memberID) {
-    $events = $this->db->getTodaysEvents();
-    $content = "<select name='eventData'>";
+  public function addNewClass() {
+    $courses = $this->db->getAllCourses();
+    $content = "Course:";
+    $content .= "<select name='course'>";
 
-    while($event = $events->fetch_assoc()) {
-      $content .= "<option value='{ &quot;type&quot;: &quot;$event[Type]&quot;, &quot;referenceNumber&quot;: $event[ReferenceNumber] }'>$event[Name]</option>";
-    }//end while
+    while ($course = $courses->fetch_assoc()) {
+      $content .= "<option value='$course[CourseID]'>$course[CourseName]</option>";
+    }
+    $content .= "</select>";
+    $content .= "Class Date:";
+    $content .= "<input type='date' name='classDate' />";
 
-    $content .= "</select><input type='hidden' name='memberID' value='$memberID' />";
-    $this->displayPopUp($content, "Add Volunteering", "addVolunteering.php");
+    $this->displayPopUp($content, "Add New Class", 'classAdd.php');
 
-  } //end addVolunteering
+  } // end function addNewClass
 
   public function addPayment ($memberID) {
-    $content = "<h2>Select Payment Type:</h2>
+    $content = "Select Payment Type:
     <select id='paymentType' autofocus>
       <option selected disabled hidden>Payment Type</option>
       <option value='classEnrollment'>Class Enrollment</option>
@@ -61,6 +64,19 @@ class UserManager{
     $this->displayPopUp($content, "Add Payment", "addPayment.php");
 
   }
+
+  public function addVolunteering($memberID) {
+    $events = $this->db->getTodaysEvents();
+    $content = "<select name='eventData'>";
+
+    while($event = $events->fetch_assoc()) {
+      $content .= "<option value='{ &quot;type&quot;: &quot;$event[Type]&quot;, &quot;referenceNumber&quot;: $event[ReferenceNumber] }'>$event[Name]</option>";
+    }//end while
+
+    $content .= "</select><input type='hidden' name='memberID' value='$memberID' />";
+    $this->displayPopUp($content, "Add Volunteering", "addVolunteering.php");
+
+  } //end addVolunteering
 
   public function displayProfile($MemberNumber)
   {
@@ -95,6 +111,24 @@ class UserManager{
     
   }//end function displayWin
 
+  public function editClass() {
+    //get a list of all pending classes
+    $classes = $this->db->getPendingClasses();
+    $content = "Select Class To edit: ";
+    $content .= "<select name='classToEdit'>";
+
+    while ($class = $classes->fetch_assoc()) {
+      $content .= "<option value='$class[ReferenceNumber]'>$class[Name] on $class[Date]</option>";
+    }
+
+    $content .= "</select>";
+    $content .= "New Class Date: ";
+    $content .= "<input type='date' name='newClassDate' />";
+
+    $this->displayPopUp($content, "Edit Class", "classEdit.php");
+
+  } //end function editClass
+
   public function editMember($MemberNumber)
   {
     //get the full profile from the database
@@ -107,7 +141,7 @@ class UserManager{
 
   public function getCourseToEdit() {
     $courses = $this->db->getAllCourses();
-    $content = "<h2>Select Course To Edit</h2>";
+    $content = "Select Course To Edit";
     $content .= "<select name='courseToEdit'>";
 
     //add each course to the select

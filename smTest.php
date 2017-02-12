@@ -3,6 +3,7 @@
 
 require_once 'UserManager.php';
 require_once 'loginManager.php';
+require_once 'dbManager.php';
 
 /*TODO: All code containing HTML fragments needs to be devolved to the UserManager.php class.  This script should contain NO display code*/
 
@@ -18,11 +19,16 @@ if (isset($_POST['LoginMemberNumber']))
 {
   $lm = new loginManager;
   $valid = $lm->login($_POST['LoginMemberNumber']);
-  if ($valid)
+  if ($valid == 1)
   {
-    header("Location: " . $_SERVER['REQUEST_URI']);
+    header("Location: " . $_SERVER['REQUEST_URI'] . "?display_member=$_POST[LoginMemberNumber]");
     exit();
-  }//end if valid
+  }//end if valid == 1
+
+  if ($valid == 2) {
+    header("Location: " . $_SERVER['REQUEST_URI'] . "?display_member=$_POST[LoginMemberNumber]&logout=true");
+    exit();
+  }
 }//end if LoginMemberNumber
 
 
@@ -30,8 +36,6 @@ if (isset($_POST['LoginMemberNumber']))
 /*If a new note is being sent to us, add it to the database*/
 if (isset($_POST['noteContent']))
 {
-  require_once 'dbManager.php';
-  
   $memNum = $_POST['display_member'];
   $noteCont = $_POST['noteContent'];
   
@@ -57,7 +61,7 @@ $um = new UserManager;
 //check if we just had an invalid login attempt, and if so, give the user a warning
 if (!$valid)
 {
-  $um->displayPopUp("<h2>Invalid User Number Entered</h2>", "Warning!");
+  $um->displayPopUp("Invalid User Number Entered", "Warning!");
 }
 
 
@@ -65,10 +69,10 @@ if (!$valid)
 /*Spawn Login Window Section___________________________________________*/
 if (isset($_POST['spawnLogin']))
 {
-  $content = "<h2>Member ID Number: </h2>
+  $content = "Member ID Number:
 <input type='text' name='LoginMemberNumber' autofocus />";
   
-  $um->displayPopUp($content, "Member Login");
+  $um->displayPopUp($content, "Member Login", 'smTest.php');
 }//end if spawnLogin
 
 
@@ -87,7 +91,7 @@ if (isset($_POST['AddNewMember']))
 /*Check if the user clicked edit member from the members drop-down menu and spawn a pop-up window to get the member number if they did*/
 if (isset($_POST['editMember']))
 {
-  $content = "<h2>Member ID Number: </h2>
+  $content = "Member ID Number:
 <input type='text' name='editMemberNumber' autofocus />";
   
   $um->displayPopUp($content, "Edit Member");
@@ -121,8 +125,8 @@ if (isset($_POST['viewAllEnrollments'])) {
 //Add Payment
 if (isset($_POST['addPayment']))
 {
-  $MemberID = $_POST['addPayment'];
-  $um->addPayment($MemberID);
+  $memberID = $_POST['addPayment'];
+  $um->addPayment($memberID);
 }
 
 
@@ -147,9 +151,9 @@ if (isset($_POST['addCert']))
 /*If we get a findMember request, spawn a popup to get the members first and last name*/
 if (isset($_POST['findMember']))
 {
-  $content = "<h2>First Name:</h2>
+  $content = "First Name:
               <input type='text' name='firstName' autofocus>
-              <h2>Last Name:</h2>
+              Last Name:
               <input type='text' name='lastName'>
               <input type='hidden' name='memberSearch'>";
   $um->displayPopUp($content, "Find Member", "findMember.php");
@@ -169,7 +173,7 @@ if (isset($_GET['memberSearch']))
 
 /*PROFILE DISPLAY HANDLING SECTION_____________________________________*/
 
-/*memberID will cache the MemberID of the currently displayed profile for use in other areas of the program*/
+/*memberID will cache the memberID of the currently displayed profile for use in other areas of the program*/
 $memberID = null;
 
 //start the session if it hasn't been already, we need it
@@ -177,6 +181,12 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 
 if (isset($_POST['display_member'])) $memberID = $_POST['display_member'];
 else if (isset($_GET['display_member'])) $memberID = $_GET['display_member'];
+if (isset($_GET['logout'])) {
+  $db = new dbManager();
+  $userName = $db->getUsername($memberID);
+  $content = "<h2>$userName</h2> <h2>is now logged out</h2>";
+  $um->displayPopUp($content, "Logout Successful", 'smTest.php');
+}
 
 //if we have a bogus memberID display the most recently logged in member, or if there are none, the default profile
 if ($memberID == '' || $memberID == null || $memberID == ' ' || !$memberID) {
@@ -184,7 +194,7 @@ if ($memberID == '' || $memberID == null || $memberID == ' ' || !$memberID) {
   //check if there are any current users
   if(isset($_SESSION['current_users']) && count($_SESSION['current_users']) != 0)
   {
-    $memberID = end($_SESSION['current_users']);
+    $memberID = $_SESSION['lastMemberDisplayed'];
     $um->displayProfile($memberID);
 
   }//end if current_users
@@ -211,9 +221,19 @@ if (isset($_POST['noteAdd']))
   $um->displayPopUp($windowContent, "Enter New Member Note");
 }//end if noteAdd
 
-/*EDIT COURSE SECTION_________________________________________________*/
+/*EDIT COURSE SECTION________________________________________________________*/
 if (isset($_POST['editCourse'])) {
   $um->getCourseToEdit();
+}
+
+/*ADD NEW CLASS SECTION______________________________________________________*/
+if (isset($_POST['AddNewClass'])) {
+  $um->addNewClass();
+}
+
+/*EDIT CLASS SECTION_________________________________________________________*/
+if (isset($_POST['EditClass'])) {
+  $um->editClass();
 }
 
 //session_destroy();

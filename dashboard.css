@@ -238,16 +238,15 @@ h3{
 
 .popUp input, .popUp select{
   clear: both;
+  display: block;
   font-size: 1.25em;
-  margin-left: auto;
-  margin-right: auto;
+  margin: .25em auto 1em auto;
   width: 75%;
 }
 
 .popUp select {
   /*font-size: .75em;*/
-  height: 3em;
-  margin: .25em;
+  height: 1.5em;
   text-align: center;
 }
 
