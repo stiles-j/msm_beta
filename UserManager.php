@@ -94,6 +94,42 @@ class UserManager{
     $this->om->displayDefaultProfile();
     $this->displaySidebars();
   }
+
+  /**
+   * displayMemberDuesPayments will generate a pop-up window displaying up to
+   * twelve months of prior dues payments for a member.
+   * @param $memberID: a valid member number
+   */
+  public function displayMemberDuesPayments ($memberID) {
+    $dues = $this->db->getMemberPayments($memberID, 'dues');
+    $duesPayment = null;
+    $content = "";
+
+    //limit result to one year of prior payments to prevent too long a popup window with senior members
+    for ($i = 0; ($duesPayment = $dues->fetch_assoc()) && $i < 12; $i++) {
+      $paymentDate = date("Y-m-d", strtotime($duesPayment['PaymentDate']));
+      $content .= "<h3>$paymentDate: $duesPayment[Amount]</h3>";
+    }
+    $this->displayPopUp($content, "Dues Payments", "smTest.php");
+  } //end function displayMemberDuesPayments
+
+  public function displayMemberOtherPayments ($memberID) {
+    $payments = $this->db->getMemberPayments($memberID, "other");
+    $payment = null;
+    $content = "<h4><table><th>Date</th><th>Amount</th><th>Type</th><th>Name</th></h4>";
+
+    //limit result to one year of prior payments to prevent an oversize popup window
+    for ($i = 0; ($payment = $payments->fetch_assoc()) && $i < 12; $i++ ) {
+      $paymentDate = date("Y-m-d", strtotime($payment['PaymentDate']));
+      $eventName = "";
+      if ($payment['Name'] != null) {
+        $eventName = $payment['Name'];
+      }
+      $content .= "<tr><td>$paymentDate</td> <td>$payment[Amount]</td> <td>$payment[Reason]</td> <td>$eventName</td></tr>";
+    }
+    $content .= "</table>";
+    $this->displayPopUp($content, "Prior Payments", "smTest.php");
+  } //end function displayMemberOtherPayments
   
   /*Function displayPopUp is a wrapper function for the function insertPopUp of the OutputManager class.  This allows client code access to the popup functionality through UserManager so a separate OutputManager object does not need to be instantiated.*/
   public function displayPopUp($message, $header = '', $action = '')

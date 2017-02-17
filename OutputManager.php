@@ -95,20 +95,36 @@ _END;
     //display payments, visits, volunteering (recent activity div)
     echo "<div class='profileElement'>";
     echo "<h3>Recent Activity</h3>";
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addPayment' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Last Payment:</strong></a></form></p>";
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addPayment' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Payments</strong></a></form></p>";
+
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='showDuesPayments' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Dues:</strong></a></form></p>";
+
+    $duesPayment = mysqli_fetch_assoc($profile[9]);
+    $duesPaymentDate = date("Y-m-d", strtotime($duesPayment['PaymentDate']));
+    $duesPaymentAmount = $duesPayment['Amount'];
+
+    //check for a bogus date and blank it out if bogus
+    if ($duesPaymentDate == "1969-12-31")
+      $duesPaymentDate = '';
+
+    /*If last payment is more than 30 days ago, display it in red*/
+    if (strtotime($duesPaymentDate) < strtotime('-30 days')) {
+      echo "<p><font color='red'>$duesPaymentDate: \$$duesPaymentAmount</font></p>";
+    } else {
+      echo "<p>$duesPaymentDate: \$$duesPaymentAmount</p>";
+    }
+
+
+    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='showOtherPayments' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Other Payment:</strong></a></form></p>";
+
     $payment = mysqli_fetch_array($profile[4]);
     //convert donation date to readable format
     $paymentDate = date("Y-m-d", strtotime($payment['PaymentDate']));
     //check for a bogus date and blank it out if bogus
     if ($paymentDate == "1969-12-31")
       $paymentDate = '';
-    
-    /*If last payment is more than 30 days ago, display it in red*/
-    if (strtotime($paymentDate) < strtotime('-30 days')) {
-      echo "<p><font color='red'>$paymentDate: \$$payment[Amount]</font></p>";
-    } else {
-      echo "<p>$paymentDate: \$$payment[Amount]</p>";      
-    }
+    echo "<p>$paymentDate: \$$payment[Amount]</p>";
+
 
     echo "<p><strong>Recent Visits:</strong></p>";
     foreach ($profile[5] as $visit)

@@ -230,6 +230,24 @@ CREATE VIEW PENDING_ALL AS
     SELECT *, 'EVENT' AS Type FROM PENDING_EVENTS;
 
 
+-----------------SQL TO CREATE ALL_ENROLLMENTS VIEW----------------------------
+
+CREATE VIEW ALL_ENROLLMENTS AS
+    SELECT A.MemberID, B.ClassReferenceNumber AS ReferenceNumber, C.CourseName AS Name,
+     B.ClassDate AS Date, A.PaymentReferenceNumber, 'CLASS' AS Type FROM CLASS_ENROLLMENT AS A, CLASS AS B, COURSE AS C WHERE A.ClassReferenceNumber =
+     B.ClassReferenceNumber AND B.CourseID = C.CourseID
+     UNION
+     SELECT A.MemberID, B.EventReferenceNumber AS ReferenceNumber, B.EventName AS Name,
+     B.EventDate AS Date, A.PaymentReferenceNumber, 'EVENT' AS Type FROM EVENT_ENROLLMENT AS A, EVENT AS B WHERE A.EventReferenceNumber =
+     B.EventReferenceNumber;
+
+-----------------SQL TO CREATE PAYMENT_WITH_NAME VIEW--------------------------
+
+CREATE VIEW PAYMENT_WITH_NAME AS
+    SELECT A.PaymentReferenceNumber, A.PaymentDate, A.MemberID, A.Amount, A.Reason, B.Name
+    FROM PAYMENT AS A LEFT OUTER JOIN ALL_ENROLLMENTS AS B ON B.PaymentReferenceNumber = A.PaymentReferenceNumber;
+
+
 
 
 

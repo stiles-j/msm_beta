@@ -413,7 +413,40 @@ class dbManager{
     $result = $result->fetch_assoc();
     return $result;
   } //end function getCourseInfo
-  
+
+  /**
+   * getMemberPayments returns all payment records in the database of the type specified in the $type parameter.
+   *
+   * @param $memberID: A valid MemberID number
+   * @param $type: an optional parameter to specify the type of payments returned.  Valid inputs are 'dues' and 'other'.
+   * A value of 'dues' will return only payments tagged with the reason 'dues' in the database.  A value of 'other' will
+   * return all payments NOT tagged 'dues' in the database.  Any other value (or not passing the parameter at all) will
+   * return all payments regardless of type.
+   * @return bool|mysqli_result: A mysqli result consisting of all the the relevant records if the query is successful.
+   *  false if the query fails.  If you need to limit the number of records displayed, this will need to be handled in
+   *  client code.
+   */
+  public function getMemberPayments($memberID, $type = 'all') {
+    $db_conn = $this->connect();
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+    $sql = null;
+
+    if ($type == 'dues') {
+      $sql = "SELECT * FROM PAYMENT_WITH_NAME WHERE MemberID = $memberID AND Reason = 'dues' ORDER BY PaymentDate DESC";
+    }
+    else if ($type == 'other') {
+      $sql = "SELECT * FROM PAYMENT_WITH_NAME WHERE MemberID = $memberID AND Reason != 'dues' ORDER BY PaymentDate DESC";
+    }
+    else {
+      $sql = "SELECT * FROM PAYMENT_WITH_NAME WHERE MemberID = $memberID ORDER BY PaymentDate DESC";
+    }
+
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getMemberPayments was unable to retrieve records: ");
+    $db_conn->close();
+    return $result;
+  } //end function getMemberDuesPayments
+
   public function getNewUserId()
   {
     /*The new member id number will be 17 greater than the highest number currently in the database*/
@@ -492,7 +525,7 @@ class dbManager{
     $profile = null;
     $enrollments = null;
     $certs = null;
-    $payments = null;
+    $otherPayments = null;
     $visits = null;
     $volunteering = null;
     $notes = null;
@@ -526,12 +559,17 @@ class dbManager{
     if (!$certs)
       $this->logError($db_conn, "getProfile unable to get certs: ");
     
-    $sql = "SELECT PaymentDate, Amount FROM PAYMENT WHERE MemberID=$memberID ORDER BY PaymentDate DESC LIMIT 1";
-    $payments = $db_conn->query($sql);
+    $sql = "SELECT PaymentDate, Amount FROM PAYMENT WHERE MemberID=$memberID AND Reason != 'dues' ORDER BY PaymentDate DESC LIMIT 1";
+    $otherPayments = $db_conn->query($sql);
     
-    if (!$payments)
+    if (!$otherPayments)
       $this->logError($db_conn, "getProfile unable to get payments: ");
-    
+
+    $sql = "SELECT PaymentDate, Amount FROM PAYMENT WHERE MemberID=$memberID AND Reason = 'dues' ORDER BY PaymentDate DESC LIMIT 1";
+    $duesPayments = $db_conn->query($sql);
+    if (!$duesPayments) $this->logError($db_conn, "getProfile was unable to retrieve last dues payment: ");
+
+
     $sql = "SELECT LoginTime FROM LOGIN WHERE MemberID=$memberID ORDER BY LoginTime DESC Limit 5";
     $visits = $db_conn->query($sql);
     
@@ -552,7 +590,7 @@ class dbManager{
     
     $db_conn->close();
     
-    $output = array($image, $profile, $enrollments, $certs, $payments, $visits, $volunteering, $notes, $memberID);
+    $output = array($image, $profile, $enrollments, $certs, $otherPayments, $visits, $volunteering, $notes, $memberID, $duesPayments);
     
     return $output; 
     

@@ -250,6 +250,18 @@ h3{
   text-align: center;
 }
 
+.popUp table {
+  margin: auto;
+  width: 99%;
+}
+
+.popUp td {
+  padding: 0.25em 0em 0em 0.25em;
+}
+
+.popUp th {
+  color: darkred;
+}
 
 
 

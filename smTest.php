@@ -145,6 +145,17 @@ if (isset($_POST['addCert']))
   $um->addCert($memberID);
 }
 
+//view dues payments
+if (isset($_POST['showDuesPayments'])) {
+  $memberID = $_POST['showDuesPayments'];
+  $um->displayMemberDuesPayments($memberID);
+}
+
+//view non-dues payments
+if (isset($_POST['showOtherPayments'])) {
+  $memberID = $_POST['showOtherPayments'];
+  $um->displayMemberOtherPayments($memberID);
+}
 
 /*FIND MEMBER SECTION__________________________________________________*/
 
