@@ -21,7 +21,12 @@ class UserManager{
     
   } // end function __construct()
 
-  public function addCert($memberID) {
+  /**
+   * Function addMemberCert adds a record to the MEMBER_CERTIFICATION table
+   *
+   * @param $memberID: A valid MemberID number
+   */
+  public function addMemberCert($memberID) {
     $certs = $this->db->getAllCertifications();
     $content = "<h2>New Certification Type</h2><select name='newCertName'>";
     foreach ($certs as $cert) {
@@ -41,11 +46,36 @@ class UserManager{
     }
     $content .= "</select>";
     $content .= "Class Date:";
-    $content .= "<input type='date' name='classDate' />";
+    $content .= "<input type='datetime-local' name='classDate' />";
 
     $this->displayPopUp($content, "Add New Class", 'classAdd.php');
 
   } // end function addNewClass
+
+  public function addNewFacility() {
+    $subFacilities = $this->db->getAllFacilities();
+
+    //generate the main body of the add facility form
+    $nfForm = <<<END
+    <form name="addFacilityForm" action="addNewFacility.php" method='post'>
+      <div class="userInputFields">
+        <h2>New Facility Input Form</h2>
+        <p><span class="label">Facility Name: </span><input type="text" name="facilityName" autofocus="autofocus" /></p>
+        <p><span class="label">Facility Description: </span>
+        <textarea name="facilityDescription" ></textarea></p>
+END;
+
+    //generate the sub-facility select box
+    $nfForm .="<p><span class='label'>Sub-Facilities: </span></p>";
+    $nfForm .= "<p><select name='subFacilities[]' multiple='multiple'>";
+    foreach ($subFacilities as $subFacility) {
+      $nfForm .= "<option value='$subFacility[FacilityID]'>$subFacility[FacilityName]</option>";
+    }
+    $nfForm .= "</select></p>";
+    $nfForm .= "<p><input type=\"submit\" value=\"Submit\" /></p></div></form>";
+
+    $this->displayWin($nfForm);
+  } //end function addNewFacility
 
   public function addPayment ($memberID) {
     $content = "Select Payment Type:
@@ -186,6 +216,18 @@ class UserManager{
     }
     $content .= "</select>";
     $this->displayPopUp($content, "Select Course", "courseEdit.php");
+  }
+
+  public function getFacilityToEdit() {
+    $facilities = $this->db->getAllFacilities();
+    $content = "Select Facility To Edit";
+    $content .= "<select name='facilityToEdit'>";
+
+    foreach ($facilities as $facility) {
+      $content .= "<option value='$facility[FacilityID]'>$facility[FacilityName]</option>";
+    }
+    $content .= "</select>";
+    $this->displayPopUp($content, "Select Facility", "facilityEdit.php");
   }
 
   public function memberSearch($firstName, $lastName)

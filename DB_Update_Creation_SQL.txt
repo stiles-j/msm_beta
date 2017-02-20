@@ -191,6 +191,40 @@ CREATE TABLE EVENT_ATTENDED (
     FOREIGN KEY (LoginReferenceNumber) REFERENCES LOGIN(LoginReferenceNumber)
 );
 
+CREATE TABLE FACILITY (
+  FacilityID            INTEGER  NOT NULL AUTO_INCREMENT,
+  FacilityName          VARCHAR(50),
+  FacilityDescription   TEXT,
+
+  PRIMARY KEY (FacilityID)
+);
+
+CREATE TABLE SUB_FACILITY (
+    PrimaryFacilityID       INTEGER NOT NULL,
+    SubFacilityID           INTEGER NOT NULL,
+
+    PRIMARY KEY (PrimaryFacilityID, SubFacilityID),
+    FOREIGN KEY (PrimaryFacilityID) REFERENCES FACILITY(FacilityID),
+    FOREIGN KEY (SubFacilityID)     REFERENCES FACILITY(FacilityID)
+);
+
+CREATE TABLE EVENT_FACILITY (
+    EventReferenceNumber    INTEGER NOT NULL,
+    FacilityID              INTEGER NOT NULL,
+
+    PRIMARY KEY (EventReferenceNumber, FacilityID),
+    FOREIGN KEY (EventReferenceNumber) REFERENCES EVENT(EventReferenceNumber),
+    FOREIGN KEY (FacilityID)           REFERENCES FACILITY(FacilityID)
+);
+
+CREATE TABLE COURSE_FACILITY (
+    CourseID        INTEGER NOT NULL,
+    FacilityID      INTEGER NOT NULL,
+
+    PRIMARY KEY (CourseID, FacilityID),
+    FOREIGN KEY (CourseID)      REFERENCES COURSE(CourseID),
+    FOREIGN KEY (FacilityID)    REFERENCES FACILITY(FacilityID)
+);
 
 --------------------SQL TO CREATE PENDING_CLASSES VIEW--------------------------
 
@@ -247,7 +281,11 @@ CREATE VIEW PAYMENT_WITH_NAME AS
     SELECT A.PaymentReferenceNumber, A.PaymentDate, A.MemberID, A.Amount, A.Reason, B.Name
     FROM PAYMENT AS A LEFT OUTER JOIN ALL_ENROLLMENTS AS B ON B.PaymentReferenceNumber = A.PaymentReferenceNumber;
 
+----------------SQL TO CREATE COURSE_FACILITY_WITH_NAME VIEW-------------------
 
+CREATE VIEW COURSE_FACILITY_WITH_NAME AS
+    SELECT A.CourseID, A.FacilityID, B.FacilityName FROM COURSE_FACILITY AS A
+    JOIN FACILITY AS B ON A.FacilityID = B.FacilityID;
 
 
 

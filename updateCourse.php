@@ -6,24 +6,12 @@ require_once 'UserManager.php';
 
 $db = new dbManager();
 $courseID = $_POST['courseID'];
-
-
+$courseDuration = "$_POST[hours]:$_POST[minutes]";
 
 //update the course information
-$result = $db->updateCourse($_POST['courseID'], $_POST['courseName'], $_POST['courseMemberFee'], $_POST['courseNonMemberFee'], $_POST['courseDescription']);
+$result = $db->updateCourse($_POST['courseID'], $_POST['courseName'], $courseDuration, $_POST['courseMemberFee'], $_POST['courseNonMemberFee'], $_POST['courseDescription'], $_POST['courseCerts'], $_POST['courseFacilities']);
 checkForError($result);
 
-
-//If there are any certs for the course, update those also
-if (isset($_POST['courseCerts']) && count($_POST['courseCerts']) != 0) {
-  $certs = $_POST['courseCerts'];
-  $db->deleteCourseCertifications($courseID);
-
-  foreach($certs as $cert) {
-    $result = $db->addCourseCert($courseID, $cert);
-    checkForError($result);
-  }
-}
 
 //if we're good send 'em back to the main dashboard
 header("Location: smTest.php");

@@ -54,36 +54,111 @@ class dbManager{
 
   /*addNewCourse will add a new course to the database and return the courseID number.  Returns false if the
   attempt to insert fails*/
-  public function addNewCourse ($courseName, $courseMemberFee, $courseNonMemberFee, $courseDescription) {
+  public function addNewCourse ($courseName, $courseMemberFee, $courseNonMemberFee, $courseDescription, $courseDuration ='1:00:00', $courseFacilities = null) {
     //sanitize our inputs
     $db_conn = $this->connect();
     $courseName = $this->sanitizeInput($courseName, $db_conn);
     $courseNonMemberFee = $this->sanitizeInput($courseNonMemberFee, $db_conn);
     $courseMemberFee = $this->sanitizeInput($courseMemberFee, $db_conn);
     $courseDescription = $this->sanitizeInput($courseDescription, $db_conn);
+    $courseDuration = $this->sanitizeInput($courseDuration, $db_conn);
+    if ($courseFacilities != null) {
+      foreach ($courseFacilities as &$courseFacility) {
+        $courseFacility = $this->sanitizeInput($courseFacility, $db_conn);
+      } //end foreach
+    } //end if courseFacilities
+    $errors = array();
 
     //attempt to insert the course
-    $sql = "INSERT INTO COURSE (CourseName, CourseDescription, CourseMemberFee, CourseNonMemberFee) VALUE ('$courseName', '$courseDescription', '$courseMemberFee', '$courseNonMemberFee')";
+    $db_conn->begin_transaction();
+    $sql = "INSERT INTO COURSE (CourseName, CourseDescription, CourseMemberFee, CourseNonMemberFee, Duration) VALUE ('$courseName', '$courseDescription', '$courseMemberFee', '$courseNonMemberFee', '$courseDuration')";
     $result = $db_conn->query($sql);
     if (!$result) {
       $this->logError($db_conn, "addNewCourse was unable to insert into the database: ");
-      $db_conn->close();
-      return false;
+      array_push($errors, "addNewCourse was unable to insert into the database: ");
     }
 
     //get the courseID to return
-    $sql = "SELECT CourseID FROM COURSE WHERE CourseName = '$courseName'";
-    $id = $db_conn->query($sql);
-    if (!$id) {
-      $this->logError($db_conn, "addNewCourse was unable to retrieve new CourseID: ");
-      $db_conn->close();
-      return false;
-    }
-    $id = $id->fetch_assoc()['CourseID'];
-    $db_conn->close();
+    $id = $db_conn->insert_id;
 
-    return $id;
+    //attempt to add the facility requirements to COURSE_FACILITY
+    if ($courseFacilities != null) {
+      foreach ($courseFacilities as $facility) {
+        $sql = "INSERT INTO COURSE_FACILITY (CourseID, FacilityID) VALUES ($id, $facility)";
+        $result = $db_conn->query($sql);
+        if (!$result) {
+          $this->logError($db_conn, "addNewCourse was unable to insert a record into COURSE_FACILITY");
+          array_push($errors, "addNewCourse was unable to insert a record into COURSE_FACILITY");
+        } //end if !result
+      } //end foreach
+    } //end if courseFacilities
+
+    //if we have no errors commit the transaction and return the course id
+    if (empty($errors)) {
+      $db_conn->commit();
+      return $id;
+    }
+
+    //otherwise return false because the add failed
+    return false;
+
   } //end method addNewCourse
+
+  /**
+   * addNewFacility attempts to add a record to the FACILITY table of the database.
+   * If subFacilities are passed, it will additionally attempt to add those records to
+   * the SUB_FACILITY table.
+   *
+   * @param $name: Name of the new facility
+   * @param $description: A description of the facility. Use this to clarify potential ambiguities
+   * @param null $subFacilities: Optional parameter, an array of subFacility FacilityID numbers
+   * @return bool: True if the transaction is successful, false if not.
+   */
+  public function addNewFacility($name, $description, $subFacilities = null) {
+    $db_conn = $this->connect();
+    $name = $this->sanitizeInput($name, $db_conn);
+    $description = $this->sanitizeInput($description, $db_conn);
+    $errors = array();
+    if ($subFacilities != null) {
+      foreach ($subFacilities as &$subFacility) {
+        $subFacility = $this->sanitizeInput($subFacility, $db_conn);
+      }
+    }
+
+    $db_conn->begin_transaction();
+    $sql = "INSERT INTO FACILITY (FacilityName, FacilityDescription) VALUES ('$name', '$description')";
+    $result = $db_conn->query($sql);
+    if (!$result) {
+      $this->logError($db_conn, "Unable to add new facility to database: ");
+      array_push($errors, "Error in query adding facility to database");
+    }
+    $facilityID = $db_conn->insert_id;
+
+    //add subFacilities if we have them
+    if ($subFacilities != null) {
+      foreach ($subFacilities as $sub) {
+        $sql = "INSERT INTO SUB_FACILITY (PrimaryFacilityID, SubFacilityID) VALUES ($facilityID, $sub)";
+        $result = $db_conn->query($sql);
+        if (!$result) {
+          $this->logError($db_conn, "Unable to add new SubFacility to database: ");
+          array_push($errors, "Error in query adding subFacility to database");
+        } //end if !$result
+      } //end foreach subFacilities
+    } //end if subFacilities
+
+    //if we encountered no errors, commit the transaction
+    if (empty($errors)) {
+      $db_conn->commit();
+      $db_conn->close();
+      return true;
+    }
+
+    //otherwise roll it back
+    $db_conn->rollback();
+    $db_conn->close();
+    return false;
+
+  } //end function addNewFacility
 
   /*addProfile will insert provided information into the database.  The required argument is a numeric array of user data in the following format: firstName, lastName, birthDate, joinDate, address, homePhone, cellphone, email, emergency contact, medical provider, referred by, member id number, user image, level.  Null values should be  used in place of any missing information. The function will return true on a successful insert or false on a failed insert*/
   public function addProfile($profileData)
@@ -263,16 +338,6 @@ class dbManager{
     return $result;
     
   } //end function addClassVolunteer
-
-  public function deleteCourseCertifications($courseID) {
-    $db_conn = $this->connect();
-    $courseID = $this->sanitizeInput($courseID, $db_conn);
-    $sql = "DELETE FROM COURSE_CERTIFICATION WHERE CourseID = $courseID";
-    $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "deleteCourseCertifications was unable to remove records: ");
-    $db_conn->close();
-    return $result;
-  } //end function deleteCourseCertifications
   
   public function findMember($firstName, $lastName)
   {
@@ -330,9 +395,23 @@ class dbManager{
 
   public function getAllCourses() {
     $db_conn = $this->connect();
-    $sql = "SELECT CourseID, CourseName FROM COURSE";
+    $sql = "SELECT CourseID, CourseName FROM COURSE ORDER BY CourseName";
     $result = $db_conn->query($sql);
     if (!$result) $this->logError($db_conn, "getAllCourses was unable to retrieve course list: ");
+    $db_conn->close();
+    return $result;
+  }
+
+  /**
+   * getAllFacilities returns a mysqli result containing all columns of all records in the FACILITY table
+   *
+   * @return bool|mysqli_result
+   */
+  public function getAllFacilities() {
+    $db_conn = $this->connect();
+    $sql = "SELECT * FROM FACILITY ORDER BY FacilityName";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getAllFacilities was unable to retrieve facility list from the database: ");
     $db_conn->close();
     return $result;
   }
@@ -401,10 +480,28 @@ class dbManager{
     return $result;
   }
 
+  /**
+   * getCourseFacilities returns a mysqli result containing the CourseID, FacilityID and FacilityName
+   * for all facilities associated with a course
+   *
+   * @param $courseID: a valid CourseID number
+   * @return mysqli_result|bool: A mysqli result containing the listed information from the database if the
+   * query is a success, or false if the query fails.
+   */
+  public function getCourseFacilities($courseID) {
+    $db_conn = $this->connect();
+    $courseID = $this->sanitizeInput($courseID, $db_conn);
+    $sql = "SELECT * FROM COURSE_FACILITY_WITH_NAME WHERE CourseID = $courseID";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getCourseFacilities was unable to retrieve facility list: ");
+    $db_conn->close();
+    return $result;
+  } //end function getCourseFacilities
+
   public function getCourseInfo($courseID) {
     $db_conn = $this->connect();
     $courseID = $this->sanitizeInput($courseID, $db_conn);
-    $sql = "SELECT CourseName, CourseDescription, CourseMemberFee, CourseNonMemberFee FROM COURSE WHERE CourseID = $courseID";
+    $sql = "SELECT CourseID, CourseName, CourseDescription, CourseMemberFee, CourseNonMemberFee, HOUR(Duration) AS Hours, MINUTE(Duration) as Minutes FROM COURSE WHERE CourseID = $courseID";
     $result = $db_conn->query($sql);
     if (!$result) $this->logError($db_conn, "getCourseInfo was unable to retrieve information on course: ");
     $db_conn->close();
@@ -413,6 +510,35 @@ class dbManager{
     $result = $result->fetch_assoc();
     return $result;
   } //end function getCourseInfo
+
+  /**
+   * getFacilityInfo returns a mysqli result containing FacilityID, FacilityName and FacilityDescription
+   * for a single facility if the query succeeds or false if the query fails.
+   *
+   * @param $facilityID: a valid FacilityID number
+   * @return bool|mysqli_result: mysqli_result if the query succeeds, false if it fails.
+   */
+  public function getFacilityInfo($facilityID) {
+    $db_conn = $this->connect();
+    $facilityID = $this->sanitizeInput($facilityID, $db_conn);
+    $sql = "SELECT * FROM FACILITY WHERE FacilityID = $facilityID";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getFacilityInfo was unable to retrieve a record: ");
+    $db_conn->close();
+    return $result;
+  }
+
+  public function getLastPayment($memberID) {
+    $db_conn = $this->connect();
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+
+    $sql = "SELECT * FROM PAYMENT WHERE MemberID = $memberID ORDER BY PaymentReferenceNumber DESC LIMIT 1";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getLastPayment received an invalid response from the database: ");
+    $db_conn->close();
+    $result = $result->fetch_assoc();
+    return $result;
+  }
 
   /**
    * getMemberPayments returns all payment records in the database of the type specified in the $type parameter.
@@ -468,38 +594,6 @@ class dbManager{
     
     return $MemberNumber;
   } // end function getNewUserId
-  
-  public function getUsername($memberID)
-  {
-    //variables
-    $nameString = '';
-    
-    $db_conn = $this->connect();
-    $memberID = $this->sanitizeInput($memberID, $db_conn);
-    
-    $sql = "SELECT FirstName, LastName FROM MEMBER WHERE MemberID = $memberID";
-    
-    $result = $db_conn->query($sql);
-    
-    if (!$result)
-      $this->logError($db_conn, "Error in getUserName: ");
-    
-    $db_conn->close();
-        
-    if ($result && mysqli_num_rows($result) != 0)
-    {
-      
-      foreach($result->fetch_array(MYSQLI_NUM) as $row)
-      {
-        $nameString .= "$row ";
-      } // end foreach loop
-      
-      return $nameString;
-      
-    } // end if
-    else
-      return null;
-  } // end function getUsername
   
   public function getPersonalInfo($memberID)
   {
@@ -656,15 +750,20 @@ class dbManager{
     return $result;
   } //end getPendingEnrollments
 
-  public function getLastPayment($memberID) {
+  /**
+   * getSubFacilities returns a mysqli result containing the SubFacilityID of all subfacilities associated with a
+   * given single PrimaryFacility.
+   *
+   * @param $facilityID: a valid FacilityID
+   * @return bool|mysqli_result: mysql_result if the query is successful, false if it isn't.
+   */
+  public  function getSubFacilities($facilityID) {
     $db_conn = $this->connect();
-    $memberID = $this->sanitizeInput($memberID, $db_conn);
-    
-    $sql = "SELECT * FROM PAYMENT WHERE MemberID = $memberID ORDER BY PaymentReferenceNumber DESC LIMIT 1";
+    $facilityID = $this->sanitizeInput($facilityID, $db_conn);
+    $sql = "SELECT * FROM SUB_FACILITY WHERE PrimaryFacilityID = $facilityID";
     $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "getLastPayment received an invalid response from the database: ");
+    if (!$result) $this->logError($db_conn, "getSubFacilities was unable to retrieve records: ");
     $db_conn->close();
-    $result = $result->fetch_assoc();
     return $result;
   }
 
@@ -676,6 +775,38 @@ class dbManager{
     $db_conn->close();
     return $result;
   }
+
+  public function getUsername($memberID)
+  {
+    //variables
+    $nameString = '';
+
+    $db_conn = $this->connect();
+    $memberID = $this->sanitizeInput($memberID, $db_conn);
+
+    $sql = "SELECT FirstName, LastName FROM MEMBER WHERE MemberID = $memberID";
+
+    $result = $db_conn->query($sql);
+
+    if (!$result)
+      $this->logError($db_conn, "Error in getUserName: ");
+
+    $db_conn->close();
+
+    if ($result && mysqli_num_rows($result) != 0)
+    {
+
+      foreach($result->fetch_array(MYSQLI_NUM) as $row)
+      {
+        $nameString .= "$row ";
+      } // end foreach loop
+
+      return $nameString;
+
+    } // end if
+    else
+      return null;
+  } // end function getUsername
 
   public function recordLogin($MemberID)
   {
@@ -752,20 +883,139 @@ class dbManager{
     return $result;
   } //end function updateClass
 
-  public function updateCourse ($courseID, $courseName, $courseMemberFee, $courseNonMemberFee, $courseDescription) {
+  public function updateCourse ($courseID, $courseName, $courseDuration, $courseMemberFee, $courseNonMemberFee, $courseDescription, $courseCerts = null, $courseFacilities = null) {
     $db_conn = $this->connect();
     $courseID = $this->sanitizeInput($courseID, $db_conn);
     $courseName = $this->sanitizeInput($courseName, $db_conn);
     $courseMemberFee = $this->sanitizeInput($courseMemberFee, $db_conn);
     $courseNonMemberFee = $this->sanitizeInput($courseNonMemberFee, $db_conn);
     $courseDescription = $this->sanitizeInput($courseDescription, $db_conn);
+    if ($courseCerts != null) {
+      foreach ($courseCerts as &$courseCert) {
+        $courseCert = $this->sanitizeInput($courseCert, $db_conn);
+      }
+    }
+    if ($courseFacilities != null) {
+      foreach ($courseFacilities as &$courseFacility) {
+        $courseFacility = $this->sanitizeInput($courseFacility, $db_conn);
+      }
+    }
+    $errors = array();
 
-    $sql = "UPDATE COURSE SET CourseName = '$courseName', CourseMemberFee = $courseMemberFee, CourseNonMemberFee = $courseNonMemberFee, CourseDescription = '$courseDescription' WHERE CourseID = $courseID";
+    $db_conn->begin_transaction();
+
+    //first update the base course info
+    $sql = "UPDATE COURSE SET CourseName = '$courseName', Duration = '$courseDuration', CourseMemberFee = $courseMemberFee, CourseNonMemberFee = $courseNonMemberFee, CourseDescription = '$courseDescription' WHERE CourseID = $courseID";
     $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "updateCourse was unable to update a record: ");
+    if (!$result) {
+      $this->logError($db_conn, "updateCourse was unable to update a record: ");
+      array_push($errors, "updateCourse was unable to update a record: ");
+    }
+
+    //update the course certs
+    //delete the old certs
+    $sql = "DELETE FROM COURSE_CERTIFICATION WHERE CourseID = $courseID";
+    $result = $db_conn->query($sql);
+    if (!$result) {
+      $this->logError($db_conn, "updateCourse was unable to remove certification records: ");
+      array_push($errors, "updateCourse was unable to remove certification records: ");
+    }
+
+    if ($courseCerts != null) {
+      //add the new certs
+      foreach ($courseCerts as $courseCert) {
+        $sql = "INSERT INTO COURSE_CERTIFICATION (CourseID, CertName) VALUES ($courseID, '$courseCert')";
+        $result = $db_conn->query($sql);
+        if (!$result) {
+          $this->logError($db_conn, "updateCourse was unable to add a record to COURSE_CERTIFICATION: ");
+          array_push($errors, "updateCourse was unable to add a record to COURSE_CERTIFICATION: ");
+        } //end if !$result
+      } //end foreach courseCerts
+    } //end if courseCerts
+
+    //update the facilities
+    //delete the old course facilities
+    $sql = "DELETE FROM COURSE_FACILITY WHERE CourseID = $courseID";
+    $result = $db_conn->query($sql);
+    if (!$result) {
+      $this->logError($db_conn, "updateCourse was unable to delete records from COURSE_FACILITY: ");
+      array_push($errors, "updateCourse was unable to delete records from COURSE_FACILITY: ");
+    }
+    //add new course facilities if we have them
+    if ($courseFacilities != null) {
+      //add the new course facilities
+      foreach ($courseFacilities as $facility) {
+        $sql = "INSERT INTO COURSE_FACILITY (CourseID, FacilityID) VALUES ($courseID, $facility)";
+        $result = $db_conn->query($sql);
+        if (!$result) {
+          $this->logError($db_conn, "updateCourse was unable to insert a new record into COURSE_FACILITY: ");
+          array_push($errors, "updateCourse was unable to insert a new record into COURSE_FACILITY: ");
+        }
+      } //end foreach courseFacilities
+    } //end update course facilities
+
+    if (empty($errors)) {
+      $db_conn->commit();
+      $db_conn->close();
+      return true;
+    }
+
+    $db_conn->rollback();
     $db_conn->close();
-    return $result;
+    return false;
   } //end function updateCourse
+
+  public function updateFacility($facilityID, $facilityName, $facilityDescription, $subFacilities = null) {
+    $db_conn = $this->connect();
+    $facilityID = $this->sanitizeInput($facilityID, $db_conn);
+    $facilityName = $this->sanitizeInput("$facilityName", $db_conn);
+    $facilityDescription = $this->sanitizeInput("$facilityDescription", $db_conn);
+    if ($subFacilities) {
+      foreach ($subFacilities as &$subFacility) {
+        $subFacility = $this->sanitizeInput("$subFacility", $db_conn);
+      }
+    }
+    $errors = array();
+
+    $db_conn->begin_transaction();
+    $sql = "UPDATE FACILITY SET FacilityName = '$facilityName', FacilityDescription = '$facilityDescription' WHERE FacilityID = $facilityID";
+    $result = $db_conn->query($sql);
+    if (!$result) {
+      $this->logError($db_conn, "updateFacility was unable to update information in the FACILITY table: ");
+      $errors[] = "updateFacility was unable to update information in the FACILITY table: ";
+    }
+
+    //delete subFacilities
+    $sql = "DELETE FROM SUB_FACILITY WHERE PrimaryFacilityID = $facilityID";
+    $result = $db_conn->query($sql);
+    if (!$result) {
+      $this->logError($db_conn, "updateFacility was unable to delete records from the SUB_FACILITY table: ");
+      $errors[] = "updateFacility was unable to delete records from the SUB_FACILITY table: ";
+    }
+
+    //add new subFacilities if there are any
+    if ($subFacilities) {
+      foreach ($subFacilities as $sub) {
+        $sql = "INSERT INTO SUB_FACILITY (PrimaryFacilityID, SubFacilityID) VALUES ($facilityID, $sub)";
+        $result = $db_conn->query($sql);
+        if (!$result) {
+          $this->logError($db_conn, "updateFacility was unable to insert a new record into the SUB_FACILITY table");
+          $errors[] = "updateFacility was unable to insert a new record into the SUB_FACILITY table";
+        }
+      } //end foreach subFacilities
+    }//end if subFacilities
+
+    if (empty($errors)) {
+      $db_conn->commit();
+      $db_conn->close();
+      return true;
+    }
+
+    $db_conn->rollback();
+    $db_conn->close();
+    return false;
+
+  } //end function updateFacility
 
   public function updatePicture($imagePath, $memberID)
   {
@@ -807,6 +1057,7 @@ class dbManager{
     return $result;
 
   }//end method updateProfile
+
 
   /*Private Functions*/
   private function logError($db_conn, $message = '') {

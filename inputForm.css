@@ -19,6 +19,18 @@ Stylesheet for all UserManager input forms
   width: 24em;
 }
 
+.userInputFields .durationInput input{
+  display: inline-block;
+  float: none;
+  margin: 1em .25em ;
+  width: 3em;
+}
+
+.userInputFields .durationInput {
+  margin-left: -1.25em;
+  padding-left: 0em;
+}
+
 .userInputFields p{
   clear: both;
   display: block;

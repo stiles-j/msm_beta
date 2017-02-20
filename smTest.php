@@ -1,5 +1,8 @@
 <?php
-//Test harness for the SpaceManager program 
+/*Test harness for the SpaceManager program
+Note if you want a window to replace the content of the profile window, make sure you place it before the profile
+display handling section and exit the script.
+*/
 
 require_once 'UserManager.php';
 require_once 'loginManager.php';
@@ -142,7 +145,7 @@ if (isset($_POST['addVolunteering']))
 if (isset($_POST['addCert']))
 {
   $memberID = $_POST['addCert'];
-  $um->addCert($memberID);
+  $um->addMemberCert($memberID);
 }
 
 //view dues payments
@@ -155,6 +158,13 @@ if (isset($_POST['showDuesPayments'])) {
 if (isset($_POST['showOtherPayments'])) {
   $memberID = $_POST['showOtherPayments'];
   $um->displayMemberOtherPayments($memberID);
+}
+
+
+//add Facility
+if (isset($_POST['AddNewFacility'])) {
+  $um->addNewFacility();
+  exit();
 }
 
 /*FIND MEMBER SECTION__________________________________________________*/
@@ -245,6 +255,11 @@ if (isset($_POST['AddNewClass'])) {
 /*EDIT CLASS SECTION_________________________________________________________*/
 if (isset($_POST['EditClass'])) {
   $um->editClass();
+}
+
+/*EDIT FACILITY SECTION------------------------------------------------------*/
+if (isset($_POST['EditFacility'])) {
+  $um->getFacilityToEdit();
 }
 
 //session_destroy();

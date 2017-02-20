@@ -9,15 +9,19 @@ $um = new UserManager();
 $courseID = $_POST['courseToEdit'];
 $courseInfo = $db->getCourseInfo($courseID);
 $courseCertifications = $db->getCourseCertifications($courseID);
+$courseFacilities = $db->getCourseFacilities($courseID);
+$facilityList = $db->getAllFacilities();
 $certs = $db->getAllCertifications();
 
 //produce the main body of the form
 $content = <<<END
 <form action="updateCourse.php" method="post" id="courseEditForm" name="courseEditForm">
   <div class="userInputFields">
-    <h2>New Course Input Form</h2>
+    <h2>Edit Course Form</h2>
     <p><span class='label'>Course Name:</span></p>
     <p><input type='text' name='courseName' value='$courseInfo[CourseName]' autofocus='autofocus'></p>
+    <p><span class='label'>Course Duration:</span></p>
+    <p class='durationInput'>Hours:<input type='number' name='hours' value='$courseInfo[Hours]' /> Minutes:<input type='number' name='minutes' value='$courseInfo[Minutes]' /></p>
     <p><span class="label">Course Member Fee:</span> </p>
     <p><input type="number" name="courseMemberFee" value='$courseInfo[CourseMemberFee]' step="any"></p>
     <p><span class="label">Course NonMember Fee:</span> </p>
@@ -36,7 +40,25 @@ foreach ($certs as $cert) {
   else {
     $content .= "<option value='$cert'>$cert</option>";
   }
-}//end outer foreach
+}//end foreach
+$content .= "</select></p>";
+
+//add the select box with the facilities
+$content .= "<p><span class=\"label\">Course Facilities:</span></p>";
+$content .= "<p><select name='courseFacilities[]' multiple='multiple'>";
+foreach ($facilityList as $facility) {
+  $found = false;
+  foreach ($courseFacilities as $courseFacility) {
+    if ($courseFacility['FacilityID'] == $facility['FacilityID']) {
+      $content .= "<option value='$facility[FacilityID]' selected='selected'>$facility[FacilityName]</option>";
+      $found = true;
+    }
+  } //end inner foreach
+  if (!$found) {
+    $content .= "<option value='$facility[FacilityID]'>$facility[FacilityName]</option>";
+  }
+} //end outer foreach
+
 
 $content .= <<<END
     </select></p>
@@ -48,7 +70,5 @@ $content .= <<<END
 END;
 
 $um->displayWin($content);
-
-
 
 ?>

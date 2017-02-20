@@ -2,7 +2,7 @@
 
 /*Rules for entire menu*/
 #hNav{
-  width: 95%;
+  width: 99%;
   margin-left: 2.5%
   
 }
@@ -30,7 +30,7 @@ nav li{
     transition-property: background-color;
     transition-duration: .15s;
     transition-timing-function: linear;  
-    width: 13%;
+    width: 10%;
 }
 
 

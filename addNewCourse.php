@@ -9,7 +9,8 @@ require_once 'UserManager.php';
 
 //try the insert
 $db = new dbManager();
-$courseID = $db->addNewCourse($_POST['courseName'], $_POST['courseMemberFee'], $_POST['courseNonMemberFee'], $_POST['courseDescription']);
+$duration = "$_POST[hours]:$_POST[minutes]";
+$courseID = $db->addNewCourse($_POST['courseName'], $_POST['courseMemberFee'], $_POST['courseNonMemberFee'], $_POST['courseDescription'], $duration, $_POST['courseFacilities']);
 
 //if something goes wrong give 'em an error and punt
 if (!$courseID) {
