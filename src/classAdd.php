@@ -16,9 +16,10 @@ if (!$result) {
 }
 
 $courseInfo = $db->getCourseInfo($_POST['course']);
+$date = substr($_POST['classDate'], 0, 10);
+$time = substr($_POST['classDate'], 11);
 
-
-$content = "Added New Class: <p>$courseInfo[CourseName] on $_POST[classDate]</p>";
+$content = "Added New Class: <p>$courseInfo[CourseName] on $date at $time</p>";
 $um->displayPopUp($content, "Class Added", 'smTest.php');
 exit();
 

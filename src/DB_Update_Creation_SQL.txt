@@ -169,7 +169,7 @@ CREATE TABLE NOTES (
      FOREIGN KEY (MemberID) REFERENCES MEMBER(MemberID)
 );
 
-CREATE TABLE CLASSES_TAKEN (
+CREATE TABLE CLASS_TAKEN (
   ClassReferenceNumber  INTEGER  NOT NULL,
   MemberID              INTEGER  NOT NULL,
   LoginReferenceNumber  INTEGER,
@@ -179,6 +179,125 @@ CREATE TABLE CLASSES_TAKEN (
   FOREIGN KEY (MemberID) REFERENCES MEMBER(MemberID),
   FOREIGN KEY (LoginReferenceNumber) REFERENCES LOGIN(LoginReferenceNumber)
 );
+
+CREATE TABLE EVENT_ATTENDED (
+    EventReferenceNumber    INTEGER NOT NULL,
+    MemberID                INTEGER NOT NULL,
+    LoginReferenceNumber    INTEGER,
+
+    PRIMARY KEY (EventReferenceNumber, MemberID),
+    FOREIGN KEY (EventReferenceNumber) REFERENCES EVENT(EventReferenceNumber),
+    FOREIGN KEY (MemberID)             REFERENCES MEMBER(MemberID),
+    FOREIGN KEY (LoginReferenceNumber) REFERENCES LOGIN(LoginReferenceNumber)
+);
+
+CREATE TABLE FACILITY (
+  FacilityID            INTEGER  NOT NULL AUTO_INCREMENT,
+  FacilityName          VARCHAR(50),
+  FacilityDescription   TEXT,
+
+  PRIMARY KEY (FacilityID)
+);
+
+CREATE TABLE SUB_FACILITY (
+    PrimaryFacilityID       INTEGER NOT NULL,
+    SubFacilityID           INTEGER NOT NULL,
+
+    PRIMARY KEY (PrimaryFacilityID, SubFacilityID),
+    FOREIGN KEY (PrimaryFacilityID) REFERENCES FACILITY(FacilityID),
+    FOREIGN KEY (SubFacilityID)     REFERENCES FACILITY(FacilityID)
+);
+
+CREATE TABLE EVENT_FACILITY (
+    EventReferenceNumber    INTEGER NOT NULL,
+    FacilityID              INTEGER NOT NULL,
+
+    PRIMARY KEY (EventReferenceNumber, FacilityID),
+    FOREIGN KEY (EventReferenceNumber) REFERENCES EVENT(EventReferenceNumber),
+    FOREIGN KEY (FacilityID)           REFERENCES FACILITY(FacilityID)
+);
+
+CREATE TABLE COURSE_FACILITY (
+    CourseID        INTEGER NOT NULL,
+    FacilityID      INTEGER NOT NULL,
+
+    PRIMARY KEY (CourseID, FacilityID),
+    FOREIGN KEY (CourseID)      REFERENCES COURSE(CourseID),
+    FOREIGN KEY (FacilityID)    REFERENCES FACILITY(FacilityID)
+);
+
+--------------------SQL TO CREATE PENDING_CLASSES VIEW--------------------------
+
+CREATE VIEW PENDING_CLASSES AS
+  SELECT ClassReferenceNumber AS ReferenceNumber, ClassDate AS Date, CourseName
+  AS Name, CourseMemberFee AS MemberFee, CourseNonMemberFee AS NonMemberFee FROM
+  CLASS AS A, COURSE AS B WHERE A.CourseID = B.CourseID AND ClassDate >= CURDATE();
+
+
+
+------------------SQL TO CREATE PENDING_EVENTS VIEW-----------------------------
+
+CREATE VIEW PENDING_EVENTS AS
+  SELECT EventReferenceNumber AS ReferenceNumber, EventDate AS Date, EventName
+  AS Name, EventMemberFee AS MemberFee, EventNonMemberFee AS NonMemberFee from
+  EVENT WHERE EventDate >= CURDATE();
+
+
+
+-----------------SQL TO CREATE PENDING_ENROLLMENTS VIEW-------------------------
+
+CREATE VIEW PENDING_ENROLLMENTS AS
+    SELECT A.MemberID, B.ClassReferenceNumber AS ReferenceNumber, C.CourseName AS Name,
+     B.ClassDate AS Date, 'CLASS' AS Type FROM CLASS_ENROLLMENT AS A, CLASS AS B, COURSE AS C WHERE A.ClassReferenceNumber =
+     B.ClassReferenceNumber AND B.CourseID = C.CourseID AND B.ClassDate >= CURDATE()
+     UNION
+     SELECT A.MemberID, B.EventReferenceNumber AS ReferenceNumber, B.EventName AS Name,
+     B.EventDate AS Date, 'EVENT' AS Type FROM EVENT_ENROLLMENT AS A, EVENT AS B WHERE A.EventReferenceNumber =
+     B.EventReferenceNumber AND B.EventDate >= CURDATE();
+
+
+-----------------SQL TO CREATE PENDING_ALL VIEW--------------------------------
+
+CREATE VIEW PENDING_ALL AS
+    SELECT *, 'CLASS' AS Type FROM PENDING_CLASSES
+    UNION
+    SELECT *, 'EVENT' AS Type FROM PENDING_EVENTS;
+
+
+-----------------SQL TO CREATE ALL_ENROLLMENTS VIEW----------------------------
+
+CREATE VIEW ALL_ENROLLMENTS AS
+    SELECT A.MemberID, B.ClassReferenceNumber AS ReferenceNumber, C.CourseName AS Name,
+     B.ClassDate AS Date, A.PaymentReferenceNumber, 'CLASS' AS Type FROM CLASS_ENROLLMENT AS A, CLASS AS B, COURSE AS C WHERE A.ClassReferenceNumber =
+     B.ClassReferenceNumber AND B.CourseID = C.CourseID
+     UNION
+     SELECT A.MemberID, B.EventReferenceNumber AS ReferenceNumber, B.EventName AS Name,
+     B.EventDate AS Date, A.PaymentReferenceNumber, 'EVENT' AS Type FROM EVENT_ENROLLMENT AS A, EVENT AS B WHERE A.EventReferenceNumber =
+     B.EventReferenceNumber;
+
+-----------------SQL TO CREATE PAYMENT_WITH_NAME VIEW--------------------------
+
+CREATE VIEW PAYMENT_WITH_NAME AS
+    SELECT A.PaymentReferenceNumber, A.PaymentDate, A.MemberID, A.Amount, A.Reason, B.Name
+    FROM PAYMENT AS A LEFT OUTER JOIN ALL_ENROLLMENTS AS B ON B.PaymentReferenceNumber = A.PaymentReferenceNumber;
+
+----------------SQL TO CREATE COURSE_FACILITY_WITH_NAME VIEW-------------------
+
+CREATE VIEW COURSE_FACILITY_WITH_NAME AS
+    SELECT A.CourseID, A.FacilityID, B.FacilityName FROM COURSE_FACILITY AS A
+    JOIN FACILITY AS B ON A.FacilityID = B.FacilityID;
+
+---------------SQL TO CREATE FACILITY_SCHEDULE VIEW-----------------------------
+
+CREATE VIEW FACILITY_SCHEDULE AS
+    SELECT DATE(A.ClassDate) AS Date, A.ClassReferenceNumber AS ReferenceNumber, TIME(A.ClassDate) AS StartTime,
+    TIME(ADDTIME(A.ClassDate, B.Duration)) AS EndTime, C.FacilityID, 'CLASS' AS Type FROM CLASS AS A JOIN
+    COURSE AS B ON A.CourseID = B.CourseID LEFT OUTER JOIN COURSE_FACILITY AS C ON B.CourseID = C.CourseID
+    UNION
+    SELECT DATE(A.EventDate) AS Date, A.EventReferenceNumber AS ReferenceNumber, TIME(A.EventDate) AS StartTime,
+    TIME(ADDTIME(A.EventDate, A.Duration)) AS EndTime, B.FacilityID, 'EVENT' AS Type FROM EVENT AS A LEFT OUTER JOIN
+    EVENT_FACILITY AS B ON A.EventReferenceNumber = B.EventReferenceNumber;
+
 
 
 

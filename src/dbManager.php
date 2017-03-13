@@ -528,6 +528,53 @@ class dbManager{
     return $result;
   }
 
+  /**
+   * Method getFacilityList will return an array of facilities and sub-facilities required for either a course or event
+   *
+   * @param $refNumber: A valid CourseID or EventReferenceNumber
+   * @param $type: a string literal. Valid inputs are "course" or "event".  The method will default to event in the
+   *               case of an invalid input.
+   * @return array|bool: An array of FacilityID numbers for all required facilities and associated sub-facilities if
+   *                     there are any associated with the course or event.  False if there are none.
+   */
+  public function getFacilityList($refNumber, $type) {
+    $db_conn = $this->connect();
+    $refNumber = $this->sanitizeInput($refNumber, $db_conn);
+    $type = $this->sanitizeInput($type, $db_conn);
+    $output = array();
+
+    //get the list of facilities
+    if ($type == "course") {
+      $sql = "SELECT FacilityID FROM COURSE_FACILITY WHERE CourseID = $refNumber";
+    } else {
+      $sql = "SELECT FacilityID FROM EVENT_FACILITY WHERE EventReferenceNumber = $refNumber";
+    }
+    $facilities = $db_conn->query($sql);
+
+    //package the results into the output array
+    foreach ($facilities as $facility) {
+      $output[] = $facility['FacilityID'];
+    }
+
+    //check for sub-facilities
+    if ($facilities != null) {
+      foreach ($facilities as $facility) {
+        $subFacilities = $this->getSubFacilities($facility['FacilityID']);
+        //if we found sub-facilities, package them into the output array
+        if ($subFacilities != null) {
+          foreach ($subFacilities as $subFacility) {
+            $output[] = $subFacility['SubFacilityID'];
+          }//end foreach subFacilities
+        } //end if subFacilities
+      } //end foreach facilities
+    } //end if facilities
+    $db_conn->close();
+
+    if (!empty($output)) return $output;
+    return false;
+
+} //end function getFacilityList
+
   public function getLastPayment($memberID) {
     $db_conn = $this->connect();
     $memberID = $this->sanitizeInput($memberID, $db_conn);
@@ -1060,27 +1107,6 @@ class dbManager{
 
 
   /*Private Functions*/
-  private function logError($db_conn, $message = '') {
-      ini_set("log_errors", 1);
-      ini_set("error_log", "php-error.log");
-      $sqlError = $db_conn->error;
-      error_log($message . " " . $sqlError);
-  } //end function logError
-
-  private function getMemberType ($MemberID) {
-    $db_conn = $this->connect();
-    $sql = "SELECT MembershipType FROM MEMBER WHERE MemberID = $MemberID";
-    $MemberType = $db_conn->query($sql);
-
-    if (!$MemberType) $this->logError($db_conn, "In getMemberType: Unable to retrieve MembershipType: ");
-
-    $MemberType = $MemberType->fetch_assoc();
-    $MemberType = $MemberType['MembershipType'];
-    $db_conn->close();
-
-    return $MemberType;
-  }
-
   private function connect()
   {
     //NOTE: The calling function is responsible for closing the connection created by this function
@@ -1096,6 +1122,37 @@ class dbManager{
 
   } //end function connect
 
+  private function getMemberType ($MemberID) {
+    $db_conn = $this->connect();
+    $sql = "SELECT MembershipType FROM MEMBER WHERE MemberID = $MemberID";
+    $MemberType = $db_conn->query($sql);
+
+    if (!$MemberType) $this->logError($db_conn, "In getMemberType: Unable to retrieve MembershipType: ");
+
+    $MemberType = $MemberType->fetch_assoc();
+    $MemberType = $MemberType['MembershipType'];
+    $db_conn->close();
+
+    return $MemberType;
+  }
+
+  private function getLastLogin($memberID) {
+    $db_conn = $this->connect();
+    $sql = "SELECT LoginReferenceNumber FROM LOGIN WHERE MemberID = $memberID ORDER BY LoginReferenceNumber DESC LIMIT 1";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getLastLogin was unable to get members last login reference number: ");
+    $loginReferenceNumber = $result->fetch_assoc()['LoginReferenceNumber'];
+    $db_conn->close();
+    return $loginReferenceNumber;
+  }
+
+  private function logError($db_conn, $message = '') {
+    ini_set("log_errors", 1);
+    ini_set("error_log", "php-error.log");
+    $sqlError = $db_conn->error;
+    error_log($message . " " . $sqlError);
+  } //end function logError
+
   private function sanitizeInput($input, $db_conn)
   {
     if(get_magic_quotes_gpc())
@@ -1109,15 +1166,7 @@ class dbManager{
 
   } // end function sanitizeInput
 
-  private function getLastLogin($memberID) {
-    $db_conn = $this->connect();
-    $sql = "SELECT LoginReferenceNumber FROM LOGIN WHERE MemberID = $memberID ORDER BY LoginReferenceNumber DESC LIMIT 1";
-    $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "getLastLogin was unable to get members last login reference number: ");
-    $loginReferenceNumber = $result->fetch_assoc()['LoginReferenceNumber'];
-    $db_conn->close();
-    return $loginReferenceNumber;
-  }
+
 
   
 }; //end class dbManager 

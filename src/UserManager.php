@@ -47,6 +47,7 @@ class UserManager{
     $content .= "</select>";
     $content .= "Class Date:";
     $content .= "<input type='datetime-local' name='classDate' />";
+    $content .= "<input type='hidden' name='type' value='course' />";
 
     $this->displayPopUp($content, "Add New Class", 'classAdd.php');
 
