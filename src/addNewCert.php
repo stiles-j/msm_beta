@@ -6,8 +6,8 @@
  * Time: 5:14 PM
  */
 
-require_once 'dbManager.php';
-require_once 'OutputManager.php';
+require_once 'classes/dbManager.php';
+require_once 'classes/OutputManager.php';
 
 $db = new dbManager();
 $certName = $_POST['certName'];

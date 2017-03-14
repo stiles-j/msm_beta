@@ -4,9 +4,9 @@ Note if you want a window to replace the content of the profile window, make sur
 display handling section and exit the script.
 */
 
-require_once 'UserManager.php';
-require_once 'loginManager.php';
-require_once 'dbManager.php';
+require_once 'classes/UserManager.php';
+require_once 'classes/loginManager.php';
+require_once 'classes/dbManager.php';
 
 /*TODO: All code containing HTML fragments needs to be devolved to the UserManager.php class.  This script should contain NO display code*/
 

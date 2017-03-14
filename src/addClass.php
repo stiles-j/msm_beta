@@ -6,8 +6,8 @@ Author: Justice Stiles
 Description: This script should recieve a date, a string containing the name of the class taken and a member id number via post.  The Script will attempt to add the new record to the database.
 */
 
-require_once "dbManager.php";
-require_once "PopUpManager.php";
+require_once "classes/dbManager.php";
+require_once "classes/PopUpManager.php";
 $db = new dbManager;
 
 //grab variables out of the post array

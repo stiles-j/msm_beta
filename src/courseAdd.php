@@ -3,8 +3,8 @@
  * This script generates the Add New Course form
  */
 
-require_once 'UserManager.php';
-require_once 'dbManager.php';
+require_once 'classes/UserManager.php';
+require_once 'classes/dbManager.php';
 $db = new dbManager();
 $um = new UserManager();
 $certs = $db->getAllCertifications();

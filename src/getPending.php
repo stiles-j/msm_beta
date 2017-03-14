@@ -3,7 +3,7 @@
 /*This script will access the database and return a list of pending classes or events in JSON format.  */
 
 
-require_once 'dbManager.php';
+require_once 'classes/dbManager.php';
 $db = new dbManager;
 
 session_start();

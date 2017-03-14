@@ -1,8 +1,8 @@
 <?php
 /*Script to handle upload of data from the new user form*/
 
-require_once "dbManager.php";
-require_once "PopUpManager.php";
+require_once "classes/dbManager.php";
+require_once "classes/PopUpManager.php";
 
 /*get new user id number*/
 $db = new dbManager;

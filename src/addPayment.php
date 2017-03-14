@@ -6,8 +6,8 @@ Author: Justice Stiles
 Description:  This script should be called to add a new payment to the database.  No HTML is sent from this script if there are no errors adding the payment, as a post/redirect/get is used.  
 */
 
-require_once "UserManager.php";
-require_once "dbManager.php";
+require_once "classes/UserManager.php";
+require_once "classes/dbManager.php";
 
 /*---Grab Post Data----------------------------------------------------*/
 

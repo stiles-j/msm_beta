@@ -48,7 +48,7 @@ _END;
     $image = mysqli_fetch_assoc($profile[0]);
     if ($image['Picture'] == NULL)
     {
-      echo "<img src='images/default.jpg' class='profilePic' />";
+      echo "<img src='../images/default.jpg' class='profilePic' />";
     } // end if
     else
     {
@@ -76,7 +76,7 @@ _END;
     echo "<h3>Enrollments and Certifications</h3>";
 
     //ENROLLMENTS
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='viewAllEnrollments' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Enrollments:</strong></a></form></p>";
+    echo "<p><form action='../smTest.php' method='post'><input type='hidden' name='viewAllEnrollments' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Enrollments:</strong></a></form></p>";
 
     if ($profile[2]->num_rows != 0) {
       $memberEnrollments = $this->prepEnrollment($profile[2]);
@@ -86,7 +86,7 @@ _END;
     } //end if
 
     //CERTIFICATIONS
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addCert' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Certifications:</strong></a></form></p>";
+    echo "<p><form action='../smTest.php' method='post'><input type='hidden' name='addCert' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Certifications:</strong></a></form></p>";
     foreach ($profile[3] as $cert)
       echo "<p>$cert[CertName]</p>";
     echo "</div>"; //end enrollments and certs div
@@ -95,9 +95,9 @@ _END;
     //display payments, visits, volunteering (recent activity div)
     echo "<div class='profileElement'>";
     echo "<h3>Recent Activity</h3>";
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addPayment' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Payments</strong></a></form></p>";
+    echo "<p><form action='../smTest.php' method='post'><input type='hidden' name='addPayment' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Payments</strong></a></form></p>";
 
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='showDuesPayments' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Dues:</strong></a></form></p>";
+    echo "<p><form action='../smTest.php' method='post'><input type='hidden' name='showDuesPayments' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Dues:</strong></a></form></p>";
 
     $duesPayment = mysqli_fetch_assoc($profile[9]);
     $duesPaymentDate = date("Y-m-d", strtotime($duesPayment['PaymentDate']));
@@ -115,7 +115,7 @@ _END;
     }
 
 
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='showOtherPayments' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Other Payment:</strong></a></form></p>";
+    echo "<p><form action='../smTest.php' method='post'><input type='hidden' name='showOtherPayments' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Other Payment:</strong></a></form></p>";
 
     $payment = mysqli_fetch_array($profile[4]);
     //convert donation date to readable format
@@ -129,7 +129,7 @@ _END;
     echo "<p><strong>Recent Visits:</strong></p>";
     foreach ($profile[5] as $visit)
       echo "<p>$visit[LoginTime]</p>";
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addVolunteering' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Volunteering:</strong></a></form></p>";
+    echo "<p><form action='../smTest.php' method='post'><input type='hidden' name='addVolunteering' value='$profile[8]'><input type='hidden' name='display_member' value='$profile[8]'><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Volunteering:</strong></a></form></p>";
     foreach ($profile[6] as $event)
       echo "<p>$event[Date]: <br /> $event[Name]</p>";
     echo "</div>"; // end recent activity div
@@ -149,14 +149,14 @@ _END;
               <li class='dropdown' id='noteMenu'><a><h3>Notes</h3></a>
                 <ul class='dropdown-content'>
                   <li>
-                    <form id='addNote' action='smTest.php' method='post'>
+                    <form id='addNote' action='../smTest.php' method='post'>
                       <input type='hidden' name='noteAdd' value='noteAdd' /> 
                       <input type='hidden' name='display_member' value='$MemberNumber' /> 
                       <a href='#' onclick='this.parentNode.submit(); return false;'>Add Note</a>
                     </form>
                   </li>
                   <li>
-                    <form action='smTest.php' method='post'>
+                    <form action='../smTest.php' method='post'>
                       <input type='hidden' name='viewAllNotes' value='$MemberNumber'> 
                       <a href='#' onclick='this.parentNode.submit(); return false;'>View All</a>
                     </form>
@@ -178,7 +178,7 @@ _END;
     echo "<div class='profileWindow'>";
 
     //display profile pic
-    echo "<img src='images/default.jpg' class='profilePic' />";
+    echo "<img src='../images/default.jpg' class='profilePic' />";
 
     //display basic member info
     echo "<div class='profileElement'>";
@@ -195,11 +195,11 @@ _END;
     echo "<h3>Enrollments and Certifications</h3>";
 
     //ENROLLMENTS
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='viewAllEnrollments' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Enrollments:</strong></a></form></p>";
+    echo "<p><form action='../smTest.php' method='post'><input type='hidden' name='viewAllEnrollments' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Enrollments:</strong></a></form></p>";
     echo "<p> </p>";
 
     //CERTIFICATIONS
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addCert' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Certifications:</strong></a></form></p>";
+    echo "<p><form action='../smTest.php' method='post'><input type='hidden' name='addCert' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Certifications:</strong></a></form></p>";
     echo "<p> </p>";
     echo "</div>"; //end enrollments and certs div
 
@@ -207,13 +207,13 @@ _END;
     //display payments, visits, volunteering (recent activity div)
     echo "<div class='profileElement'>";
     echo "<h3>Recent Activity</h3>";
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addDonation' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Last Payment:</strong></a></form></p>";
+    echo "<p><form action='../smTest.php' method='post'><input type='hidden' name='addDonation' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Last Payment:</strong></a></form></p>";
     echo "<p> </p>";
 
 
     echo "<p><strong>Recent Visits:</strong></p>";
       echo "<p> </p>";
-    echo "<p><form action='smTest.php' method='post'><input type='hidden' name='addVolunteering' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Volunteering:</strong></a></form></p>";
+    echo "<p><form action='../smTest.php' method='post'><input type='hidden' name='addVolunteering' value=''><input type='hidden' name='display_member' value=''><a href='#' class='dashButton' onclick='this.parentNode.submit(); return false;'><strong>Volunteering:</strong></a></form></p>";
     echo "<p> <br /> </p>";
     echo "</div>"; // end recent activity div
 
@@ -227,14 +227,14 @@ _END;
               <li class='dropdown' id='noteMenu'><a><h3>Notes</h3></a>
                 <ul class='dropdown-content'>
                   <li>
-                    <form id='addNote' action='smTest.php' method='post'>
+                    <form id='addNote' action='../smTest.php' method='post'>
                       <input type='hidden' name='noteAdd' value='noteAdd' /> 
                       <input type='hidden' name='display_member' value='' /> 
                       <a href='#' onclick='this.parentNode.submit(); return false;'>Add Note</a>
                     </form>
                   </li>
                   <li>
-                    <form action='smTest.php' method='post'>
+                    <form action='../smTest.php' method='post'>
                       <input type='hidden' name='viewAllNotes' value=''> 
                       <a href='#' onclick='this.parentNode.submit(); return false;'>View All</a>
                     </form>
@@ -409,7 +409,7 @@ _END;
 
     foreach ($enrollments as $enrollment) {
 
-      $event = "<form action='addAttendance.php' method='post'>
+      $event = "<form action='../addAttendance.php' method='post'>
       <input type='hidden' name='memberID' value='$enrollment[MemberID]' />
       <input type='hidden' name='type' value='$enrollment[Type]' />
       <input type='hidden' name='referenceNumber' value='$enrollment[ReferenceNumber]' />

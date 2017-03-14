@@ -6,8 +6,8 @@ Author: Justice Stiles
 Description:  This script should receive a member id number and a string containing a cert name via post.  The script will attempt to add this information to the database.  On success, the script will return to the main window with the new cert displayed, or give the user an error message via popup on failure.  
 */
 
-require_once "dbManager.php";
-require_once "PopUpManager.php";
+require_once "classes/dbManager.php";
+require_once "classes/PopUpManager.php";
 $db = new dbManager;
 
 //grab the variables out of the post array

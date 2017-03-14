@@ -89,7 +89,7 @@ END;
       <option value='merchandise'>Merchandise</option>
       <option value='other'>Other Payment</option>
     </select>
-    <script src='paymentSlider.js'></script>
+    <script src='../paymentSlider.js'></script>
     <div id='slideContent'></div>
     <input type='hidden' name='MemberID' id='MemberID' value='$memberID' />";
     $this->displayPopUp($content, "Add Payment", "addPayment.php");
@@ -310,7 +310,7 @@ END;
   private function prepName($memberID)
   {
     $userName = $this->db->getUserName($memberID);
-    $name = "<form action='smTest.php' method='post'>
+    $name = "<form action='../smTest.php' method='post'>
     <input type='hidden' name='display_member' value='$memberID' />
     <input type='submit' name='submit' id='memberButton' value='$userName' /></form>";
 

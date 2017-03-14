@@ -6,8 +6,8 @@ Author: Justice Stiles
 Description:  This script should be called to add a volunteering event to a member's profile in the database.  The script expects to recieve a member ID number, a date and a string containing the descritpion of the volunteering event via post.  
 */
 
-require_once "dbManager.php";
-require_once "PopUpManager.php";
+require_once "classes/dbManager.php";
+require_once "classes/PopUpManager.php";
 
 //grab variables from the post array
 $db = new dbManager;

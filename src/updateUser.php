@@ -1,8 +1,8 @@
 <?php
 /*Script to handle updating member data*/
 
-require_once "dbManager.php";
-require_once "PopUpManager.php";
+require_once "classes/dbManager.php";
+require_once "classes/PopUpManager.php";
 
 $db = new dbManager; 
 

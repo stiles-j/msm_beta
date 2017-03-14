@@ -4,8 +4,8 @@
  * Name addNewCourse.php
  * Description:  This script receives input via post and attempts to add a new course to the database */
 
-require_once 'dbManager.php';
-require_once 'UserManager.php';
+require_once 'classes/dbManager.php';
+require_once 'classes/UserManager.php';
 
 //try the insert
 $db = new dbManager();

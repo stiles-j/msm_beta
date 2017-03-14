@@ -6,8 +6,8 @@
  * Time: 9:53 PM
  */
 
-require_once 'UserManager.php';
-require_once 'dbManager.php';
+require_once 'classes/UserManager.php';
+require_once 'classes/dbManager.php';
 
 $pm = new UserManager();
 $db = new dbManager();

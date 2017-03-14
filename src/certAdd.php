@@ -5,7 +5,7 @@
  * Time: 3:07 PM
  */
 
-require_once 'UserManager.php';
+require_once 'classes/UserManager.php';
 $um = new UserManager();
 
 $content = file_get_contents("certAdd.html");

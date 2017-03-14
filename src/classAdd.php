@@ -1,7 +1,7 @@
 <?php
 
-require_once "dbManager.php";
-require_once "UserManager.php";
+require_once "classes/dbManager.php";
+require_once "classes/UserManager.php";
 
 $db = new dbManager();
 
