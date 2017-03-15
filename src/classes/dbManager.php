@@ -10,7 +10,7 @@ class dbManager{
   public function __construct()
   {
     //first get login credentials
-    require 'login.php';
+    require_once 'login.php';
     
     $this->hostname = $db_hostname;
     $this->username = $db_username;
@@ -246,7 +246,16 @@ class dbManager{
     return $result;
   } //end function addNewClass
 
-  /*Function addClassTaken attempts to add a new class to the database's "ClassesTaken" table.  The function requires three arguments, a member number as an int, a string containing the class name and a string in the form yyyy-mm-dd for the date the class was completed.  The function returns true on a successful insert or false on a failed insert.*/
+  /**
+   * Function addClassTaken attempts to add a new class to the database's "ClassesTaken" table.  The function requires three arguments, a member
+   * number as an int, a string containing the class name and a string in the form yyyy-mm-dd for the date the class was completed.  The function
+   * returns true on a successful insert or false on a failed insert.
+   *
+   * @param $MemberID
+   * @param $classReferenceNumber
+   * @param $loginReferenceNumber
+   * @return bool|mysqli_result
+   */
   public function addClassTaken($MemberID, $classReferenceNumber, $loginReferenceNumber)
   {
     //connect and sanitize inputs
@@ -338,7 +347,33 @@ class dbManager{
     return $result;
     
   } //end function addClassVolunteer
-  
+
+  /**
+   * Method checkFacilityScheduleConflict searches for potential schedule conflicts in facilities.
+   * The method requires a date, start time, end time and the facilityID you want to check for potential conflicts.
+   * The method will return a mysqli result containing data on conflicting schedule items if conflicts exists,
+   * or false if they do not.
+   *
+   * @param $facilityID: a valid facility ID number
+   * @param $date: the date to check for conflicts on
+   * @param $startTime: the start of the time period to check for conflicts
+   * @param $endTime: the end of the time period to check for conflict
+   * @return bool|mysqli_result: mysqli_result containing data on conflicting events if they exist, false if no conflicts
+   */
+  public function checkFacilityScheduleConflict ($facilityID, $date, $startTime, $endTime) {
+    $db_conn = $this->connect();
+    $facilityID = $this->sanitizeInput($facilityID, $db_conn);
+    $startTime = $this->sanitizeInput($startTime, $db_conn);
+    $endTime = $this->sanitizeInput($endTime, $db_conn);
+    $date = $this->sanitizeInput($date, $db_conn);
+
+    $sql = "SELECT * FROM FACILITY_SCHEDULE WHERE FacilityID = $facilityID AND Date = '$date' AND StartTime BETWEEN '$startTime' AND '$endTime' OR FacilityID = $facilityID AND Date = '$date' AND EndTime BETWEEN '$startTime' AND '$endTime'";
+    $result = $db_conn->query($sql);
+    $db_conn->close();
+    if ($result->num_rows == 0) return false;
+    return $result;
+  }
+
   public function findMember($firstName, $lastName)
   {
     //connect to database and sanatize inputs
