@@ -39,17 +39,17 @@ class UserManager{
   public function addNewClass() {
     $courses = $this->db->getAllCourses();
     $content = "Course:";
-    $content .= "<select name='course'>";
+    $content .= "<select name='referenceNumber'>";
 
     while ($course = $courses->fetch_assoc()) {
       $content .= "<option value='$course[CourseID]'>$course[CourseName]</option>";
     }
     $content .= "</select>";
     $content .= "Class Date:";
-    $content .= "<input type='datetime-local' name='classDate' />";
+    $content .= "<input type='datetime-local' name='time' />";
     $content .= "<input type='hidden' name='type' value='course' />";
 
-    $this->displayPopUp($content, "Add New Class", 'classAdd.php');
+    $this->displayPopUp($content, "Add New Class", 'checkConflict.php');
 
   } // end function addNewClass
 

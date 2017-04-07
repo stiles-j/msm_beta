@@ -9,13 +9,12 @@ class dbManager{
   
   public function __construct()
   {
-    //first get login credentials
-    require_once 'login.php';
+    //first get login credentials; USERS WILL NEED TO INSERT THEIR CREDENTIALS HERE
     
-    $this->hostname = $db_hostname;
-    $this->username = $db_username;
-    $this->password = $db_password;
-    $this->database = $db_database;   
+    $this->hostname = 'localhost';
+    $this->username = 'test';
+    $this->password = 'dbtest';
+    $this->database = 'members';
   } // end function __construct
 
   public function addAttendance ($memberID, $referenceNumber, $type) {
@@ -51,6 +50,17 @@ class dbManager{
     $db_conn->close();
     return $result;
   }
+
+  public function addNewClass ($courseID, $classDate) {
+    $db_conn = $this->connect();
+    $courseID = $this->sanitizeInput($courseID, $db_conn);
+    $classDate = $this->sanitizeInput($classDate, $db_conn);
+    $sql = "INSERT INTO CLASS (ClassDate, CourseID) VALUES ('$classDate', $courseID)";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "addNewClass was unable to insert a new record: ");
+    $db_conn->close();
+    return $result;
+  } //end function addNewClass
 
   /*addNewCourse will add a new course to the database and return the courseID number.  Returns false if the
   attempt to insert fails*/
@@ -235,17 +245,6 @@ class dbManager{
     
   }//end method addPayment
 
-  public function addNewClass ($courseID, $classDate) {
-    $db_conn = $this->connect();
-    $courseID = $this->sanitizeInput($courseID, $db_conn);
-    $classDate = $this->sanitizeInput($classDate, $db_conn);
-    $sql = "INSERT INTO CLASS (ClassDate, CourseID) VALUES ('$classDate', $courseID)";
-    $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "addNewClass was unable to insert a new record: ");
-    $db_conn->close();
-    return $result;
-  } //end function addNewClass
-
   /**
    * Function addClassTaken attempts to add a new class to the database's "ClassesTaken" table.  The function requires three arguments, a member
    * number as an int, a string containing the class name and a string in the form yyyy-mm-dd for the date the class was completed.  The function
@@ -355,19 +354,17 @@ class dbManager{
    * or false if they do not.
    *
    * @param $facilityID: a valid facility ID number
-   * @param $date: the date to check for conflicts on
-   * @param $startTime: the start of the time period to check for conflicts
-   * @param $endTime: the end of the time period to check for conflict
+   * @param $startTime: the start of the time period to check for conflicts in the format yyyy/mm/dd hh:mm:ss
+   * @param $duration: the duration of the event in the format hh:mm:ss
    * @return bool|mysqli_result: mysqli_result containing data on conflicting events if they exist, false if no conflicts
    */
-  public function checkFacilityScheduleConflict ($facilityID, $date, $startTime, $endTime) {
+  public function checkFacilityScheduleConflict ($facilityID, $startTime, $duration) {
     $db_conn = $this->connect();
     $facilityID = $this->sanitizeInput($facilityID, $db_conn);
     $startTime = $this->sanitizeInput($startTime, $db_conn);
-    $endTime = $this->sanitizeInput($endTime, $db_conn);
-    $date = $this->sanitizeInput($date, $db_conn);
+    $duration = $this->sanitizeInput($duration, $db_conn);
 
-    $sql = "SELECT * FROM FACILITY_SCHEDULE WHERE FacilityID = $facilityID AND Date = '$date' AND StartTime BETWEEN '$startTime' AND '$endTime' OR FacilityID = $facilityID AND Date = '$date' AND EndTime BETWEEN '$startTime' AND '$endTime'";
+    $sql = "SELECT * FROM FACILITY_SCHEDULE WHERE FacilityID = $facilityID AND StartTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') OR FacilityID = $facilityID AND EndTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') OR '$startTime' BETWEEN StartTime AND EndTime";
     $result = $db_conn->query($sql);
     $db_conn->close();
     if ($result->num_rows == 0) return false;
@@ -494,30 +491,10 @@ class dbManager{
   } //end function getCourseCertification
 
   /**
-   * Function getClassInfo returns pertinent information on a class
-   *
-   * @param $classReferenceNumber a valid classReferenceNumber
-   * @return array|bool an associative array containing the class ReferenceNumber, Date, Name, MemberFee
-   * and NonMemberFee if the query is successful, or false if it is not
-   */
-  public function getClassInfo ($classReferenceNumber) {
-    $db_conn = $this->connect();
-    $classReferenceNumber = $this->sanitizeInput($classReferenceNumber, $db_conn);
-    $sql = "SELECT * FROM PENDING_CLASSES WHERE ReferenceNumber = $classReferenceNumber";
-    $result = $db_conn->query($sql);
-    if (!$result) {
-      $this->logError($db_conn, "getClassInfo was unable to retrieve class data: ");
-      $db_conn->close();
-      return $result;
-    }
-    $db_conn->close();
-    $result = $result->fetch_assoc();
-    return $result;
-  }
-
-  /**
    * getCourseFacilities returns a mysqli result containing the CourseID, FacilityID and FacilityName
    * for all facilities associated with a course
+   *
+   *TODO: SHOULD THIS FUNCTION BE DEPRECATED AND REPLACED WITH getFacilityList($refNumber, $type)?
    *
    * @param $courseID: a valid CourseID number
    * @return mysqli_result|bool: A mysqli result containing the listed information from the database if the
@@ -536,7 +513,7 @@ class dbManager{
   public function getCourseInfo($courseID) {
     $db_conn = $this->connect();
     $courseID = $this->sanitizeInput($courseID, $db_conn);
-    $sql = "SELECT CourseID, CourseName, CourseDescription, CourseMemberFee, CourseNonMemberFee, HOUR(Duration) AS Hours, MINUTE(Duration) as Minutes FROM COURSE WHERE CourseID = $courseID";
+    $sql = "SELECT CourseID, CourseName, CourseDescription, CourseMemberFee, CourseNonMemberFee, Duration FROM COURSE WHERE CourseID = $courseID";
     $result = $db_conn->query($sql);
     if (!$result) $this->logError($db_conn, "getCourseInfo was unable to retrieve information on course: ");
     $db_conn->close();
@@ -545,6 +522,17 @@ class dbManager{
     $result = $result->fetch_assoc();
     return $result;
   } //end function getCourseInfo
+
+  public function getEventInfo($eventReferenceNumber) {
+    $db_conn = $this->connect();
+    $eventReferenceNumber = $this->sanitizeInput($eventReferenceNumber, $db_conn);
+    $sql = "SELECT * FROM EVENT WHERE EventReferenceNumber = $eventReferenceNumber";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getEventInfo was unable to retrieve information on an event: ");
+    $db_conn->close();
+    $result = $result->fetch_assoc();
+    return $result;
+  }
 
   /**
    * getFacilityInfo returns a mysqli result containing FacilityID, FacilityName and FacilityDescription
@@ -564,7 +552,8 @@ class dbManager{
   }
 
   /**
-   * Method getFacilityList will return an array of facilities and sub-facilities required for either a course or event
+   * Method getFacilityList will return an array of FacilityID numbers for facilities and sub-facilities required for
+   * either a course or event
    *
    * @param $refNumber: A valid CourseID or EventReferenceNumber
    * @param $type: a string literal. Valid inputs are "course" or "event".  The method will default to event in the
@@ -598,7 +587,7 @@ class dbManager{
         //if we found sub-facilities, package them into the output array
         if ($subFacilities != null) {
           foreach ($subFacilities as $subFacility) {
-            $output[] = $subFacility['SubFacilityID'];
+            $output[] = $subFacility;
           }//end foreach subFacilities
         } //end if subFacilities
       } //end foreach facilities
@@ -772,6 +761,28 @@ class dbManager{
     
   } // end function getProfile
 
+  /**
+   * Function getPendingClassInfo returns pertinent information on a class
+   *
+   * @param $classReferenceNumber a valid classReferenceNumber
+   * @return array|bool an associative array containing the class ReferenceNumber, Date, Name, MemberFee
+   * and NonMemberFee if the query is successful, or false if it is not
+   */
+  public function getPendingClassInfo ($classReferenceNumber) {
+    $db_conn = $this->connect();
+    $classReferenceNumber = $this->sanitizeInput($classReferenceNumber, $db_conn);
+    $sql = "SELECT * FROM PENDING_CLASSES WHERE ReferenceNumber = $classReferenceNumber";
+    $result = $db_conn->query($sql);
+    if (!$result) {
+      $this->logError($db_conn, "getPendingClassInfo was unable to retrieve class data: ");
+      $db_conn->close();
+      return $result;
+    }
+    $db_conn->close();
+    $result = $result->fetch_assoc();
+    return $result;
+  }
+
   public function getPendingClasses($memberID = 0)
   {
     $db_conn = $this->connect();
@@ -797,6 +808,17 @@ class dbManager{
     
   } //end getPendingClasses
 
+  public function getPendingEventInfo($eventReferenceNumber) {
+    $db_conn = $this->connect();
+    $eventReferenceNumber = $this->sanitizeInput($eventReferenceNumber, $db_conn);
+    $sql = "SELECT * FROM PENDING_EVENTS WHERE ReferenceNumber = $eventReferenceNumber";
+    $result = $db_conn->query($sql);
+    if (!$result) $this->logError($db_conn, "getEventInfo was unable to retrieve information on an event: ");
+    $db_conn->close();
+    $result = $result->fetch_assoc();
+    return $result;
+  }
+
   public function getPendingEvents($memberID)
   {
     $db_conn = $this->connect();
@@ -815,7 +837,7 @@ class dbManager{
     else {
       $sql = "SELECT ReferenceNumber, Date, Name, MemberFee AS Fee FROM PENDING_EVENTS";
       $result = $db_conn->query($sql);
-      if (!$result) $this->logError($db_conn, "Unable to retrieve Non-Member pending events: ");
+      if (!$result) $this->logError($db_conn, "Unable to retrieve Member pending events: ");
       $db_conn->close();
       return $result;
     }
@@ -833,21 +855,48 @@ class dbManager{
   } //end getPendingEnrollments
 
   /**
-   * getSubFacilities returns a mysqli result containing the SubFacilityID of all subfacilities associated with a
-   * given single PrimaryFacility.
+   * getSubFacilities returns an array containing the SubFacilityID of all sub-facilities associated with a
+   * given single PrimaryFacility.  Results are checked recursively, so the sub-facilities of sub-facilities will be
+   * returned properly.
    *
    * @param $facilityID: a valid FacilityID
-   * @return bool|mysqli_result: mysql_result if the query is successful, false if it isn't.
+   * @return bool|array False if there are no sub-facilities, an array containing a list of FacilityIDs if there
+   * are sub-facilities
    */
   public  function getSubFacilities($facilityID) {
+
     $db_conn = $this->connect();
     $facilityID = $this->sanitizeInput($facilityID, $db_conn);
+    $output = array();
+
     $sql = "SELECT * FROM SUB_FACILITY WHERE PrimaryFacilityID = $facilityID";
-    $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "getSubFacilities was unable to retrieve records: ");
+    $results = $db_conn->query($sql);
     $db_conn->close();
-    return $result;
-  }
+
+    if ($results->num_rows == 0) {
+        return false;
+      }
+
+    //package the list of subFacilityIDs into the output array
+    foreach ($results as $result) {
+      $output[] = $result['SubFacilityID'];
+    }
+
+    //get and sub-facilities that the sub-facilities themselves have
+    $subSub = false;
+    foreach ($output as $sub) {
+      $subSub = $this->getSubFacilities($sub);
+      //add the additional sub-facilities to the output
+      if ($subSub){
+        foreach ($subSub as $additional) {
+          $output[] = $additional;
+        } //end foreach subSub
+      } //end if subSub
+    } //end foreach output as sub
+
+    return $output;
+
+  } //end method getSubFacilities
 
   public function getTodaysEvents() {
     $db_conn = $this->connect();

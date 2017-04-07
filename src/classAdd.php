@@ -5,7 +5,7 @@ require_once "classes/UserManager.php";
 
 $db = new dbManager();
 
-$result = $db->addNewClass($_POST['course'], $_POST['classDate']);
+$result = $db->addNewClass($_GET['referenceNumber'], $_GET['time']);
 
 $um = new UserManager();
 
@@ -15,9 +15,9 @@ if (!$result) {
   exit();
 }
 
-$courseInfo = $db->getCourseInfo($_POST['course']);
-$date = substr($_POST['classDate'], 0, 10);
-$time = substr($_POST['classDate'], 11);
+$courseInfo = $db->getCourseInfo($_GET['referenceNumber']);
+$date = substr($_GET['time'], 0, 10);
+$time = substr($_GET['time'], 11);
 
 $content = "Added New Class: <p>$courseInfo[CourseName] on $date at $time</p>";
 $um->displayPopUp($content, "Class Added", 'smTest.php');

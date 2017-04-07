@@ -4,7 +4,7 @@ require_once "classes/dbManager.php";
 require_once "classes/UserManager.php";
 
 $db = new dbManager();
-$oldClassInfo = $db->getClassInfo($_POST['classToEdit']);
+$oldClassInfo = $db->getPendingClassInfo($_POST['classToEdit']);
 $result = $db->updateClass($_POST['classToEdit'], $_POST['newClassDate']);
 
 $um = new UserManager();

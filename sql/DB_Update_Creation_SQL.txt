@@ -290,16 +290,13 @@ CREATE VIEW COURSE_FACILITY_WITH_NAME AS
 ---------------SQL TO CREATE FACILITY_SCHEDULE VIEW-----------------------------
 
 CREATE VIEW FACILITY_SCHEDULE AS
-    SELECT DATE(A.ClassDate) AS Date, A.ClassReferenceNumber AS ReferenceNumber, TIME(A.ClassDate) AS StartTime,
-    TIME(ADDTIME(A.ClassDate, B.Duration)) AS EndTime, C.FacilityID, 'CLASS' AS Type FROM CLASS AS A JOIN
-    COURSE AS B ON A.CourseID = B.CourseID LEFT OUTER JOIN COURSE_FACILITY AS C ON B.CourseID = C.CourseID
+    SELECT A.ClassReferenceNumber AS ReferenceNumber, A.ClassDate AS StartTime,
+    ADDTIME(A.ClassDate, B.Duration) AS EndTime, C.FacilityID, 'CLASS' AS Type FROM CLASS AS A JOIN
+    COURSE AS B ON A.CourseID = B.CourseID JOIN COURSE_FACILITY AS C ON B.CourseID = C.CourseID
     UNION
-    SELECT DATE(A.EventDate) AS Date, A.EventReferenceNumber AS ReferenceNumber, TIME(A.EventDate) AS StartTime,
-    TIME(ADDTIME(A.EventDate, A.Duration)) AS EndTime, B.FacilityID, 'EVENT' AS Type FROM EVENT AS A LEFT OUTER JOIN
+    SELECT A.EventReferenceNumber AS ReferenceNumber, A.EventDate AS StartTime,
+    ADDTIME(A.EventDate, A.Duration) AS EndTime, B.FacilityID, 'EVENT' AS Type FROM EVENT AS A JOIN
     EVENT_FACILITY AS B ON A.EventReferenceNumber = B.EventReferenceNumber;
-
-
-
 
 
 

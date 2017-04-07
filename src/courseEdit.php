@@ -12,6 +12,8 @@ $courseCertifications = $db->getCourseCertifications($courseID);
 $courseFacilities = $db->getCourseFacilities($courseID);
 $facilityList = $db->getAllFacilities();
 $certs = $db->getAllCertifications();
+$hours = substr($courseInfo['Duration'], 0, 2);
+$minutes = substr($courseInfo['Duration'], 3, 2);
 
 //produce the main body of the form
 $content = <<<END
@@ -21,7 +23,7 @@ $content = <<<END
     <p><span class='label'>Course Name:</span></p>
     <p><input type='text' name='courseName' value='$courseInfo[CourseName]' autofocus='autofocus'></p>
     <p><span class='label'>Course Duration:</span></p>
-    <p class='durationInput'>Hours:<input type='number' name='hours' value='$courseInfo[Hours]' /> Minutes:<input type='number' name='minutes' value='$courseInfo[Minutes]' /></p>
+    <p class='durationInput'>Hours:<input type='number' name='hours' value='$hours' /> Minutes:<input type='number' name='minutes' value='$minutes' /></p>
     <p><span class="label">Course Member Fee:</span> </p>
     <p><input type="number" name="courseMemberFee" value='$courseInfo[CourseMemberFee]' step="any"></p>
     <p><span class="label">Course NonMember Fee:</span> </p>
