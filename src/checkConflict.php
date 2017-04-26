@@ -50,7 +50,9 @@ if (!empty($conflicts)) {
     $content .= "<p>$issue</p>";
   }
 
-  $content .= "<a href='smTest.php' class='cancelButton'>Cancel</a>";
+  $content .= "<input type='hidden' name='referenceNumber' value='$referenceNumber'>";
+  $content .= "<input type='hidden' name='time' value='$startTime'>";
+  $content .= "<p class='cancelButton'><a href='smTest.php'>Cancel</a></p>";
 
   $pm = new PopUpManager();
   $pm->createPopUp($content, "Scheduling Conflict!", $destination);

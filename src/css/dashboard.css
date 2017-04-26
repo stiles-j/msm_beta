@@ -264,8 +264,23 @@ h3{
   color: darkred;
 }
 
+.cancelButton {
+  background-color: rgb(236, 236, 236);
+  border: solid lightblue 2px;
+  clear: both;
+  margin: auto;
+  padding: 0.15em 0.25em;
+  width: 70%;
 
+}
 
+.cancelButton a, .cancelButton a:visited {
+  color: black;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: normal;
+
+}
 
 
 

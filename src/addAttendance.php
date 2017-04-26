@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: justice
- * Date: 1/28/17
- * Time: 9:53 PM
- */
 
 require_once 'classes/UserManager.php';
 require_once 'classes/dbManager.php';

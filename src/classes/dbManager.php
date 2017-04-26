@@ -712,7 +712,7 @@ class dbManager{
     if (!$profile)
       $this->logError($db_conn, "getProfile unable to retrieve profile data: ");
     
-    $sql = "SELECT * FROM PENDING_ENROLLMENTS WHERE MemberID = $memberID ORDER BY Date LIMIT 5";
+    $sql = "SELECT MemberID, ReferenceNumber, Name, DATE(Date) as Date, Type FROM PENDING_ENROLLMENTS WHERE MemberID = $memberID ORDER BY Date LIMIT 5";
     $enrollments = $db_conn->query($sql);
     
     if (!$enrollments)
@@ -900,7 +900,7 @@ class dbManager{
 
   public function getTodaysEvents() {
     $db_conn = $this->connect();
-    $sql = "SELECT * FROM PENDING_ALL WHERE Date = CURDATE()";
+    $sql = "SELECT * FROM PENDING_ALL WHERE DATE(Date) = CURDATE()";
     $result = $db_conn->query($sql);
     if (!$result) $this->logError($db_conn, "Unable to retrieve todays events from database: ");
     $db_conn->close();
