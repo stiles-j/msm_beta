@@ -106,13 +106,35 @@ class dbManager{
     //if we have no errors commit the transaction and return the course id
     if (empty($errors)) {
       $db_conn->commit();
+      $db_conn->close();
       return $id;
     }
 
     //otherwise return false because the add failed
+    $db_conn->close();
     return false;
 
   } //end method addNewCourse
+
+  public function addNewEvent ($eventName, $eventDate, $eventMemberFee, $eventNonMemberFee, $eventDescription, $eventDuration = "1:00:00", $eventFacilities = null) {
+    $db_conn = $this->connect();
+    $eventName = $this->sanitizeInput($eventName, $db_conn);
+    $eventDate = $this->sanitizeInput($eventDate, $db_conn);
+    $eventMemberFee = $this->sanitizeInput($eventMemberFee, $db_conn);
+    $eventNonMemberFee = $this->sanitizeInput($eventNonMemberFee, $db_conn);
+    $eventDescription = $this->sanitizeInput($eventDescription, $db_conn);
+    $eventDuration = $this->sanitizeInput($eventDuration, $db_conn);
+    if ($eventFacilities) {
+      foreach ($eventFacilities as &$facility) {
+        $facility = $this->sanitizeInput($facility, $db_conn);
+      }
+      unset($facility); //because facility is a reference and loops in php do not have their own scope.
+    }
+
+
+
+
+  } //end method addNewEvent
 
   /**
    * addNewFacility attempts to add a record to the FACILITY table of the database.

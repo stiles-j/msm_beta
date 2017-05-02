@@ -2,27 +2,35 @@
 
 // UserManager class for the SpaceManager program
 // class UserManager manages all user data in memory, but does not make changes to the database directly which is the job of the dbManager class.
+//TODO: This class has become a swiss army knife.  Notes for reforming the class are listed in TODO notes.
 
 class UserManager{
   
   private $db, $om;
-  
+
+  /**
+   * UserManager constructor. No args
+   */
   public function __construct()
   {
     require_once 'dbManager.php';
     require_once 'OutputManager.php';
     
-    /*Session housekeeping.  Note that it is possible the session may already be started or an HTML header may have already been sent when the below functions are called.  If that happens the server will log a PHP error.  This error can safely be ignored, as the following lines of code function as a fail-safe to ensure the session is started if it hasn't been already.*/
+    /*Session housekeeping.  Note that it is possible the session may already be started or an HTML header may have
+    already been sent when the below functions are called.  If that happens the server will log a PHP error.  This
+    error can safely be ignored, as the following lines of code function as a fail-safe to ensure the session is started
+    if it hasn't been already. Yes, accessing session data from inside a class is icky.  We will work to get rid of this
+    problem in a future revision of the software*/
     if (session_status() == PHP_SESSION_NONE) session_start(); //required for this class to work, so make sure it's started
     session_regenerate_id(); //to prevent fixation
         
     $this->db = new dbManager;
     $this->om = new OutputManager;
     
-  } // end function __construct()
+  } // end method __construct()
 
   /**
-   * Function addMemberCert adds a record to the MEMBER_CERTIFICATION table
+   * Method addMemberCert adds a record to the MEMBER_CERTIFICATION table
    *
    * @param $memberID: A valid MemberID number
    */
@@ -34,8 +42,14 @@ class UserManager{
     }
     $content .= "</select><input type='hidden' name='memberID' value='$memberID' />";
     $this->om->insertPopUp($content, "Add New Certification", "addMemberCert.php");
-  } //end addCert
+  } //end method addCert
 
+  //TODO: Devolve this method to the CCEManager class and turn this into a wrapper
+  /**
+   * Method addNewClass will generate a pop up window to allow users to schedule new classes from existing courses.
+   * The data is sent to checkConflict.php for validation and forwarded from there to classAdd.php to be added to the
+   * CLASS table of the database.
+   */
   public function addNewClass() {
     $courses = $this->db->getAllCourses();
     $content = "Course:";
@@ -51,8 +65,13 @@ class UserManager{
 
     $this->displayPopUp($content, "Add New Class", 'checkConflict.php');
 
-  } // end function addNewClass
+  } // end method addNewClass
 
+  //TODO: Devolve this to the facilityManager class and turn this into a wrapper
+  /**
+   * addNewFacility generates and displays a Facility Input Form for adding new facilities to the FACILITY table in the
+   * database.  The data is handled by addNewFacility.php
+   */
   public function addNewFacility() {
     $subFacilities = $this->db->getAllFacilities();
 
@@ -76,8 +95,15 @@ END;
     $nfForm .= "<p><input type=\"submit\" value=\"Submit\" /></p></div></form>";
 
     $this->displayWin($nfForm);
-  } //end function addNewFacility
+  } //end method addNewFacility
 
+  /**
+   * addPayment generates a pop-up window allowing the user to add a payment of selectable type to a member account
+   * this function includes a reference to paymentSlider.js which enables the ajax processing needed to allow the
+   * payment window to function properly.  On submission, the data is handled by addPayment.php
+   *
+   * @param $memberID: A valid memberID number.
+   */
   public function addPayment ($memberID) {
     $content = "Select Payment Type:
     <select id='paymentType' autofocus>
@@ -94,8 +120,16 @@ END;
     <input type='hidden' name='MemberID' id='MemberID' value='$memberID' />";
     $this->displayPopUp($content, "Add Payment", "addPayment.php");
 
-  }
+  } //end method addPayment
 
+  /**
+   * addVolunteering generates a pop-up window that allows a user to add volunteering to a member account.  The window
+   * will have a select box populated only with events happening today.  For reasons of accountability and consistency
+   * volunteering can only be added the day of the event.  On submission data is handled by addVolunteering.php to be
+   * added to the VOLUNTEER_HISTORY table in the database.
+   *
+   * @param $memberID: A valid memberID number
+   */
   public function addVolunteering($memberID) {
     $events = $this->db->getTodaysEvents();
     $content = "<select name='eventData'>";
@@ -107,28 +141,40 @@ END;
     $content .= "</select><input type='hidden' name='memberID' value='$memberID' />";
     $this->displayPopUp($content, "Add Volunteering", "addVolunteering.php");
 
-  } //end addVolunteering
+  } //end method addVolunteering
 
-  public function displayProfile($MemberNumber)
+  /**
+   * displayProfile is a wrapper for the method of the same name in the outputManager class.  This method will display
+   * the member profile belonging to the passed memberID number.
+   *
+   * @param $memberID: A valid memberID number
+   */
+  public function displayProfile($memberID)
   {
     //display the actual profile
-    $profileInfo = $this->db->getProfile($MemberNumber);
+    $profileInfo = $this->db->getProfile($memberID);
     
     $this->om->displayProfile($profileInfo); 
     
     //add the sidebar menus
     $this->displaySidebars();
 
-  } //end function displayProfile
+  } //end method displayProfile
 
+  /**
+   * displayDefaultProfile is a wrapper for the method of the same name in the outputManager class.  This method
+   * displays a blank user profile and should be used when no member profile can be displayed for some reason.
+   * DO NOT create bogus profiles in the Database to fulfill this function!  Note, the wrapper
+   */
   public function displayDefaultProfile() {
     $this->om->displayDefaultProfile();
     $this->displaySidebars();
-  }
+  } //end method displayDefaultProfile
 
   /**
    * displayMemberDuesPayments will generate a pop-up window displaying up to
    * twelve months of prior dues payments for a member.
+   *
    * @param $memberID: a valid member number
    */
   public function displayMemberDuesPayments ($memberID) {
@@ -142,8 +188,14 @@ END;
       $content .= "<h3>$paymentDate: $duesPayment[Amount]</h3>";
     }
     $this->displayPopUp($content, "Dues Payments", "smTest.php");
-  } //end function displayMemberDuesPayments
+  } //end method displayMemberDuesPayments
 
+  /**
+   * displayMemberOtherPayments generates a popup window displaying the last 12 non-dues payments a member has made.
+   * Note that for more complete records of payments, the reporting module function should be used.
+   *
+   * @param $memberID: A valid memberID number indicating the member account whos history should be displayed
+   */
   public function displayMemberOtherPayments ($memberID) {
     $payments = $this->db->getMemberPayments($memberID, "other");
     $payment = null;
@@ -160,15 +212,30 @@ END;
     }
     $content .= "</table>";
     $this->displayPopUp($content, "Prior Payments", "smTest.php");
-  } //end function displayMemberOtherPayments
-  
-  /*Function displayPopUp is a wrapper function for the function insertPopUp of the OutputManager class.  This allows client code access to the popup functionality through UserManager so a separate OutputManager object does not need to be instantiated.*/
+  } //end method displayMemberOtherPayments
+
+  /**
+   * Function displayPopUp is a wrapper function for the function insertPopUp of the OutputManager class.
+   * This allows client code access to the popup functionality through UserManager so a separate OutputManager object
+   * does not need to be instantiated.
+   *
+   * @param $message: The main content of the popup window
+   * @param string $header: The heading to appear in the highlighted area at the top of the popup window
+   * @param string $action: The script to forward to when the user clicks "OK"
+   */
   public function displayPopUp($message, $header = '', $action = '')
   {
     $this->om->insertPopUp($message, $header, $action); 
-  }//end function displayPopUp
-  
-  /*displayWin is a wrapper function for the displayWindow method of the outputManager class.  This allows access to the function through a UserManager object without needing to instantiate a separate instance of the outputManager*/
+  }//end method displayPopUp
+
+  /**
+   * displayWin is a wrapper function for the displayWindow method of the outputManager class.  This allows access to
+   * the function through a UserManager object without needing to instantiate a separate instance of the outputManager.
+   * Additionally, this function adds the standard sidebars to complete the interface and should therefore be preferred
+   * to calling displayWindow on the outputManger class directly in most cases.
+   *
+   * @param $content: Formatted HTML content to be displayed in the main window
+   */
   public function displayWin($content)
   {
     $this->om->displayWindow($content);
@@ -176,8 +243,16 @@ END;
     //add the sidebar menus
     $this->displaySidebars();
     
-  }//end function displayWin
+  }//end method displayWin
 
+  //TODO: Devolve this function to the CCEManager class and turn this into a wrapper
+  /**
+   * editClass will generate a popup window allowing the user to select a previously scheduled class to be edited.
+   * Because of various record keeping requirements, the only edit possible is changing a class date, classes cannot
+   * be deleted entirely once scheduled.
+   *
+   * On submission, data is handled by classEdit.php
+   */
   public function editClass() {
     //get a list of all pending classes
     $classes = $this->db->getPendingClasses();
@@ -194,18 +269,30 @@ END;
 
     $this->displayPopUp($content, "Edit Class", "classEdit.php");
 
-  } //end function editClass
+  } //end method editClass
 
-  public function editMember($MemberNumber)
+  /**
+   * editMember will display the Edit Member form pre-populated with the data of the member account identified by the
+   * passed memberID number.
+   *
+   * @param $memberID: A valid memberID number for the member account to be edited
+   */
+  public function editMember($memberID)
   {
     //get the full profile from the database
-    $profile = $this->db->getPersonalInfo($MemberNumber);
-    //only send the editable fields to the outputmanager
+    $profile = $this->db->getPersonalInfo($memberID);
     $this->om->editMemberForm($profile);
     $this->displaySidebars();
     
   }//end function editMember
 
+  //TODO: Devolve this function to the CCEManager class and turn this into a wrapper
+  /**
+   * getCourseToEdit generates a popup window with a select populated with all available courses.  The user can select
+   * a course and will be redirected to the Edit Course form pre-populated with the data of the course they selected.
+   *
+   *On submission data is handled by courseEdit.php
+   */
   public function getCourseToEdit() {
     $courses = $this->db->getAllCourses();
     $content = "Select Course To Edit";
@@ -217,8 +304,15 @@ END;
     }
     $content .= "</select>";
     $this->displayPopUp($content, "Select Course", "courseEdit.php");
-  }
+  } //end method getCourseToEdit
 
+  //TODO: Devolve this method to the facilityManager class and turn this into a wrapper
+  /**
+   * getFacilityToEdit generates a popup window with a select box listing all existing facilities.  On selection the user
+   * is redirected to the Edit Facility form which is pre-populated with the data from the facility they selected.
+   *
+   *On submission, data is handled by facilityEdit.php
+   */
   public function getFacilityToEdit() {
     $facilities = $this->db->getAllFacilities();
     $content = "Select Facility To Edit";
@@ -229,8 +323,17 @@ END;
     }
     $content .= "</select>";
     $this->displayPopUp($content, "Select Facility", "facilityEdit.php");
-  }
+  } //end method getFacilityToEdit
 
+  //TODO: Devolve this function to the ReportsManager class and replace all usages
+  /**
+   * memberSearch queries the database to find all possible matches for the first or last name of a member.  Results
+   * are displayed in the main window of the user interface as clickable links.  Clicking on the links will display the
+   * profile of the selected member.
+   *
+   * @param $firstName: The first name of the member being searched for.  Normal capitalization applies.
+   * @param $lastName: The last name of the member being searched for.  Normal capitalization applies.
+   */
   public function memberSearch($firstName, $lastName)
   {
     //Get the search results from the database
@@ -259,19 +362,30 @@ END;
     
   }//end method memberSearch
 
-  /*Function recordManagerNote is a wrapper function for the function recordNote of the dbManager class.  This allows client code access to the recordNote function without instantiating another dbManager instance, as dbManager should only be instantiated by the UserManager class*/
-  public function recordManagerNote($MemberNumber, $note)
+  /**
+   * Function recordManagerNote is a wrapper function for the function recordNote of the dbManager class.  This allows
+   * client code access to the recordNote function without instantiating another dbManager instance.
+   *
+   * @param $memberID: A valid memberID number representing the member account this note should be added to
+   * @param $note: The text of the note to be added to the member account
+   */
+  public function recordManagerNote($memberID, $note)
   {
-    $this->db->recordNote($MemberNumber, $note);
+    $this->db->recordNote($memberID, $note);
   }//end function recordManagerNote
-  
-  public function showAllNotes($MemberNumber)
+
+  /**
+   * showAllNotes will display every note in a member account in the main window of the interface
+   *
+   * @param $memberID: A valid memberID number representing a member account to retrieve the notes from
+   */
+  public function showAllNotes($memberID)
   {
     //$content will hold the formatted notes to be displayed onscreen
     $content = '';
     
     //get notes from database, format and store in $content
-    $notes = $this->db->getAllNotes($MemberNumber);
+    $notes = $this->db->getAllNotes($memberID);
     while($row = $notes->fetch_assoc())
     {
       $content .= "<p><strong>" . $row['NoteTime'] . ":</strong>" . $row['NoteText'] . "</p>";
@@ -284,6 +398,11 @@ END;
     $this->displayWin($content);
   }//end method showAllNotes
 
+  /**
+   * showAllEnrollments will display all pending enrollments from a member account in the main window of the interface
+   *
+   * @param $memberId: a valid memberID number representing a member account to display the enrollments for
+   */
   public function showAllEnrollments($memberId) {
     //$content will hold the formatted notes to be displayed onscreen
     $content = '';
@@ -300,13 +419,18 @@ END;
 
     /*call displayWin to output the notes*/
     $this->displayPopUp($content, "All Enrollments");
-  }
-
-
+  } //end method showAllEnrollments
 
 
   /*Private Functions*/
 
+  /**
+   * prepName is a helper function that turns a memberID number into a clickable button displaying the member's name.
+   * The button redirects to smTest.php where it will be processed to display the member's profile.
+   *
+   * @param $memberID: A valid memberID representing a member account
+   * @return string: the prepped HTML form to be displayed as a clickable button.
+   */
   private function prepName($memberID)
   {
     $userName = $this->db->getUserName($memberID);
@@ -315,8 +439,12 @@ END;
     <input type='submit' name='submit' id='memberButton' value='$userName' /></form>";
 
     return $name;
-  }
+  } //end method prepName
 
+  /**
+   * displayCurrentUsers generates a side-bar in the interface displaying the names of all members logged into the
+   * space who have not yet logged out.  Names are prepped to be clickable links that will display the related profile.
+   */
   private function displayCurrentUsers()
   {
     //array to build our output list
@@ -336,8 +464,12 @@ END;
     //create the "Members On Site" div using the currentUsers list
     $this->om->insertDiv("rightPannel", $currentUsers, "Members On Site");
 
-  } //end function displayCurrentUsers
+  } //end method displayCurrentUsers
 
+  /**
+   * displayRecentUsers generates a side-bar in the interface displaying the last twenty members who have logged into
+   * the space.  Note this differs from displayCurrentUsers which does not display members who have logged out.
+   */
   private function displayRecentUsers()
   {
     /*array in which to build a human readable list of recent visitors*/
@@ -363,14 +495,18 @@ END;
 
     //construct the recent visitors div using the new array
     $this->om->insertDiv('recentVisitors', $recentUsers, 'Recent Visitors');
-  } //end function displayRecentUsers
+  } //end method displayRecentUsers
 
+  /**
+   * displaySidebars is a convenience function that will call displayCurrentUsers and displayRecentUsers in order to
+   * generate the standard display.  This function should be preferred to calling the individual functions separately.
+   */
   private function displaySidebars()
   {
     $this->displayCurrentUsers();
     $this->displayRecentUsers();
 
-  }
+  } //end method displaySidebars
 }; //end class UserManager
 
 

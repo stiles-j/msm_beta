@@ -1,10 +1,23 @@
 <?php
-// Output Manager class for the SpaceManager program
+
+/**
+ * Written by: Justice Stiles
+ * Last Edited: 2017/04/07
+ *
+ * Description: Class OutputManager handles the lower level interface output duties for the Maker Space Manager system.
+ * All functions in this class are concerned with displaying passed, pre-formatted data.  No data formatting or data
+ * access should be done from within OutputManager.  OutputManager should be the only class that generates interface
+ * elements.
+ *
+ */
 
 class OutputManager{
   
   private $popUp;
-  
+
+  /**
+   * OutputManager constructor.  No args
+   */
   public function __construct()
   {
     require_once "PopUpManager.php";
@@ -13,7 +26,10 @@ class OutputManager{
     
     $this->popUp = new PopUpManager; 
   } //end function __construct
-  
+
+  /**
+   * __destruct is used to close out the HTML on the interface page.
+   */
   public function __destruct()
   {
     $close = <<<_END
@@ -24,7 +40,14 @@ _END;
 
     echo $close;
   } // end function __destruct
-  
+
+  /**
+   * insertDiv will place a new div into the user interface with programmer specifiable contents and class
+   *
+   * @param $divClass: the class parameter of this div
+   * @param $contents: an array populated with pre-formatted HTML content that will be displayed inside the div.
+   * @param string $header: An h3 title at the head of the div
+   */
   public function insertDiv($divClass, $contents, $header = '')
   {
     
@@ -40,6 +63,14 @@ _END;
     
   } // end method insertDiv
 
+  /**
+   * displayProfile accepts a very specifically formatted array of data and will display it in the main interface window
+   * The requirements of the array are set to match those output by the getProfile method of the dbManager class.
+   *
+   * TODO: To improve readability this method needs to be refactored to take an associative array rather than a numeric array.
+   *
+   * @param $profile: a properly formatted array containing the required profile data.
+   */
   public function displayProfile($profile)
   {
     echo "<div class='profileWindow'>";
@@ -397,9 +428,6 @@ _END;
     $this->displayWindow($formContent);
     
   }//end function editMemberForm
-
-
-
 
   /*Private functions*/
 
