@@ -47,7 +47,7 @@ class UserManager{
   //TODO: Devolve this method to the CCEManager class and turn this into a wrapper
   /**
    * Method addNewClass will generate a pop up window to allow users to schedule new classes from existing courses.
-   * The data is sent to checkConflict.php for validation and forwarded from there to classAdd.php to be added to the
+   * The data is sent to checkClassConflict.php for validation and forwarded from there to classAdd.php to be added to the
    * CLASS table of the database.
    */
   public function addNewClass() {
@@ -63,7 +63,7 @@ class UserManager{
     $content .= "<input type='datetime-local' name='time' />";
     $content .= "<input type='hidden' name='type' value='course' />";
 
-    $this->displayPopUp($content, "Add New Class", 'checkConflict.php');
+    $this->displayPopUp($content, 'Add New Class', 'checkClassConflict.php');
 
   } // end method addNewClass
 

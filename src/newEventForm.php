@@ -9,9 +9,9 @@ $db = new dbManager();
 $um = new UserManager();
 $certs = $db->getAllCertifications();
 $facilityList = $db->getAllFacilities();
-//get the main body of the form
+
 $content = <<<END
-<form action="addNewEvent.php" method="post" id="addEventForm" name="addEventForm">
+<form action="checkEventConflict.php" method="post" id="addEventForm" name="addEventForm">
   <div class="userInputFields">
     <h2>New Event Input Form</h2>
     <p><span class='label'>Event Name:</span></p>

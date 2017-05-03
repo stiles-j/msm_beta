@@ -3,7 +3,7 @@
 Add class script for SpaceManager
 Date Last Modified: 2016-05-16
 Author: Justice Stiles
-Description: This script should recieve a date, a string containing the name of the class taken and a member id number via post.  The Script will attempt to add the new record to the database.
+Description: This script should receive a date, a string containing the name of the class taken and a member id number via post.  The Script will attempt to add the new record to the database.
 */
 
 require_once "classes/dbManager.php";

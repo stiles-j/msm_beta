@@ -117,6 +117,11 @@ class dbManager{
   } //end method addNewCourse
 
   public function addNewEvent ($eventName, $eventDate, $eventMemberFee, $eventNonMemberFee, $eventDescription, $eventDuration = "1:00:00", $eventFacilities = null) {
+    //first make sure the most critical information is provided, or if not, punt
+    if (!$eventName || !$eventDate) {
+        return false;
+    }
+
     $db_conn = $this->connect();
     $eventName = $this->sanitizeInput($eventName, $db_conn);
     $eventDate = $this->sanitizeInput($eventDate, $db_conn);
@@ -130,10 +135,43 @@ class dbManager{
       }
       unset($facility); //because facility is a reference and loops in php do not have their own scope.
     }
+    //an array to store any errors that occur during the database transaction
+    $errors = array();
 
+      //attempt to insert the event
+      $db_conn->begin_transaction();
+      $sql = "INSERT INTO EVENT (EventName, EventDate, EventDescription, EventMemberFee, EventNonMemberFee, Duration) VALUE ('$eventName', '$eventDate', '$eventDescription', '$eventMemberFee', '$eventNonMemberFee', '$eventDuration')";
+      $result = $db_conn->query($sql);
+      if (!$result) {
+          $this->logError($db_conn, "addNewEvent was unable to insert into the database: ");
+          array_push($errors, "addNewEvent was unable to insert into the database: ");
+      }
 
+      //get the EventReferenceNumber to return
+      $id = $db_conn->insert_id;
 
+      //attempt to add the facility requirements to EVENT_FACILITY
+      if ($eventFacilities != null) {
+          foreach ($eventFacilities as $facility) {
+              $sql = "INSERT INTO EVENT_FACILITY (EventReferenceNumber, FacilityID) VALUES ($id, $facility)";
+              $result = $db_conn->query($sql);
+              if (!$result) {
+                  $this->logError($db_conn, "addNewEvent was unable to insert a record into COURSE_FACILITY");
+                  array_push($errors, "addNewEvent was unable to insert a record into COURSE_FACILITY");
+              } //end if !result
+          } //end foreach
+      } //end if courseFacilities
 
+      //if we have no errors commit the transaction and return the course id
+      if (empty($errors)) {
+          $db_conn->commit();
+          $db_conn->close();
+          return $id;
+      }
+
+      //otherwise return false because the add failed
+      $db_conn->close();
+      return false;
   } //end method addNewEvent
 
   /**
