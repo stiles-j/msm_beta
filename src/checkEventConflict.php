@@ -7,6 +7,7 @@
  */
 
 require_once 'classes/dbManager.php';
+require_once 'classes/PopUpManager.php';
 
 //if there are no facilities to check conflicts for, just send the data on to addNewEvent.php to be added to the db
 if (!isset($_POST['eventFacilities']) || $_POST['eventFacilities'] == null) {
@@ -65,18 +66,19 @@ if (!empty($conflicts)) {
     $content .= "<input type='hidden' name='eventDescription' value='$_POST[eventDescription]'>";
     $content .= "<input type='hidden' name='hours' value='$_POST[hours]'>";
     $content .= "<input type='hidden' name='minutes' value='$_POST[minutes]'>";
-    $content .= "<input type='hidden' name='eventFacilities' value='$_POST[eventFacilites]'>";
+    foreach ($facilityList as $individual) {
+        $content .= "<input type='hidden' name='eventFacilities[]' value='" . $individual . "'>";
+    }
 
     $content .= "<p class='cancelButton'><a href='smTest.php'>Cancel</a></p>";
 
     $pm = new PopUpManager();
     $pm->createPopUp($content, "Scheduling Conflict!", 'addNewEvent.php');
 } else {
-    header("Location: addNewEvent.php?eventName=$_POST[eventName]&eventDate=$_POST[eventDate]&eventMemberFee=$_POST[eventMemberFee]&eventNonMemberFee=$_POST[eventNonMemberFee]&eventDescription=$_POST[eventDescription]&hours=$_POST[hours]&minutes=$_POST[minutes]&eventFacilities=$facilityList");
+    header("Location: addNewEvent.php?eventName=$_POST[eventName]&eventDate=$_POST[eventDate]&eventMemberFee=$_POST[eventMemberFee]&eventNonMemberFee=$_POST[eventNonMemberFee]&eventDescription=$_POST[eventDescription]&hours=$_POST[hours]&minutes=$_POST[minutes]&" . http_build_query(array('eventFacilities' => $facilityList)));
 }
 
 ?>
-
 
 
 
