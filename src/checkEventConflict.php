@@ -9,9 +9,14 @@
 require_once 'classes/dbManager.php';
 require_once 'classes/PopUpManager.php';
 
+$destination = 'addNewEvent.php';
+if (isset($_POST['update'])) {
+  $destination = 'updateEvent.php';
+}
+
 //if there are no facilities to check conflicts for, just send the data on to addNewEvent.php to be added to the db
 if (!isset($_POST['eventFacilities']) || $_POST['eventFacilities'] == null) {
-    header("Location: addNewEvent.php?eventName=$_POST[eventName]&eventDate=$_POST[eventDate]&eventMemberFee=$_POST[eventMemberFee]&eventNonMemberFee=$_POST[eventNonMemberFee]&eventDescription=$_POST[eventDescription]&hours=$_POST[hours]&minutes=$_POST[minutes]");
+    header("Location: $destination?eventName=$_POST[eventName]&eventDate=$_POST[eventDate]&eventMemberFee=$_POST[eventMemberFee]&eventNonMemberFee=$_POST[eventNonMemberFee]&eventDescription=$_POST[eventDescription]&hours=$_POST[hours]&minutes=$_POST[minutes]");
     exit();
 }
 
@@ -75,7 +80,7 @@ if (!empty($conflicts)) {
     $pm = new PopUpManager();
     $pm->createPopUp($content, "Scheduling Conflict!", 'addNewEvent.php');
 } else {
-    header("Location: addNewEvent.php?eventName=$_POST[eventName]&eventDate=$_POST[eventDate]&eventMemberFee=$_POST[eventMemberFee]&eventNonMemberFee=$_POST[eventNonMemberFee]&eventDescription=$_POST[eventDescription]&hours=$_POST[hours]&minutes=$_POST[minutes]&" . http_build_query(array('eventFacilities' => $facilityList)));
+    header("Location: $destination?eventName=$_POST[eventName]&eventDate=$_POST[eventDate]&eventMemberFee=$_POST[eventMemberFee]&eventNonMemberFee=$_POST[eventNonMemberFee]&eventDescription=$_POST[eventDescription]&hours=$_POST[hours]&minutes=$_POST[minutes]&" . http_build_query(array('eventFacilities' => $facilityList)));
 }
 
 ?>

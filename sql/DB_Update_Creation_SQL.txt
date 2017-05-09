@@ -299,7 +299,11 @@ CREATE VIEW FACILITY_SCHEDULE AS
     EVENT_FACILITY AS B ON A.EventReferenceNumber = B.EventReferenceNumber;
 
 
+--------------SQL TO CREATE EVENT_FACILITY_WITH_NAME VIEW----------------------
 
+CREATE VIEW EVENT_FACILITY_WITH_NAME AS
+    SELECT A.EventReferenceNumber, A.FacilityID, B.FacilityName FROM EVENT_FACILITY
+    AS A JOIN FACILITY AS B ON A.FacilityID = B.facilityID
 
 
 

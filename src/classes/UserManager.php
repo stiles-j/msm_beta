@@ -272,6 +272,24 @@ END;
   } //end method editClass
 
   /**
+   * getEventToEdit will display a pop-up dialog on the main dashboard populated with all pending events.
+   * Once the user selects an event to edit from the list and clicks submit, the form redirects to
+   * EditEventForm.php
+   */
+    public function getEventToEdit(){
+        $events = $this->db->getPendingEvents();
+        $content = 'Select Event To Edit';
+        $content .= "<select name='eventReferenceNumber'>";
+
+        while ($event = $events->fetch_assoc()) {
+            $content .= "<option value='$event[ReferenceNumber]'>$event[Name] on $event[Date]</option>";
+        }
+        $content .= "</select>";
+
+        $this->displayPopUp($content, "Edit Event", "EditEventForm.php");
+    }
+
+  /**
    * editMember will display the Edit Member form pre-populated with the data of the member account identified by the
    * passed memberID number.
    *

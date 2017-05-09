@@ -262,6 +262,11 @@ if (isset($_POST['EditFacility'])) {
   $um->getFacilityToEdit();
 }
 
+/*EDIT EVENT SECTION---------------------------------------------------------*/
+if (isset($_POST['EditEvent'])) {
+    $um->getEventToEdit();
+}
+
 //session_destroy();
 
   

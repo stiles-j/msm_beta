@@ -230,7 +230,9 @@ class dbManager{
 
   } //end function addNewFacility
 
-  /*addProfile will insert provided information into the database.  The required argument is a numeric array of user data in the following format: firstName, lastName, birthDate, joinDate, address, homePhone, cellphone, email, emergency contact, medical provider, referred by, member id number, user image, level.  Null values should be  used in place of any missing information. The function will return true on a successful insert or false on a failed insert*/
+  /**
+   *
+   * Description: addProfile will insert provided information into the database.  The required argument is a numeric array of user data in the following format: firstName, lastName, birthDate, joinDate, address, homePhone, cellphone, email, emergency contact, medical provider, referred by, member id number, user image, level.  Null values should be  used in place of any missing information. The function will return true on a successful insert or false on a failed insert*/
   public function addProfile($profileData)
   {
     //handle blank ReferredBy field
@@ -583,6 +585,30 @@ class dbManager{
     return $result;
   } //end function getCourseInfo
 
+  /**
+   * getEventFacilities returns a mysqli_result containing the EventReferenceNumber, FacilityID and
+   * FacilityName for all facilities associated with the passed EventReferenceNumber.
+   *
+   * @param $eventReferenceNumber: A valid eventReferenceNumber
+   * @return bool|mysqli_result: mysqli_result if there are facilities/the query is successful false if not.
+   */
+  public function getEventFacilities($eventReferenceNumber) {
+    $db_conn = $this->connect();
+    $eventReferenceNumber = $this->sanitizeInput($eventReferenceNumber, $db_conn);
+    $sql = "SELECT * FROM EVENT_FACILITY_WITH_NAME WHERE EventReferenceNumber = $eventReferenceNumber";
+    $result = $db_conn->query($sql);
+    $db_conn->close();
+    return $result;
+  }
+
+  /**
+   * getEventInfo will return a mysqli_result containing the EventReferenceNumber, EventDate, EventName,
+   * EventDescription, EventMemberFee, EventNonmemberFee and Duration that correspond to this
+   * EventReferenceNumber
+   *
+   * @param $eventReferenceNumber: A valid EventReferenceNumber from a previously scheduled event
+   * @return bool|mysqli_result: mysqli_result if the query is successful, false if not.
+   */
   public function getEventInfo($eventReferenceNumber) {
     $db_conn = $this->connect();
     $eventReferenceNumber = $this->sanitizeInput($eventReferenceNumber, $db_conn);
@@ -590,7 +616,6 @@ class dbManager{
     $result = $db_conn->query($sql);
     if (!$result) $this->logError($db_conn, "getEventInfo was unable to retrieve information on an event: ");
     $db_conn->close();
-    $result = $result->fetch_assoc();
     return $result;
   }
 
@@ -879,7 +904,7 @@ class dbManager{
     return $result;
   }
 
-  public function getPendingEvents($memberID)
+  public function getPendingEvents($memberID = 0)
   {
     $db_conn = $this->connect();
     $memberID = $this->sanitizeInput($memberID, $db_conn);
@@ -1155,6 +1180,75 @@ class dbManager{
     $db_conn->close();
     return false;
   } //end function updateCourse
+
+  /**
+   * updateEvent takes information about an existing event and updates the database's EVENT and EVENT_FACILITY
+   * tables to reflect the changes on this event.
+   *
+   * @param $eventReferenceNumber: a valid EventReferenceNumber for a previously scheduled event
+   * @param $eventName: The name of this event
+   * @param $eventDate: The datetime of this event in the format yyyy-mm-dd hh:mm:ss
+   * @param $eventMemberFee: The cost of this event for members
+   * @param $eventNonMemberFee: The cost of this event for non members
+   * @param $eventDescription: A text description of this event
+   * @param string $eventDuration: The duration of this event in the format hh:mm:ss
+   * @param null $eventFacilities: An array of valid FacilityID numbers to be used by this event
+   * @return bool: true if the update succeeds, false otherwise
+   */
+  public function updateEvent ($eventReferenceNumber, $eventName, $eventDate, $eventMemberFee, $eventNonMemberFee, $eventDescription, $eventDuration = "1:00:00", $eventFacilities = null) {
+    $db_conn = $this->connect();
+    $eventReferenceNumber = $this->sanitizeInput($eventReferenceNumber, $db_conn);
+    $eventName = $this->sanitizeInput($eventName, $db_conn);
+    $eventDate = $this->sanitizeInput($eventDate, $db_conn);
+    $eventMemberFee = $this->sanitizeInput($eventMemberFee, $db_conn);
+    $eventNonMemberFee = $this->sanitizeInput($eventNonMemberFee, $db_conn);
+    $eventDescription = $this->sanitizeInput($eventDescription, $db_conn);
+    $eventDuration = $this->sanitizeInput($eventDuration, $db_conn);
+    $errors = array();
+    if ($eventFacilities) {
+      foreach ($eventFacilities as &$facility) {
+        $facility = $this->sanitizeInput($facility, $db_conn);
+      }//end foreach
+      unset($facility);
+    } //end if eventFacilities
+
+    $db_conn->begin_transaction();
+
+    //update the data in the EVENT table
+    $sql = "UPDATE EVENT SET EventName = $eventName, EventDate = $eventDate, EventMemberFee = $eventMemberFee, EventNonMemberFee = $eventNonMemberFee, EventDescription = $eventDescription, Duration = $eventDuration WHERE EventReferenceNumber = $eventReferenceNumber";
+    $result = $db_conn->query($sql);
+    if (!$result) {
+      $this->logError($db_conn, "updateEvent was unable to update a record");
+      $errors[] = "updateEvent was unable to update a record";
+    }
+
+    //delete the old list of facilities if any
+      $sql = "DELETE FROM EVENT_FACILITY WHERE EventReferenceNumber = $eventReferenceNumber";
+      $db_conn->query($sql);
+
+      //insert all new facilities if any
+    if ($eventFacilities) {
+      foreach ($eventFacilities as $facility) {
+        $sql = "INSERT INTO EVENT_FACILITY (EventReferenceNumber, FacilityID) VALUES ($eventReferenceNumber, $facility)";
+        $result = $db_conn->query($sql);
+        if (!$result) {
+          $this->logError($db_conn, "updateEvent was unable to insert a record into EVENT_FACILITY");
+          $errors[] = "updateEvent was unable to insert a record into EVENT_FACILITY";
+        }
+      }
+    }
+
+    if (empty($errors)) {
+      $db_conn->commit();
+      $db_conn->close();
+      return true;
+    }
+
+    $db_conn->rollback();
+    $db_conn->close();
+    return false;
+
+  } //end method updateEvent
 
   public function updateFacility($facilityID, $facilityName, $facilityDescription, $subFacilities = null) {
     $db_conn = $this->connect();
