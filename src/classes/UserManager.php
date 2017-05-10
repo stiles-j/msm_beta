@@ -265,7 +265,7 @@ END;
 
     $content .= "</select>";
     $content .= "New Class Date: ";
-    $content .= "<input type='date' name='newClassDate' />";
+    $content .= "<input type='datetime-local' name='newClassDate' />";
 
     $this->displayPopUp($content, "Edit Class", "classEdit.php");
 

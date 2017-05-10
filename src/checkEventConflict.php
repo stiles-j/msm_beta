@@ -14,6 +14,9 @@ if (isset($_POST['update'])) {
   $destination = 'updateEvent.php';
 }
 
+$eventReferenceNumber = null;
+if (isset($_POST['eventReferenceNumber'])) $eventReferenceNumber = $_POST['eventReferenceNumber'];
+
 //if there are no facilities to check conflicts for, just send the data on to addNewEvent.php to be added to the db
 if (!isset($_POST['eventFacilities']) || $_POST['eventFacilities'] == null) {
     header("Location: $destination?eventName=$_POST[eventName]&eventDate=$_POST[eventDate]&eventMemberFee=$_POST[eventMemberFee]&eventNonMemberFee=$_POST[eventNonMemberFee]&eventDescription=$_POST[eventDescription]&hours=$_POST[hours]&minutes=$_POST[minutes]");
@@ -38,7 +41,7 @@ foreach ($facilityList as $facility) {
     } //end foreach facility
 
 foreach ($total_facilities as $facility) {
-    $conflict = $db->checkFacilityScheduleConflict($facility, $_POST['eventDate'], $duration);
+    $conflict = $db->checkFacilityScheduleConflict($facility, $_POST['eventDate'], $duration, $eventReferenceNumber);
 
     //if we find a conflict, grab the info and put an info string into the conflicts array
     if ($conflict) {
@@ -71,16 +74,17 @@ if (!empty($conflicts)) {
     $content .= "<input type='hidden' name='eventDescription' value='$_POST[eventDescription]'>";
     $content .= "<input type='hidden' name='hours' value='$_POST[hours]'>";
     $content .= "<input type='hidden' name='minutes' value='$_POST[minutes]'>";
+    $content .= "<input type='hidden' name='eventReferenceNumber' value=$eventReferenceNumber>";
     foreach ($facilityList as $individual) {
-        $content .= "<input type='hidden' name='eventFacilities[]' value='" . $individual . "'>";
+        $content .= "<input type='hidden' name='eventFacilities[]' value='$individual'>";
     }
 
     $content .= "<p class='cancelButton'><a href='smTest.php'>Cancel</a></p>";
 
     $pm = new PopUpManager();
-    $pm->createPopUp($content, "Scheduling Conflict!", 'addNewEvent.php');
+    $pm->createPopUp($content, "Scheduling Conflict!", $destination);
 } else {
-    header("Location: $destination?eventName=$_POST[eventName]&eventDate=$_POST[eventDate]&eventMemberFee=$_POST[eventMemberFee]&eventNonMemberFee=$_POST[eventNonMemberFee]&eventDescription=$_POST[eventDescription]&hours=$_POST[hours]&minutes=$_POST[minutes]&" . http_build_query(array('eventFacilities' => $facilityList)));
+    header("Location: $destination?eventName=$_POST[eventName]&eventDate=$_POST[eventDate]&eventMemberFee=$_POST[eventMemberFee]&eventNonMemberFee=$_POST[eventNonMemberFee]&eventDescription=$_POST[eventDescription]&eventReferenceNumber=$eventReferenceNumber&hours=$_POST[hours]&minutes=$_POST[minutes]&" . http_build_query(array('eventFacilities' => $facilityList)));
 }
 
 ?>

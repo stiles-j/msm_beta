@@ -24,7 +24,7 @@ $date = date_create_from_format('Y-m-d G:i:s', $priorEventInfo['EventDate']);
 $date = $date->format("Y-m-d\TG:i");
 
 $content = <<<END
-<form action="checkEventConflict.php" method="post" id="addEventForm" name="addEventForm">
+<form action="checkEventConflict.php" method="post" id="editEventForm" name="editEventForm">
   <div class="userInputFields">
     <h2>Event Update Form</h2>
     <p><span class='label'>Event Name:</span></p>
@@ -62,6 +62,7 @@ $content .= <<<END
     <p><span class='label'>Event Description:</span></p>
     <p><textarea name="eventDescription">$priorEventInfo[EventDescription]</textarea></p>
     <input type='hidden' name='update' value='update'>
+    <input type='hidden' name='eventReferenceNumber' value='$referenceNumber'>
     <input type="submit" name="submit" class='sbutton'>
     </div></form>
 END;

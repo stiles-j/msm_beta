@@ -420,13 +420,14 @@ class dbManager{
    * @param $duration: the duration of the event in the format hh:mm:ss
    * @return bool|mysqli_result: mysqli_result containing data on conflicting events if they exist, false if no conflicts
    */
-  public function checkFacilityScheduleConflict ($facilityID, $startTime, $duration) {
+  public function checkFacilityScheduleConflict ($facilityID, $startTime, $duration, $referenceNumber = 0) {
     $db_conn = $this->connect();
     $facilityID = $this->sanitizeInput($facilityID, $db_conn);
     $startTime = $this->sanitizeInput($startTime, $db_conn);
     $duration = $this->sanitizeInput($duration, $db_conn);
+    $referenceNumber = $this->sanitizeInput($referenceNumber, $db_conn);
 
-    $sql = "SELECT * FROM FACILITY_SCHEDULE WHERE FacilityID = $facilityID AND StartTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') OR FacilityID = $facilityID AND EndTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') OR '$startTime' BETWEEN StartTime AND EndTime";
+    $sql = "SELECT * FROM FACILITY_SCHEDULE WHERE FacilityID = $facilityID AND StartTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') AND ReferenceNumber != $referenceNumber AND Type != 'EVENT' OR FacilityID = $facilityID AND EndTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') AND ReferenceNumber != $referenceNumber AND Type != 'EVENT' OR '$startTime' BETWEEN StartTime AND EndTime AND FacilityID = $facilityID AND ReferenceNumber != $referenceNumber AND Type != 'EVENT'";
     $result = $db_conn->query($sql);
     $db_conn->close();
     if ($result->num_rows == 0) return false;
@@ -1215,7 +1216,7 @@ class dbManager{
     $db_conn->begin_transaction();
 
     //update the data in the EVENT table
-    $sql = "UPDATE EVENT SET EventName = $eventName, EventDate = $eventDate, EventMemberFee = $eventMemberFee, EventNonMemberFee = $eventNonMemberFee, EventDescription = $eventDescription, Duration = $eventDuration WHERE EventReferenceNumber = $eventReferenceNumber";
+    $sql = "UPDATE EVENT SET EventName = '$eventName', EventDate = '$eventDate', EventMemberFee = $eventMemberFee, EventNonMemberFee = $eventNonMemberFee, EventDescription = '$eventDescription', Duration = '$eventDuration' WHERE EventReferenceNumber = $eventReferenceNumber";
     $result = $db_conn->query($sql);
     if (!$result) {
       $this->logError($db_conn, "updateEvent was unable to update a record");
@@ -1224,7 +1225,7 @@ class dbManager{
 
     //delete the old list of facilities if any
       $sql = "DELETE FROM EVENT_FACILITY WHERE EventReferenceNumber = $eventReferenceNumber";
-      $db_conn->query($sql);
+      $db_conn->query($sql); //No error logging on fail because the event might not have facilities
 
       //insert all new facilities if any
     if ($eventFacilities) {
