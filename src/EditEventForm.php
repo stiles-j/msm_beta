@@ -45,12 +45,14 @@ $content .= "<p><span class='label'>Event Facilities:</span></p>";
 $content .= "<p><select name='eventFacilities[]' multiple='multiple'>";
 foreach ($facilityList as $facility) {
   $found = false;
-  while ($priorFacility = $priorFacilities->fetch_assoc()) {
-    if ($facility['FacilityID'] == $priorFacility['FacilityID']) {
-      $content .= "<option value='$facility[FacilityID]' selected='selected'>$facility[FacilityName]</option>";
-      $found = true;
-    }
-  } //end while
+  if ($priorFacilities) {
+    while ($priorFacility = $priorFacilities->fetch_assoc()) {
+      if ($facility['FacilityID'] == $priorFacility['FacilityID']) {
+        $content .= "<option value='$facility[FacilityID]' selected='selected'>$facility[FacilityName]</option>";
+        $found = true;
+      }
+    } //end while
+  } //end if priorFacilities
 
   if (!$found) {
     $content .= "<option value='$facility[FacilityID]'>$facility[FacilityName]</option>";

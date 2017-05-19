@@ -418,25 +418,32 @@ class dbManager{
    * @param $facilityID: a valid facility ID number
    * @param $startTime: the start of the time period to check for conflicts in the format yyyy/mm/dd hh:mm:ss
    * @param $duration: the duration of the event in the format hh:mm:ss
+   * @param $referenceNumber: the reference number of an existing event if the event being checked is an update
    * @return bool|mysqli_result: mysqli_result containing data on conflicting events if they exist, false if no conflicts
    */
-  public function checkFacilityScheduleConflict ($facilityID, $startTime, $duration, $referenceNumber = 0) {
+  public function checkFacilityScheduleConflict ($facilityID, $startTime, $duration, $referenceNumber = null) {
     $db_conn = $this->connect();
     $facilityID = $this->sanitizeInput($facilityID, $db_conn);
     $startTime = $this->sanitizeInput($startTime, $db_conn);
     $duration = $this->sanitizeInput($duration, $db_conn);
-    $referenceNumber = $this->sanitizeInput($referenceNumber, $db_conn);
+    if ($referenceNumber) {
+      $referenceNumber = $this->sanitizeInput($referenceNumber, $db_conn);
+    }
+    if ($referenceNumber) {
+      $sql = "SELECT * FROM FACILITY_SCHEDULE WHERE FacilityID = $facilityID AND StartTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') AND StartTime NOT IN (SELECT StartTime from FACILITY_SCHEDULE WHERE ReferenceNumber = $referenceNumber AND TYPE='EVENT') OR FacilityID = $facilityID AND EndTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') AND StartTime NOT IN (SELECT StartTime from FACILITY_SCHEDULE WHERE ReferenceNumber = $referenceNumber AND TYPE='EVENT') OR '$startTime' BETWEEN StartTime AND EndTime AND FacilityID = $facilityID AND StartTime NOT IN (SELECT StartTime from FACILITY_SCHEDULE WHERE ReferenceNumber = $referenceNumber AND TYPE='EVENT')";
+    } else {
+      $sql = "SELECT * FROM FACILITY_SCHEDULE WHERE FacilityID = $facilityID AND StartTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') OR FacilityID = $facilityID AND EndTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') OR '$startTime' BETWEEN StartTime AND EndTime AND FacilityID = $facilityID";
+    }
 
-    $sql = "SELECT * FROM FACILITY_SCHEDULE WHERE FacilityID = $facilityID AND StartTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') AND ReferenceNumber != $referenceNumber AND Type != 'EVENT' OR FacilityID = $facilityID AND EndTime BETWEEN '$startTime' AND ADDTIME('$startTime', '$duration') AND ReferenceNumber != $referenceNumber AND Type != 'EVENT' OR '$startTime' BETWEEN StartTime AND EndTime AND FacilityID = $facilityID AND ReferenceNumber != $referenceNumber AND Type != 'EVENT'";
     $result = $db_conn->query($sql);
     $db_conn->close();
-    if ($result->num_rows == 0) return false;
+    if (!$result || $result->num_rows == 0) return false;
     return $result;
   }
 
   public function findMember($firstName, $lastName)
   {
-    //connect to database and sanatize inputs
+    //connect to database and sanitize inputs
     $db_conn = $this->connect();
     $firstName = $this->sanitizeInput($firstName, $db_conn);
     $lastName = $this->sanitizeInput($lastName, $db_conn);

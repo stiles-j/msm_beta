@@ -18,7 +18,7 @@ $content = <<<END
     <p><span class='label'>Event Date & Time</span></p>
     <p><input type='datetime-local' name='eventDate'></p>
     <p><span class='label'>Event Duration:</span></p>
-    <p class='durationInput'>Hours:<input type='number' name='hours'  /> Minutes:<input type='number' name='minutes' /></p>
+    <p class='durationInput'>Hours:<input type='number' name='hours' value='1'  /> Minutes:<input type='number' name='minutes' value='00' /></p>
     <p><span class="label">Event Member Fee:</span> </p>
     <p><input type="number" name="eventMemberFee" step="any"></p>
     <p><span class="label">Event NonMember Fee:</span> </p>

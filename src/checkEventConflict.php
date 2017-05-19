@@ -8,6 +8,9 @@
 
 require_once 'classes/dbManager.php';
 require_once 'classes/PopUpManager.php';
+require_once 'classes/Logger.php';  //TODO: REMOVE AFTER BETA PERIOD
+
+$logger = new Logger();
 
 $destination = 'addNewEvent.php';
 if (isset($_POST['update'])) {
@@ -19,6 +22,8 @@ if (isset($_POST['eventReferenceNumber'])) $eventReferenceNumber = $_POST['event
 
 //if there are no facilities to check conflicts for, just send the data on to addNewEvent.php to be added to the db
 if (!isset($_POST['eventFacilities']) || $_POST['eventFacilities'] == null) {
+    $logger->logError("No facilities were found by checkEventConflict.php.  Event was forwarded to $destination"); //TODO: REMOVE AFTER BETA
+
     header("Location: $destination?eventName=$_POST[eventName]&eventDate=$_POST[eventDate]&eventMemberFee=$_POST[eventMemberFee]&eventNonMemberFee=$_POST[eventNonMemberFee]&eventDescription=$_POST[eventDescription]&hours=$_POST[hours]&minutes=$_POST[minutes]");
     exit();
 }
@@ -86,6 +91,9 @@ if (!empty($conflicts)) {
 } else {
     header("Location: $destination?eventName=$_POST[eventName]&eventDate=$_POST[eventDate]&eventMemberFee=$_POST[eventMemberFee]&eventNonMemberFee=$_POST[eventNonMemberFee]&eventDescription=$_POST[eventDescription]&eventReferenceNumber=$eventReferenceNumber&hours=$_POST[hours]&minutes=$_POST[minutes]&" . http_build_query(array('eventFacilities' => $facilityList)));
 }
+
+
+
 
 ?>
 
