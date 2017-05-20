@@ -170,6 +170,7 @@ class dbManager{
       }
 
       //otherwise return false because the add failed
+      $db_conn->rollback();
       $db_conn->close();
       return false;
   } //end method addNewEvent

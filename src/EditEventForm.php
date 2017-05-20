@@ -46,7 +46,7 @@ $content .= "<p><select name='eventFacilities[]' multiple='multiple'>";
 foreach ($facilityList as $facility) {
   $found = false;
   if ($priorFacilities) {
-    while ($priorFacility = $priorFacilities->fetch_assoc()) {
+    foreach ($priorFacilities as $priorFacility) {
       if ($facility['FacilityID'] == $priorFacility['FacilityID']) {
         $content .= "<option value='$facility[FacilityID]' selected='selected'>$facility[FacilityName]</option>";
         $found = true;
