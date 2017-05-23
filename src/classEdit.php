@@ -4,10 +4,13 @@ require_once "classes/dbManager.php";
 require_once "classes/UserManager.php";
 
 $db = new dbManager();
-$oldClassInfo = $db->getPendingClassInfo($_POST['classToEdit']);
-$result = $db->updateClass($_POST['classToEdit'], $_POST['newClassDate']);
-$newDate = substr($_POST['newClassDate'], 0, 10);
-$newTime = substr($_POST['newClassDate'], 11) . ":00";
+$method = '_GET';
+if (isset($_POST['referenceNumber'])) $method = "_POST";
+
+$oldClassInfo = $db->getPendingClassInfo(${$method}['referenceNumber']);
+$result = $db->updateClass(${$method}['referenceNumber'], ${$method}['time']);
+$newDate = substr(${$method}['time'], 0, 10);
+$newTime = substr(${$method}['time'], 11);
 
 
 $um = new UserManager();

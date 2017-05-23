@@ -8,6 +8,12 @@ $conflicts = array();
 $referenceNumber = $_POST['referenceNumber'];
 $startTime = DateTime::createFromFormat('Y-m-d\TH:i', "$_POST[time]")->format('Y-m-d H:i:s');
 $type = $_POST['type'];
+$destination = "classAdd.php";
+if (isset($_POST['update'])) {
+  $destination = "classEdit.php";
+  $classReferenceNumber = $referenceNumber;
+  $referenceNumber = $db->getCourseID($referenceNumber);
+}
 
 $duration = $db->getCourseInfo($referenceNumber)['Duration'];
 
@@ -44,14 +50,21 @@ if (!empty($conflicts)) {
     $content .= "<p>$issue</p>";
   }
 
-  $content .= "<input type='hidden' name='referenceNumber' value='$referenceNumber'>";
+  if (isset($_POST['update'])) {
+    $content .= "<input type='hidden' name='referenceNumber' value='$classReferenceNumber'>";
+  } else {
+    $content .= "<input type='hidden' name='referenceNumber' value='$referenceNumber'>";
+  }
+
   $content .= "<input type='hidden' name='time' value='$startTime'>";
   $content .= "<p class='cancelButton'><a href='smTest.php'>Cancel</a></p>";
 
   $pm = new PopUpManager();
-  $pm->createPopUp($content, "Scheduling Conflict!", 'classAdd.php');
+  $pm->createPopUp($content, "Scheduling Conflict!", $destination);
+} else if (!isset($_POST['update'])){
+    header("Location: " . $destination . "?referenceNumber=$referenceNumber&time=" . $startTime);
 } else {
-    header("Location: classAdd.php?referenceNumber=$referenceNumber&time=" . $startTime);
+    header("Location: " . $destination . "?referenceNumber=$classReferenceNumber&time=" . $startTime);
 }
 
 ?>

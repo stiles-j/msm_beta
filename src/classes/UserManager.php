@@ -257,7 +257,7 @@ END;
     //get a list of all pending classes
     $classes = $this->db->getPendingClasses();
     $content = "Select Class To edit: ";
-    $content .= "<select name='classToEdit'>";
+    $content .= "<select name='referenceNumber'>";
 
     while ($class = $classes->fetch_assoc()) {
       $content .= "<option value='$class[ReferenceNumber]'>$class[Name] on $class[Date]</option>";
@@ -265,9 +265,11 @@ END;
 
     $content .= "</select>";
     $content .= "New Class Date: ";
-    $content .= "<input type='datetime-local' name='newClassDate' />";
+    $content .= "<input type='datetime-local' name='time' />";
+    $content .= "<input type='hidden' value='course' name='type' />";
+    $content .= "<input type='hidden' value='true' name='update' />";
 
-    $this->displayPopUp($content, "Edit Class", "classEdit.php");
+    $this->displayPopUp($content, "Edit Class", "checkClassConflict.php");
 
   } //end method editClass
 

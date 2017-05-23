@@ -152,7 +152,19 @@ class dbManager{
 
       //attempt to add the facility requirements to EVENT_FACILITY
       if ($eventFacilities != null) {
-          foreach ($eventFacilities as $facility) {
+        //add all sub-facilities into the list to be scheduled
+        $totalFacilities = $eventFacilities;
+        foreach ($eventFacilities as $facility) {
+          $subs = $this->getSubFacilities($facility);
+          if ($subs) {
+            foreach ($subs as $sub) {
+              $totalFacilities[] = $sub;
+            } //end foreach subs
+          } //end if subs
+        }  //end foreach eventFacilities
+        unset($facility);
+
+          foreach ($totalFacilities as $facility) {
               $sql = "INSERT INTO EVENT_FACILITY (EventReferenceNumber, FacilityID) VALUES ($id, $facility)";
               $result = $db_conn->query($sql);
               if (!$result) {
@@ -586,13 +598,37 @@ class dbManager{
     $courseID = $this->sanitizeInput($courseID, $db_conn);
     $sql = "SELECT CourseID, CourseName, CourseDescription, CourseMemberFee, CourseNonMemberFee, Duration FROM COURSE WHERE CourseID = $courseID";
     $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "getCourseInfo was unable to retrieve information on course: ");
+    if (!$result) {
+      $this->logError($db_conn, "getCourseInfo was unable to retrieve information on course: ");
+      $db_conn->close();
+      return false;
+    }
     $db_conn->close();
-
     //Turn the result into an associative array and send that back since the function only returns results for one course
     $result = $result->fetch_assoc();
     return $result;
   } //end function getCourseInfo
+
+  /**
+   * getCourseID takes a valid ClassReferenceNumber and returns the underlying CourseID number for this class.
+   *
+   * @param $classReferenceNumber: a valid ClassReferenceNumber
+   * @return integer|bool: an integer representing CourseID number if successful, false if not.
+   */
+  public function getCourseID ($classReferenceNumber) {
+    $db_conn = $this->connect();
+    $classReferenceNumber = $this->sanitizeInput($classReferenceNumber, $db_conn);
+    $sql = "SELECT CourseID FROM CLASS WHERE ClassReferenceNumber = $classReferenceNumber";
+    $result = $db_conn->query($sql);
+    if (!$result) {
+      $this->logError($db_conn, "getCourseID was unable to retrieve a valid CourseID number");
+      $db_conn->close();
+      return false;
+    }
+    $db_conn->close();
+    $result = $result->fetch_assoc();
+    return $result['CourseID'];
+  }
 
   /**
    * getEventFacilities returns a mysqli_result containing the EventReferenceNumber, FacilityID and
