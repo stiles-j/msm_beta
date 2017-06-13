@@ -5,6 +5,16 @@
   font-weight: bold;
 }
 
+.userInputFields h1 {
+  -moz-transition: none;
+  -webkit-transition: none;
+  transition: none;
+}
+
+.userInputFields h1:hover {
+  background-color: rgb(200, 210, 255);
+}
+
 .label {
   margin-left: 0em;
 }

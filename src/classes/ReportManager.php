@@ -10,6 +10,6 @@ class ReportManager extends dbCore
     parent::__construct();
   }
 
-  
+
 
 }
