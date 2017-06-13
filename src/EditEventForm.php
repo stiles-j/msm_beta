@@ -5,14 +5,14 @@
  *
  */
 require_once 'classes/dbManager.php';
-require_once 'classes/UserManager.php';
+require_once 'classes/InterfaceManager.php';
 
 $location = "_GET";
 if (isset($_POST['eventReferenceNumber'])) {
   $location = "_POST";
 }
 $db = new dbManager();
-$um = new UserManager();
+$um = new InterfaceManager();
 
 $referenceNumber = ${$location}['eventReferenceNumber'];
 $priorEventInfo = $db->getEventInfo($referenceNumber)->fetch_assoc();

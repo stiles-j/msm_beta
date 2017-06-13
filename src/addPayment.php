@@ -6,7 +6,7 @@ Author: Justice Stiles
 Description:  This script should be called to add a new payment to the database.  No HTML is sent from this script if there are no errors adding the payment, as a post/redirect/get is used.  
 */
 
-require_once "classes/UserManager.php";
+require_once "classes/InterfaceManager.php";
 require_once "classes/dbManager.php";
 
 /*---Grab Post Data----------------------------------------------------*/
@@ -28,7 +28,7 @@ if (isset($_POST['referenceNumber']))
 //verify we have a valid amount, give the user an error if not
 if (!is_numeric($amount))
 {
-  $popup = new UserManager();
+  $popup = new InterfaceManager();
   $content = "<h2>Invalid payment amount.  Payment not added</h2>";
   $popup->displayProfile($memberID);
   $popup->displayPopUp($content, "Error", 'smTest.php');
@@ -40,7 +40,7 @@ $success = $db->addPayment($memberID, $amount, $reason);
 
 if (!$success)
 {
-  $popup = new UserManager();
+  $popup = new InterfaceManager();
   $content = "<h2>Error adding payment.  Payment not added</h2>";
   $popup->displayProfile($memberID);
   $popup->displayPopUp($content, "Error", 'smTest.php');

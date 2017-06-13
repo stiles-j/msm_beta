@@ -6,7 +6,7 @@
  */
 
 require_once 'classes/dbManager.php';
-require_once 'classes/UserManager.php';
+require_once 'classes/InterfaceManager.php';
 
 
 $location = "_GET";
@@ -26,7 +26,7 @@ $courseID = $db->addNewEvent(${$location}['eventName'], ${$location}['eventDate'
 
 //if something goes wrong give 'em an error and punt
 if (!$courseID) {
-  $um = new UserManager();
+  $um = new InterfaceManager();
   $content = "Unable to add new event.  Event Not added";
   $um->displayPopUp($content, "Error Adding Event", "smTest.php");
   exit();

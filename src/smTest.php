@@ -1,14 +1,14 @@
 <?php
-/*Test harness for the SpaceManager program
+/*Test client for the MakerSpaceManager program
 Note if you want a window to replace the content of the profile window, make sure you place it before the profile
 display handling section and exit the script.
 */
 
-require_once 'classes/UserManager.php';
+require_once 'classes/InterfaceManager.php';
 require_once 'classes/loginManager.php';
 require_once 'classes/dbManager.php';
 
-/*TODO: All code containing HTML fragments needs to be devolved to the UserManager.php class.  This script should contain NO display code*/
+/*TODO: All code containing HTML fragments needs to be devolved to the InterfaceManager.php class.  This script should contain NO display code*/
 
 /*LOGIN HANDLING SECTION__________________________________________________*/
 
@@ -59,7 +59,7 @@ if (isset($_POST['noteContent']))
 }//end if noteContent
 
 
-$um = new UserManager;
+$um = new InterfaceManager;
 
 //check if we just had an invalid login attempt, and if so, give the user a warning
 if (!$valid)

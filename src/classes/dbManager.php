@@ -2,20 +2,14 @@
 /*Database Manager class for SpaceManager system.  All database interactions
 are handled through this class only.*/
 
-class dbManager{
-  
-  //class login variables
-  private $hostname, $username, $password, $database;
-  
+require_once "dbCore.php";
+
+class dbManager extends dbCore {
+
   public function __construct()
   {
-    //first get login credentials; USERS WILL NEED TO INSERT THEIR CREDENTIALS HERE
-    
-    $this->hostname = 'localhost';
-    $this->username = 'test';
-    $this->password = 'dbtest';
-    $this->database = 'members';
-  } // end function __construct
+    parent::__construct();
+  }
 
   public function addAttendance ($memberID, $referenceNumber, $type) {
     $db_conn = $this->connect();
@@ -38,7 +32,7 @@ class dbManager{
 
     $db_conn->close();
     return $result;
-  } //end function addAttendance
+  }
 
   public function addNewCert ($certName, $description) {
     $db_conn = $this->connect();
@@ -60,8 +54,7 @@ class dbManager{
     if (!$result) $this->logError($db_conn, "addNewClass was unable to insert a new record: ");
     $db_conn->close();
     return $result;
-  } //end function addNewClass
-
+  }
   /*addNewCourse will add a new course to the database and return the courseID number.  Returns false if the
   attempt to insert fails*/
   public function addNewCourse ($courseName, $courseMemberFee, $courseNonMemberFee, $courseDescription, $courseDuration ='1:00:00', $courseFacilities = null) {
@@ -114,7 +107,7 @@ class dbManager{
     $db_conn->close();
     return false;
 
-  } //end method addNewCourse
+  }
 
   public function addNewEvent ($eventName, $eventDate, $eventMemberFee, $eventNonMemberFee, $eventDescription, $eventDuration = "1:00:00", $eventFacilities = null) {
     //first make sure the most critical information is provided, or if not, punt
@@ -185,7 +178,7 @@ class dbManager{
       $db_conn->rollback();
       $db_conn->close();
       return false;
-  } //end method addNewEvent
+  }
 
   /**
    * addNewFacility attempts to add a record to the FACILITY table of the database.
@@ -241,11 +234,18 @@ class dbManager{
     $db_conn->close();
     return false;
 
-  } //end function addNewFacility
+  }
 
   /**
+   * Description: addProfile will insert provided information into the database.  The required argument is a
+   * numeric array of user data in the following format: firstName, lastName, birthDate, joinDate, address,
+   * homePhone, cellphone, email, emergency contact, medical provider, referred by, member id number, user image,
+   * level.  Null values should be  used in place of any missing information. The function will return true on a
+   * successful insert or false on a failed insert
    *
-   * Description: addProfile will insert provided information into the database.  The required argument is a numeric array of user data in the following format: firstName, lastName, birthDate, joinDate, address, homePhone, cellphone, email, emergency contact, medical provider, referred by, member id number, user image, level.  Null values should be  used in place of any missing information. The function will return true on a successful insert or false on a failed insert*/
+   * @param $profileData: an array containing the data specified in the description above
+   * @return bool: true on a successful insert into the database, false otherwise.
+   */
   public function addProfile($profileData)
   {
     //handle blank ReferredBy field
@@ -264,7 +264,7 @@ class dbManager{
     
     $db_conn->close();
     return $result;
-  }//end function addProfile
+  }
 
   public function addCourseCert ($courseID, $cert) {
     $db_conn = $this->connect();
@@ -275,7 +275,7 @@ class dbManager{
     if (!$result) $this->logError($db_conn, "addCourseCert was unable to add a new record: ");
     $db_conn->close();
     return $result;
-  } //end function addCourseCert
+  }
 
   public function addMemberCert($MemberID, $certName)
   {
@@ -295,9 +295,18 @@ class dbManager{
     
     return $result;
     
-  }//end function addCert
-  
-  /*Function addPayment records member donations in the database.  The function takes a member id number and donation amount as arguments and returns boolean indicating whether the insert of record was successful or not; true for success, false for failure.*/
+  }
+
+  /**
+   * Method addPayment records member donations in the database.
+   * The function takes a member id number and payment amount as arguments and returns boolean indicating whether
+   * the insert of record was successful or not.
+   *
+   * @param $MemberID: an integer representing a valid member id
+   * @param $amount: a decimal representing the amount of this payment
+   * @param string $reason: a string for notes explaining reasons for this payment
+   * @return bool: true for a successful insert into the database, false otherwise
+   */
   public function addPayment($MemberID, $amount, $reason = '')
   {
     //connect to database and sanitize inputs
@@ -311,14 +320,16 @@ class dbManager{
     $result = $db_conn->query($sql);
     
     //log the sql error if there is one
-    if (!$result)
+    if (!$result) {
       $this->logError($db_conn);
-    
+      $result = false;
+    }
+
     $db_conn->close();
     
     return $result;
     
-  }//end method addPayment
+  }
 
   /**
    * Function addClassTaken attempts to add a new class to the database's "ClassesTaken" table.  The function requires three arguments, a member
@@ -348,7 +359,7 @@ class dbManager{
     $db_conn->close();
     
     return $result;
-  }//end method addClass
+  }
 
   public function addClassEnrollment($memberID, $classReferenceNumber, $paymentReferenceNumber) {
     $db_conn = $this->connect();
@@ -397,7 +408,7 @@ class dbManager{
     
     return $result;
     
-  }//end method addEventVolunteer
+  }
 
   public function addClassVolunteer($memberID, $classReferenceNumber) 
   {
@@ -420,7 +431,7 @@ class dbManager{
     $db_conn->close();
     return $result;
     
-  } //end function addClassVolunteer
+  }
 
   /**
    * Method checkFacilityScheduleConflict searches for potential schedule conflicts in facilities.
@@ -471,7 +482,7 @@ class dbManager{
     
     return $result;
     
-  }//end method findMember
+  }
 
   /*Function getAllNotes does exactly what it says on the tin, returning all member notes for a given member ID number.  The function requires a valid MemberID as an input and returns an SQL result to the calling code*/
   public function getAllNotes($memberID)
@@ -480,7 +491,7 @@ class dbManager{
     $db_conn = $this->connect();
     $memberID = $this->sanitizeInput($memberID, $db_conn);
     
-    //retrive all notes for the relevant user and return
+    //retrieve all notes for the relevant user and return
     $sql = "SELECT * from NOTES WHERE MemberID=$memberID ORDER BY NoteTime DESC";
     $result = $db_conn->query($sql);
     
@@ -490,7 +501,7 @@ class dbManager{
     
     return $result;
     
-  }//end method getAllNotes
+  }
 
   public function getAllCertifications() {
     $db_conn = $this->connect();
@@ -548,7 +559,7 @@ class dbManager{
     $db_conn->close();
     return $output;
 
-  } //end function getClassCertifications
+  }
 
   /*getCourseCertification returns all certifications associated with a course as an array*/
   public function getCourseCertifications($courseID) {
@@ -571,7 +582,7 @@ class dbManager{
     $db_conn->close();
     return $output;
 
-  } //end function getCourseCertification
+  }
 
   /**
    * getCourseFacilities returns a mysqli result containing the CourseID, FacilityID and FacilityName
@@ -591,7 +602,7 @@ class dbManager{
     if (!$result) $this->logError($db_conn, "getCourseFacilities was unable to retrieve facility list: ");
     $db_conn->close();
     return $result;
-  } //end function getCourseFacilities
+  }
 
   public function getCourseInfo($courseID) {
     $db_conn = $this->connect();
@@ -607,7 +618,7 @@ class dbManager{
     //Turn the result into an associative array and send that back since the function only returns results for one course
     $result = $result->fetch_assoc();
     return $result;
-  } //end function getCourseInfo
+  }
 
   /**
    * getCourseID takes a valid ClassReferenceNumber and returns the underlying CourseID number for this class.
@@ -727,7 +738,7 @@ class dbManager{
     if (!empty($output)) return $output;
     return false;
 
-} //end function getFacilityList
+}
 
   public function getLastPayment($memberID) {
     $db_conn = $this->connect();
@@ -772,7 +783,7 @@ class dbManager{
     if (!$result) $this->logError($db_conn, "getMemberPayments was unable to retrieve records: ");
     $db_conn->close();
     return $result;
-  } //end function getMemberDuesPayments
+  }
 
   public function getNewUserId()
   {
@@ -794,7 +805,7 @@ class dbManager{
     $db_conn->close();
     
     return $MemberNumber;
-  } // end function getNewUserId
+  }
   
   public function getPersonalInfo($memberID)
   {
@@ -811,7 +822,7 @@ class dbManager{
     
     return $result;
     
-  }//end method getPersonalInfo
+  }
   
   public function getProfile($memberID)
   {
@@ -889,12 +900,12 @@ class dbManager{
     
     return $output; 
     
-  } // end function getProfile
+  }
 
   /**
    * Function getPendingClassInfo returns pertinent information on a class
    *
-   * @param $classReferenceNumber a valid classReferenceNumber
+   * @param $classReferenceNumber: a valid classReferenceNumber
    * @return array|bool an associative array containing the class ReferenceNumber, Date, Name, MemberFee
    * and NonMemberFee if the query is successful, or false if it is not
    */
@@ -936,7 +947,7 @@ class dbManager{
       return $result;
     }
     
-  } //end getPendingClasses
+  }
 
   public function getPendingEventInfo($eventReferenceNumber) {
     $db_conn = $this->connect();
@@ -972,17 +983,20 @@ class dbManager{
       return $result;
     }
     
-  } //end getPendingEvents
+  }
 
   public function getPendingEnrollments($memberID) {
     $db_conn = $this->connect();
     $memberID = $this->sanitizeInput($memberID, $db_conn);
     $sql = "SELECT * FROM PENDING_ENROLLMENTS WHERE MemberID = $memberID";
     $result = $db_conn->query($sql);
-    if (!$result) $this->logError($db_conn, "Unable to retrieve pending enrollments: ");
+    if (!$result) {
+      $this->logError($db_conn, "Unable to retrieve pending enrollments: ");
+      $result = false;
+    }
     $db_conn->close();
     return $result;
-  } //end getPendingEnrollments
+  }
 
   /**
    * getSubFacilities returns an array containing the SubFacilityID of all sub-facilities associated with a
@@ -1013,7 +1027,7 @@ class dbManager{
     }
 
     //get and sub-facilities that the sub-facilities themselves have
-    $subSub = false;
+
     foreach ($output as $sub) {
       $subSub = $this->getSubFacilities($sub);
       //add the additional sub-facilities to the output
@@ -1025,8 +1039,7 @@ class dbManager{
     } //end foreach output as sub
 
     return $output;
-
-  } //end method getSubFacilities
+  }
 
   public function getTodaysEvents() {
     $db_conn = $this->connect();
@@ -1067,7 +1080,7 @@ class dbManager{
     } // end if
     else
       return null;
-  } // end function getUsername
+  }
 
   public function recordLogin($MemberID)
   {
@@ -1097,7 +1110,7 @@ class dbManager{
     $db_conn->close();
     return $loginReferenceNumber;
 
-  } //end function recordLogin
+  }
 
   public function recordLogout($MemberID)
   {
@@ -1112,7 +1125,7 @@ class dbManager{
 
     $db_conn->close();
 
-  } //end function recordLogout
+  }
 
   public function recordNote($memberID, $note)
   {
@@ -1131,7 +1144,7 @@ class dbManager{
 
     $db_conn->close();
 
-  }//end function recordNote
+  }
 
   public function updateClass($classReferenceNumber, $newClassDate) {
     $db_conn = $this->connect();
@@ -1142,7 +1155,7 @@ class dbManager{
     if (!$result) $this->logError($db_conn, "updateClass was unable to modify a record: ");
     $db_conn->close();
     return $result;
-  } //end function updateClass
+  }
 
   public function updateCourse ($courseID, $courseName, $courseDuration, $courseMemberFee, $courseNonMemberFee, $courseDescription, $courseCerts = null, $courseFacilities = null) {
     $db_conn = $this->connect();
@@ -1224,7 +1237,7 @@ class dbManager{
     $db_conn->rollback();
     $db_conn->close();
     return false;
-  } //end function updateCourse
+  }
 
   /**
    * updateEvent takes information about an existing event and updates the database's EVENT and EVENT_FACILITY
@@ -1293,7 +1306,7 @@ class dbManager{
     $db_conn->close();
     return false;
 
-  } //end method updateEvent
+  }
 
   public function updateFacility($facilityID, $facilityName, $facilityDescription, $subFacilities = null) {
     $db_conn = $this->connect();
@@ -1345,7 +1358,7 @@ class dbManager{
     $db_conn->close();
     return false;
 
-  } //end function updateFacility
+  }
 
   public function updatePicture($imagePath, $memberID)
   {
@@ -1362,13 +1375,13 @@ class dbManager{
     $db_conn->close();
 
     return $result;
-  }//end function updateImage
+  }
 
   public function updateProfile($data)
   {
     //connect to db and sanitize all input
     $db_conn = $this->connect();
-    foreach ($data as $input)
+    foreach ($data as &$input)
     {
       $input = $this->sanitizeInput($input, $db_conn);
     }
@@ -1386,25 +1399,10 @@ class dbManager{
 
     return $result;
 
-  }//end method updateProfile
+  }
 
 
   /*Private Functions*/
-  private function connect()
-  {
-    //NOTE: The calling function is responsible for closing the connection created by this function
-
-    $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
-
-    if ($conn->connect_errno)
-    {
-      die("Connection to DataBase failed: " . $conn->connect_error);
-    }
-
-    return $conn;
-
-  } //end function connect
-
   private function getMemberType ($MemberID) {
     $db_conn = $this->connect();
     $sql = "SELECT MembershipType FROM MEMBER WHERE MemberID = $MemberID";
@@ -1429,57 +1427,6 @@ class dbManager{
     return $loginReferenceNumber;
   }
 
-  private function logError($db_conn, $message = '') {
-    ini_set("log_errors", 1);
-    ini_set("error_log", "php-error.log");
-    $sqlError = $db_conn->error;
-    error_log($message . " " . $sqlError);
-  } //end function logError
-
-  private function sanitizeInput($input, $db_conn)
-  {
-    if(get_magic_quotes_gpc())
-      $input = stripslashes($input);
-
-    $input = $db_conn->escape_string($input);
-    $input = strip_tags($input);
-    $input = htmlentities($input, ENT_QUOTES);
-
-    return $input;
-
-  } // end function sanitizeInput
-
-
-
-  
-}; //end class dbManager 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}; //end class dbManager
 
 ?>

@@ -5,7 +5,7 @@
  * Description:  This script receives input via post and attempts to add a new course to the database */
 
 require_once 'classes/dbManager.php';
-require_once 'classes/UserManager.php';
+require_once 'classes/InterfaceManager.php';
 
 //try the insert
 $db = new dbManager();
@@ -14,7 +14,7 @@ $courseID = $db->addNewCourse($_POST['courseName'], $_POST['courseMemberFee'], $
 
 //if something goes wrong give 'em an error and punt
 if (!$courseID) {
-  $um = new UserManager();
+  $um = new InterfaceManager();
   $content = "Unable to add new course.  Course Not added";
   $um->displayPopUp($content, "Error Adding Course", "smTest.php");
   exit();

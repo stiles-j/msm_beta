@@ -1,7 +1,7 @@
 <?php
 
 require_once "classes/dbManager.php";
-require_once "classes/UserManager.php";
+require_once "classes/InterfaceManager.php";
 
 $db = new dbManager();
 if (isset($_POST['referenceNumber'])){
@@ -12,7 +12,7 @@ if (isset($_POST['referenceNumber'])){
     $method = '_GET';
 }
 
-$um = new UserManager();
+$um = new InterfaceManager();
 
 if (!$result) {
   $content = "Unable to add new class";

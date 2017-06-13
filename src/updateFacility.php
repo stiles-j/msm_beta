@@ -1,7 +1,7 @@
 <?php
 
 require_once "classes/dbManager.php";
-require_once "classes/UserManager.php";
+require_once "classes/InterfaceManager.php";
 
 $db = new dbManager();
 $subFacilities = null;
@@ -10,7 +10,7 @@ if (isset($_POST['subFacilities'])) $subFacilities = $_POST['subFacilities'];
 //attempt the update
 $result = $db->updateFacility($_POST['facilityID'], $_POST['facilityName'] ,$_POST['facilityDescription'], $subFacilities);
 
-$um = new UserManager();
+$um = new InterfaceManager();
 
 if ($result) {
   $content = "Facility $_POST[facilityName] has been updated";

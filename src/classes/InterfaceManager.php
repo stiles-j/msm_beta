@@ -1,15 +1,14 @@
 <?php
 
-// UserManager class for the SpaceManager program
-// class UserManager manages all user data in memory, but does not make changes to the database directly which is the job of the dbManager class.
+// InterfaceManager class for the SpaceManager program
 //TODO: This class has become a swiss army knife.  Notes for reforming the class are listed in TODO notes.
 
-class UserManager{
+class InterfaceManager{
   
   private $db, $om;
 
   /**
-   * UserManager constructor. No args
+   * InterfaceManager constructor. No args
    */
   public function __construct()
   {

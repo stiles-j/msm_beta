@@ -1,7 +1,7 @@
 <?php
 
 require_once 'classes/dbManager.php';
-require_once 'classes/UserManager.php';
+require_once 'classes/InterfaceManager.php';
 
 
 $db = new dbManager();
@@ -20,7 +20,7 @@ header("Location: smTest.php");
 /*------------------Functions------------------------------------------------*/
 function checkForError ($result) {
   if (!$result) {
-    $um = new UserManager();
+    $um = new InterfaceManager();
     $content = "Unable to update course";
     $um->displayPopUp($content, "Error Updating Course", "smTest.php");
     exit();

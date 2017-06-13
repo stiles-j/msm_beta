@@ -2,10 +2,10 @@
 
 /*Script to generate the edit course form*/
 
-require_once 'classes/UserManager.php';
+require_once 'classes/InterfaceManager.php';
 require_once 'classes/dbManager.php';
 $db = new dbManager();
-$um = new UserManager();
+$um = new InterfaceManager();
 $courseID = $_POST['courseToEdit'];
 $courseInfo = $db->getCourseInfo($courseID);
 $courseCertifications = $db->getCourseCertifications($courseID);

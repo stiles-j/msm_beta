@@ -1,7 +1,7 @@
 <?php
 
 require_once "classes/dbManager.php";
-require_once "classes/UserManager.php";
+require_once "classes/InterfaceManager.php";
 
 $db = new dbManager();
 $subFacilities = null;
@@ -11,7 +11,7 @@ if (isset($_POST['subFacilities'])) $subFacilities = $_POST['subFacilities'];
 $result = $db->addNewFacility($_POST['facilityName'], $_POST['facilityDescription'], $subFacilities);
 
 //if we're good give the user a confirmation pop-up and re-direct back to the main dashboard
-$um = new UserManager();
+$um = new InterfaceManager();
 if ($result) {
   $content = "Added new facility $_POST[facilityName]";
   $um->displayPopUp($content, "SUCCESS", "smTest.php");

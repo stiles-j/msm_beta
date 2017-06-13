@@ -1,9 +1,9 @@
 <?php
 
-require_once 'classes/UserManager.php';
+require_once 'classes/InterfaceManager.php';
 require_once 'classes/dbManager.php';
 
-$pm = new UserManager();
+$pm = new InterfaceManager();
 $db = new dbManager();
 
 //If the event isn't today, give 'em an error and punt

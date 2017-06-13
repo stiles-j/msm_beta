@@ -1,7 +1,7 @@
 <?php
 
 require_once "classes/dbManager.php";
-require_once "classes/UserManager.php";
+require_once "classes/InterfaceManager.php";
 
 $db = new dbManager();
 
@@ -39,7 +39,7 @@ $efForm .= "</select></p>";
 $efForm .= "<input type='hidden' name='facilityID' value='$_POST[facilityToEdit]'>";
 $efForm .= "<p><input type=\"submit\" value=\"Submit\" /></p></div></form>";
 
-$um = new UserManager();
+$um = new InterfaceManager();
 $um->displayWin($efForm);
 
 

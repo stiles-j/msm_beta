@@ -1,0 +1,54 @@
+
+
+
+.bold {
+  font-weight: bold;
+}
+
+.label {
+  margin-left: 0em;
+}
+
+.reportInputs input {
+  margin-left: 0em;
+  width: 80%;
+}
+
+.reportContainer h3 {
+  display: block;
+  font-family: Droid Serif, serif;
+  font-size: 1.25em;
+  font-weight: normal;
+  margin: auto;
+  padding: 0.4em;
+  text-align: center;
+}
+
+.reportContainer .reportCategoryLabel {
+  margin-top: 0.5em;
+  padding: 0.5em;
+}
+
+.reportNamesContainer {
+  margin: 0.5em;
+}
+
+.reportContainer .reportSubmit {
+  display: block;
+  float: left;
+  position: relative;
+  margin: 1.25em;
+  clear: both;
+  font-size: 1em;
+  height: 2em;
+  text-align: center;
+  width: 25%;
+}
+
+.reportInputs {
+  overflow: hidden;
+  height: 1%;
+}
+
+
+

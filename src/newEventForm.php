@@ -3,10 +3,10 @@
  * This script generates the Add New Event form
  */
 
-require_once 'classes/UserManager.php';
+require_once 'classes/InterfaceManager.php';
 require_once 'classes/dbManager.php';
 $db = new dbManager();
-$um = new UserManager();
+$um = new InterfaceManager();
 $facilityList = $db->getAllFacilities();
 
 $content = <<<END
