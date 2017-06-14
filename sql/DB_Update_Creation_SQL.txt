@@ -305,6 +305,12 @@ CREATE VIEW EVENT_FACILITY_WITH_NAME AS
     SELECT A.EventReferenceNumber, A.FacilityID, B.FacilityName FROM EVENT_FACILITY
     AS A JOIN FACILITY AS B ON A.FacilityID = B.facilityID
 
+------------SQL TO CREATE CLASS_WITH_COURSE_NAME VIEW--------------------------
+
+CREATE VIEW CLASS_WITH_COURSE_NAME AS
+    SELECT A.ClassReferenceNumber, A.ClassDate, B.CourseName FROM CLASS AS A
+    JOIN COURSE AS B ON A.CourseID = B.CourseID;
+
 
 
 

@@ -20,7 +20,7 @@ function logError($message) {
 function generateJSON($dbResult) {
   $tmpArray = array();
   
-  while($row = $dbResult->fetch_array(MYSQL_ASSOC)) {
+  while($row = $dbResult->fetch_assoc()) {
             $tmpArray[] = $row;
     }
   echo json_encode($tmpArray);

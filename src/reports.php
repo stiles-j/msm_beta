@@ -34,7 +34,17 @@ $content = <<<END
 
       <form name="specificClassAttendance" action="getReport.php" method="post">
         <h3 class="reportName">Specific Class Attendance</h3>
-
+          <div class="reportInputs">
+          <script src='js/classSelect.js'></script>
+          <p>Show Classes in Timeframe:</p>
+          <p><span class="label">Start Date: </span><input type="date" name="startDate"></p>
+          <p><span class="label">End Date: </span><input type="date" name="endDate"></p>
+          <div name='classSelect' id='classSelect'>
+          
+          </div>
+          <input type="submit" class="reportSubmit">
+          <input type="hidden" name="reportType" value="specificClassAttendance" />
+        </div>
       </form>
 
       <h3 class="reportName">Specific Event Attendance</h3>
@@ -75,6 +85,7 @@ $content = <<<END
 
     <h2 class="reportCategoryLabel">Member Reports</h2>
     <div class="reportNamesContainer">
+      <h3 class="reportName">Full Membership Roster</h3>
       <h3 class="reportName">Member Lookup</h3>
       <h3 class="reportName">Member Payments</h3>
       <h3 class="reportName">Member Credentials</h3>

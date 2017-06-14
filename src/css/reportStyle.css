@@ -39,6 +39,16 @@
   padding: 0.5em;
 }
 
+.reportCategoryLabel:hover {
+  background-color: azure;
+  border-radius: 0.5em;
+}
+
+.reportName:hover {
+  background-color: azure;
+  border-radius: 0.5em;
+}
+
 .reportNamesContainer {
   margin: 0.5em;
 }
@@ -58,6 +68,7 @@
 .reportInputs {
   overflow: hidden;
   height: 1%;
+  padding: 0.5em 0em;
 }
 
 
