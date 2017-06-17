@@ -2,12 +2,37 @@
 
 require_once "dbCore.php";
 
+/**
+ * Class ReportManager accesses the database to produce summary reports on members, facilities, classes,
+ * credentials and events.  All functions in this class should access data only, there should be no updates
+ * or inserts performed from this class.  Additionally, all functions in this class should produce aggregate
+ * reports rather than information on a single, specific member, except where an entire report can be
+ * generated on a single member.  For example, a function that displays all a member's log-ins within a given
+ * date range would be appropriate for this class, whereas one that simply returns the last login of the member
+ * should be in the dbManager class.
+ */
 class ReportManager extends dbCore
 {
 
   public function __construct()
   {
     parent::__construct();
+  }
+
+  /**
+   * getAllMembers returns a mysqli result containing all data for every member in the MEMBER table.
+   * This includes MemberID, FirstName, LastName, BirthDate, JoinDate, StreetAddress, City, State, Zip,
+   * HomePhone, CellPhone, Email, EmergencyContact, ReferredBy, path to member picture (Picture), and
+   * MembershipType. The function takes no arguments
+   *
+   * @return bool|mysqli_result: mysqli result containing the data described above if successful, false otherwise.
+   */
+  public function getAllMembers() {
+    $db_conn = $this->connect();
+    $sql = "SELECT * FROM MEMBER ORDER BY LastName";
+    $result = $db_conn->query($sql);
+    if(!$result || $result->num_rows == 0) return false;
+    return $result;
   }
 
   /**

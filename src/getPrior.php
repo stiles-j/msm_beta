@@ -2,7 +2,7 @@
 
 require_once "classes/ReportManager.php";
 
-$db = new ReportManager();
+$rm = new ReportManager();
 
 if (isset($_POST['startDate'])) {
   $startDate = $_POST['startDate'];
@@ -23,12 +23,36 @@ function generateJSON($dbResult) {
 
 
 if (isset($_GET['class']) || isset($_POST['class'])) {
-  $result = $db->getPriorClasses($startDate, $endDate);
-  generateJSON($result);
+  $result = $rm->getPriorClasses($startDate, $endDate);
+  if ($result) {
+    generateJSON($result);
+    return;
+  }
+  echo $result;
 }
 else if (isset($_GET['event']) || isset($_POST['event'])) {
-  $result = $db->getPriorEvents($startDate, $endDate);
-  generateJSON($result);
+  $result = $rm->getPriorEvents($startDate, $endDate);
+  if ($result){
+    generateJSON($result);
+    return;
+  }
+  echo $result;
 }
 
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

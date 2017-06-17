@@ -1404,6 +1404,9 @@ class dbManager extends dbCore {
 
   /*Private Functions*/
   private function getMemberType ($MemberID) {
+    //first check for the dummy MemberID
+    if ($MemberID == 0) return "Non-Member";
+
     $db_conn = $this->connect();
     $sql = "SELECT MembershipType FROM MEMBER WHERE MemberID = $MemberID";
     $MemberType = $db_conn->query($sql);

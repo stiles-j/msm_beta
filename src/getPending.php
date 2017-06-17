@@ -30,11 +30,20 @@ function generateJSON($dbResult) {
 
 if (isset($_GET['class']) || isset($_POST['class'])) {
   $result = $db->getPendingClasses($memberID);
-  generateJSON($result);  
+  if ($result){
+    generateJSON($result);
+    return;
+  }
+  return $result;
+
 }
 else if (isset($_GET['event']) || isset($_POST['event'])) {
   $result = $db->getPendingEvents($memberID);
-  generateJSON($result);
+  if ($result){
+    generateJSON($result);
+    return;
+  }
+  return $result;
 }
 
 ?>
