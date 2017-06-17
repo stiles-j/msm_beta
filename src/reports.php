@@ -324,10 +324,61 @@ $content .= <<<END
 
     <h2 class="reportCategoryLabel">Volunteering Reports</h2>
     <div class="reportNamesContainer">
-      <h3 class="reportName">Volunteering by Date Range</h3>
-      <h3 class="reportName">Volunteering by Specific Class</h3>
-      <h3 class="reportName">Volunteering by Specific Event</h3>
-      <h3 class="reportName">Volunteering by Member</h3>
+
+      <form name="volunteeringByDateRange" id="volunteeringByDateRange" action="getReport.php" method="post">
+        <h3 class="reportName">Volunteering by Date Range</h3>
+        <div class="reportInputs">
+          $timeframeInput
+          <input type="hidden" name="reportType" value="volunteeringByDateRange" />
+        </div>
+      </form>
+
+      <form name="volunteeringBySpecificClass" id="volunteeringBySpecificClass" action="getReport.php" method="post">
+        <h3 class="reportName">Volunteering by Specific Class</h3>
+        <div class="reportInputs">
+          <script src="js/volunteeringBySpecificClassSelect.js"></script>
+          <p><span class="label">Timeframe to Select Classes From:</span></p>
+          <p><span class="label">Start Date: </span>
+            <input type="date" name="startDate" id="volunteeringBySpecificClassStartDate"></p>
+          <p><span class="label">End Date: </span>
+            <input type="date" name="endDate" id="volunteeringBySpecificClassEndDate"></p>
+          <input type="hidden" name="class" value="class" />
+          <input type="hidden" name="reportType" value="volunteeringBySpecificClass" />
+          <div id="volunteeringBySpecificClassSelect">
+          </div>
+        </div>
+      </form>
+
+      <form name="volunteeringBySpecificEvent" id="volunteeringBySpecificEvent" action="getReport.php" method="post">
+        <h3 class="reportName">Volunteering by Specific Event</h3>
+        <div class="reportInputs">
+          <script src="js/volunteeringBySpecificEventSelect.js"></script>
+          <p><span class="label">Timeframe to Select Classes From:</span></p>
+
+          <p><span class="label">Start Date: </span>
+            <input type="date" name="startDate" id="volunteeringBySpecificEventStartDate"></p>
+
+          <p><span class="label">End Date: </span>
+            <input type="date" name="endDate" id="volunteeringBySpecificEventEndDate"></p>
+
+          <input type="hidden" name="event" value="event" />
+          <input type="hidden" name="reportType" value="volunteeringBySpecificEvent" />
+
+          <div id="volunteeringBySpecificEventSelect">
+          </div>
+        </div>
+      </form>
+      
+      <form name="volunteeringByMember" id="volunteeringByMember" action="getReport.php" method="post">
+        <h3 class="reportName">Volunteering by Member</h3>
+        <div class="reportInputs">
+          <p><span class="label selectLabel">Select Member To Get Volunteering History For:</span></p>
+          $memberSelect
+          <input type="hidden" name="reportType" value="volunteeringByMember">
+          <input type="submit" class="reportSubmit" />
+        </div>
+
+      </form>
     </div>
 
   </div>
