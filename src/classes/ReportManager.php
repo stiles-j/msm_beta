@@ -20,6 +20,28 @@ class ReportManager extends dbCore
   }
 
   /**
+   * classAttendanceByDateRange will return a mysqli result containing MemberID, FirstName, LastName
+   * CourseName, ClassDate and ClassReferenceNumber for all members attending any class in the
+   * passed date range.  Passed dates must be strings formatted as "yyyy-mm-dd".
+   *
+   * @param $startDate: A string representing the first date to search for class attendance on formatted as
+   * described above
+   * @param $endDate: A string representing the last date to search for class attendance on formatted as
+   * described above.
+   * @return bool|mysqli_result: mysqli result if records are found, false otherwise.
+   */
+  public function classAttendanceByDateRange($startDate, $endDate) {
+    $db_conn = $this->connect();
+    $startDate = $this->sanitizeInput($startDate, $db_conn);
+    $endDate = $this->sanitizeInput($endDate, $db_conn);
+
+    $sql = "SELECT * FROM MEMBER_CLASS_HISTORY WHERE ClassDate BETWEEN '$startDate' AND '$endDate' ORDER BY ClassDate";
+    $result = $db_conn->query($sql);
+    if (!$result || $result->num_rows == 0) return false;
+    return $result;
+  }
+
+  /**
    * getAllMembers returns a mysqli result containing all data for every member in the MEMBER table.
    * This includes MemberID, FirstName, LastName, BirthDate, JoinDate, StreetAddress, City, State, Zip,
    * HomePhone, CellPhone, Email, EmergencyContact, ReferredBy, path to member picture (Picture), and
@@ -49,7 +71,7 @@ class ReportManager extends dbCore
     $startDate = $this->sanitizeInput($startDate, $db_conn);
     $endDate = $this->sanitizeInput($endDate, $db_conn);
 
-    $sql = "SELECT * from CLASS_WITH_COURSE_NAME WHERE ClassDate BETWEEN '$startDate' AND '$endDate'";
+    $sql = "SELECT * from CLASS_WITH_COURSE_NAME WHERE ClassDate BETWEEN '$startDate' AND '$endDate' ORDER BY ClassDate";
     $result = $db_conn->query($sql);
     $db_conn->close();
     if ($result->num_rows == 0 || !$result) return false;

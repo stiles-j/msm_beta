@@ -312,6 +312,45 @@ CREATE VIEW CLASS_WITH_COURSE_NAME AS
     JOIN COURSE AS B ON A.CourseID = B.CourseID;
 
 
+------------VOLUNTEER_HISTORY CREATION SQL--------------------------------------
+
+CREATE VIEW VOLUNTEER_HISTORY AS
+  SELECT A.MemberID, B.ClassDate AS Date, C.CourseName AS Name FROM CLASS_VOLUNTEER AS A,
+  CLASS AS B, COURSE AS C WHERE A.ClassReferenceNumber = B.ClassReferenceNumber
+  AND B.CourseID = C.CourseID
+  UNION
+  SELECT A.MemberID, B.EventDate AS Date, B.EventName AS Name FROM
+  EVENT_VOLUNTEER AS A, EVENT AS B WHERE A.EventReferenceNumber =
+  B.EventReferenceNumber;
+
+
+
+
+------------JOIN TO GET CLASS VOLUNTEERING INFO---------------------------------
+
+  SELECT A.MemberID, B.ClassDate AS Date, C.CourseName AS Name FROM CLASS_VOLUNTEER AS A,
+  CLASS AS B, COURSE AS C WHERE A.ClassReferenceNumber = B.ClassReferenceNumber
+  AND B.CourseID = C.CourseID;
+
+
+
+------------JOIN TO GET EVENT VOLUNTEERING INFO---------------------------------
+
+  SELECT A.MemberID, B.EventDate AS Date, B.EventName AS Name FROM
+  EVENT_VOLUNTEER AS A, EVENT AS B WHERE A.EventReferenceNumber =
+  B.EventReferenceNumber;
+
+
+
+
+----------MEMBER_CLASS_HISTORY VIEW CREATION SQL--------------------------------
+
+CREATE VIEW MEMBER_CLASS_HISTORY AS
+  SELECT A.MemberID, D.FirstName, D.LastName, B.CourseName, C.ClassDate, C.ClassReferenceNumber
+  FROM CLASS_TAKEN AS A, COURSE AS B, CLASS AS C, MEMBER AS D WHERE
+  A.ClassReferenceNumber = C.ClassReferenceNumber AND C.CourseID = B.CourseID AND
+  A.MemberID = D.MemberID;
+
 
 
 

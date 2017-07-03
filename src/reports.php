@@ -100,8 +100,10 @@ $content .= <<<END
         <h3 class="reportName">Class Roster</h3>
         <div class="reportInputs">
           <p><span class="label selectLabel">Classes to get roster for:</span></p>
-          <div id="rosterClassSelect">
+          <div id="reportInputs">
           $classSelect
+          <input type="submit" class="reportSubmit" />
+          <input type="hidden" name="reportType" value="classRoster" />
           </div>
         </div>
       </form>
@@ -135,6 +137,7 @@ $content .= <<<END
             $memberSelect
           </div>
           <p><input type="submit" class="reportSubmit"></p>
+          <input type="hidden" name="reportType" value="credentialsByMember" /> 
         </div>
       </form>
     </div>
@@ -164,6 +167,7 @@ $content .= <<<END
         <div class="reportInputs">
           $eventSelect
           <input type='hidden' name="reportType" value='eventRoster' />
+          <input type='submit' class='reportSubmit' />
         </div>
       </form>
     </div>

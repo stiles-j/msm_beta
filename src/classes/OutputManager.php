@@ -20,6 +20,7 @@ class OutputManager{
    */
   public function __construct()
   {
+
     require_once "PopUpManager.php";
     echo file_get_contents("header.html");
     echo file_get_contents("nav.html");
@@ -283,7 +284,13 @@ _END;
 
   } //end displayDefaultProfile
 
-  /*display window will display the passed content where the profile window would usually appear.  The passed value must be complete HTML*/
+  /**
+   * displayWindow will display the passed content where the profile window would usually appear.
+   * The passed content completely replaces all previous content.
+   * The passed value must be complete HTML
+   *
+   * @param $content: formatted HTML content to be displayed in the profile window
+   */
   public function displayWindow($content)
   {
     echo "<div class='profileWindow'>";

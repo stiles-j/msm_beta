@@ -22,14 +22,26 @@
                     </li>
                   </ul>
               </li>
-                </ul>
+            </ul>
             <ul>
               <li><form action="smTest.php" method="post">
                     <input type="hidden" name="spawnLogin" value="spawnLogin"> 
                     <a href ="#" onclick="this.parentNode.submit(); return false;">Login</a>
                   </form>
               </li>
-              <li><form action='smTest.php' method="post"><input type='hidden' name='findMember'><a href ="#" onclick="this.parentNode.submit(); return false;">Reports</a></form></li>
+            </ul>
+            <ul>
+              <li class="dropdown" id="reportsMenu"><a>Reports</a>
+                <ul class="dropdown-content">
+                  <li>
+                    <form action='smTest.php' method="post"><input type='hidden' name='findMember'><a href ="#" onclick="this.parentNode.submit(); return false;">Member Lookup</a>
+                    </form>
+                  </li>
+                  <li><a href="reports.php">Reports</a></li>
+                </ul>
+
+              </li>
+
             </ul>
             <ul>
                 <li class='dropdown' id='classMenu'><a>Class</a>
